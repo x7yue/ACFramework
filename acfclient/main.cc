@@ -36,12 +36,6 @@ class TestProfileHandler : public AcfProfileHandler {
 
   void OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) override {}
 
-  void OnProfileRemoveDataCompleted(AcfRefPtr<AcfProfile> profile,
-                                    AcfUserData token) override {
-    ::MessageBox(0, L"Clear browsing data done.",
-                 L"AcfClient - ClearBrowsingData", MB_ICONINFORMATION);
-  }
-
   IMPLEMENT_REFCOUNTING(TestProfileHandler);
 };
 

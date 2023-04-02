@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=057f542bc77ee22c77b23fccd094bb58ea1d70ee$
+// $hash=3e13fdae9a81ad657a097826fc900826b53640a6$
 //
 
 #ifndef ACF_WRAPPER_TYPES_H_
@@ -17,13 +17,19 @@
 enum AcfWrapperType {
   WT_BASE_REF_COUNTED = 1,
   WT_BASE_SCOPED,
+  WT_BINARY_VALUE,
   WT_BROWSER,
   WT_BROWSER_HANDLER,
+  WT_COMPLETE_HANDLER,
+  WT_DICTIONARY_VALUE,
   WT_ENVIRONMENT,
   WT_ENVIRONMENT_HANDLER,
+  WT_FRAME,
+  WT_LIST_VALUE,
   WT_NEW_WINDOW_DELEGATE,
   WT_PROFILE,
   WT_PROFILE_HANDLER,
+  WT_VALUE,
 
   WT_LAST
 };

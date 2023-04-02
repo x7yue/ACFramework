@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=8467cb6f10aa420ee0eabd3994305ac9e72712a9$
+// $hash=a9d024dfb0046fa84906b1d03ee244648e6d35b9$
 //
 
 #ifndef ACF_CPPTOC_BROWSER_CPPTOC_H_
@@ -16,9 +16,11 @@
 
 #include "include/acf_browser.h"
 #include "include/acf_environment.h"
+#include "include/acf_frame.h"
 #include "include/acf_profile.h"
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_environment_capi.h"
+#include "include/capi/acf_frame_capi.h"
 #include "include/capi/acf_profile_capi.h"
 #include "libacf_dll/cpptoc/cpptoc_ref_counted.h"
 

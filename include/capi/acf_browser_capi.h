@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=920fb90f2bbd5e8c2aab55f7f729602f1a3211d3$
+// $hash=8ddab34f038e17f0953b29c2b42eb8044eabdfee$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_BROWSER_CAPI_H_
@@ -13,8 +13,10 @@
 #pragma once
 
 #include "include/capi/acf_environment_capi.h"
+#include "include/capi/acf_frame_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
+#include "include/internal/acf_string_list.h"
 #include "include/internal/acf_types.h"
 
 #ifdef __cplusplus
@@ -23,6 +25,7 @@ extern "C" {
 
 struct _acf_browser_t;
 struct _acf_environment_t;
+struct _acf_frame_t;
 struct _acf_new_window_delegate_t;
 struct _acf_profile_t;
 
@@ -220,6 +223,37 @@ typedef struct _acf_browser_t {
   ///
   struct _acf_profile_t*(ACF_CALLBACK* get_profile)(
       struct _acf_browser_t* self);
+
+  ///
+  /// Returns the number of frames that currently exist.
+  ///
+  size_t(ACF_CALLBACK* get_frame_count)(struct _acf_browser_t* self);
+
+  ///
+  /// Returns the identifiers of all existing frames.
+  ///
+  void(ACF_CALLBACK* get_frame_identifiers)(struct _acf_browser_t* self,
+                                            size_t* identifiersCount,
+                                            int64* identifiers);
+
+  ///
+  /// Returns the names of all existing frames.
+  ///
+  void(ACF_CALLBACK* get_frame_names)(struct _acf_browser_t* self,
+                                      acf_string_list_t names);
+
+  ///
+  /// Returns the frame with the specified identifier, or NULL if not found.
+  ///
+  struct _acf_frame_t*(ACF_CALLBACK* get_frame_byident)(
+      struct _acf_browser_t* self,
+      int64 identifier);
+
+  ///
+  /// Returns the frame with the specified name, or NULL if not found.
+  ///
+  struct _acf_frame_t*(ACF_CALLBACK* get_frame)(struct _acf_browser_t* self,
+                                                const acf_string_t* name);
 } acf_browser_t;
 
 ///

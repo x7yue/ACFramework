@@ -7,10 +7,11 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=cda093ca561dfdafd14e498cd28605a56dbf877c$
+// $hash=dccc316b54599e814dd124ed27052b3e702c4f66$
 //
 
 #include "libacf_dll/cpptoc/profile_cpptoc.h"
+#include "libacf_dll/ctocpp/complete_handler_ctocpp.h"
 #include "libacf_dll/ctocpp/profile_handler_ctocpp.h"
 
 namespace {
@@ -59,18 +60,21 @@ profile_get_path(struct _acf_profile_t* self) {
   return _retval.DetachToUserFree();
 }
 
-void ACF_CALLBACK profile_remove_browsing_data(struct _acf_profile_t* self,
-                                               acf_remove_data_type_t data_type,
-                                               int no_checks,
-                                               acf_user_data_t token) {
+void ACF_CALLBACK
+profile_remove_browsing_data(struct _acf_profile_t* self,
+                             acf_remove_data_type_t data_type,
+                             int no_checks,
+                             acf_complete_handler_t* handler) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
     return;
+  // Unverified params: handler
 
   // Execute
   AcfProfileCppToC::Get(self)->RemoveBrowsingData(
-      data_type, no_checks ? true : false, token);
+      data_type, no_checks ? true : false,
+      AcfCompleteHandlerCToCpp::Wrap(handler));
 }
 
 }  // namespace

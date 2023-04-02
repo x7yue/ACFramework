@@ -7,13 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=f629178047469578c1c64e067f03758365b97638$
+// $hash=77535febb1b39995c5a9ca00c4b514133239074f$
 //
 
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
+#include <algorithm>
 #include "libacf_dll/cpptoc/browser_handler_cpptoc.h"
 #include "libacf_dll/ctocpp/environment_ctocpp.h"
+#include "libacf_dll/ctocpp/frame_ctocpp.h"
 #include "libacf_dll/ctocpp/profile_ctocpp.h"
+#include "libacf_dll/transfer_util.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
 
@@ -297,6 +300,111 @@ AcfRefPtr<AcfProfile> AcfBrowserCToCpp::GetProfile() {
 
   // Return type: refptr_same
   return AcfProfileCToCpp::Wrap(_retval);
+}
+
+size_t AcfBrowserCToCpp::GetFrameCount() {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_frame_count))
+    return 0;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  size_t _retval = _struct->get_frame_count(_struct);
+
+  // Return type: simple
+  return _retval;
+}
+
+void AcfBrowserCToCpp::GetFrameIdentifiers(std::vector<int64>& identifiers) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_frame_identifiers))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Translate param: identifiers; type: simple_vec_byref
+  size_t identifiersSize = identifiers.size();
+  size_t identifiersCount = std::max(GetFrameCount(), identifiersSize);
+  int64* identifiersList = NULL;
+  if (identifiersCount > 0) {
+    identifiersList = new int64[identifiersCount];
+    DCHECK(identifiersList);
+    if (identifiersList) {
+      memset(identifiersList, 0, sizeof(int64) * identifiersCount);
+    }
+    if (identifiersList && identifiersSize > 0) {
+      for (size_t i = 0; i < identifiersSize; ++i) {
+        identifiersList[i] = identifiers[i];
+      }
+    }
+  }
+
+  // Execute
+  _struct->get_frame_identifiers(_struct, &identifiersCount, identifiersList);
+
+  // Restore param:identifiers; type: simple_vec_byref
+  identifiers.clear();
+  if (identifiersCount > 0 && identifiersList) {
+    for (size_t i = 0; i < identifiersCount; ++i) {
+      identifiers.push_back(identifiersList[i]);
+    }
+    delete[] identifiersList;
+  }
+}
+
+void AcfBrowserCToCpp::GetFrameNames(std::vector<AcfString>& names) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_frame_names))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Translate param: names; type: string_vec_byref
+  acf_string_list_t namesList = acf_string_list_alloc();
+  DCHECK(namesList);
+  if (namesList)
+    transfer_string_list_contents(names, namesList);
+
+  // Execute
+  _struct->get_frame_names(_struct, namesList);
+
+  // Restore param:names; type: string_vec_byref
+  if (namesList) {
+    names.clear();
+    transfer_string_list_contents(namesList, names);
+    acf_string_list_free(namesList);
+  }
+}
+
+AcfRefPtr<AcfFrame> AcfBrowserCToCpp::GetFrame(int64 identifier) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_frame_byident))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_frame_t* _retval = _struct->get_frame_byident(_struct, identifier);
+
+  // Return type: refptr_same
+  return AcfFrameCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfFrame> AcfBrowserCToCpp::GetFrame(const AcfString& name) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_frame))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Unverified params: name
+
+  // Execute
+  acf_frame_t* _retval = _struct->get_frame(_struct, name.GetStruct());
+
+  // Return type: refptr_same
+  return AcfFrameCToCpp::Wrap(_retval);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

@@ -7,13 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=3a7bb0a67d5417cf4fa9e0485a542d912d5a82b3$
+// $hash=3efe621f20e09cfa380ed63153df4500b93a53de$
 //
 
 #include "libacf_dll/cpptoc/browser_cpptoc.h"
+#include <algorithm>
 #include "libacf_dll/cpptoc/environment_cpptoc.h"
+#include "libacf_dll/cpptoc/frame_cpptoc.h"
 #include "libacf_dll/cpptoc/profile_cpptoc.h"
 #include "libacf_dll/ctocpp/browser_handler_ctocpp.h"
+#include "libacf_dll/transfer_util.h"
 
 namespace {
 
@@ -288,6 +291,105 @@ browser_get_profile(struct _acf_browser_t* self) {
   return AcfProfileCppToC::Wrap(_retval);
 }
 
+size_t ACF_CALLBACK browser_get_frame_count(struct _acf_browser_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return 0;
+
+  // Execute
+  size_t _retval = AcfBrowserCppToC::Get(self)->GetFrameCount();
+
+  // Return type: simple
+  return _retval;
+}
+
+void ACF_CALLBACK browser_get_frame_identifiers(struct _acf_browser_t* self,
+                                                size_t* identifiersCount,
+                                                int64* identifiers) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: identifiers; type: simple_vec_byref
+  if (!identifiersCount || (*identifiersCount > 0 && !identifiers))
+    return;
+
+  // Translate param: identifiers; type: simple_vec_byref
+  std::vector<int64> identifiersList;
+  if (identifiersCount && *identifiersCount > 0 && identifiers) {
+    for (size_t i = 0; i < *identifiersCount; ++i) {
+      identifiersList.push_back(identifiers[i]);
+    }
+  }
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->GetFrameIdentifiers(identifiersList);
+
+  // Restore param: identifiers; type: simple_vec_byref
+  if (identifiersCount && identifiers) {
+    *identifiersCount = std::min(identifiersList.size(), *identifiersCount);
+    if (*identifiersCount > 0) {
+      for (size_t i = 0; i < *identifiersCount; ++i) {
+        identifiers[i] = identifiersList[i];
+      }
+    }
+  }
+}
+
+void ACF_CALLBACK browser_get_frame_names(struct _acf_browser_t* self,
+                                          acf_string_list_t names) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: names; type: string_vec_byref
+  if (!names)
+    return;
+
+  // Translate param: names; type: string_vec_byref
+  std::vector<AcfString> namesList;
+  transfer_string_list_contents(names, namesList);
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->GetFrameNames(namesList);
+
+  // Restore param: names; type: string_vec_byref
+  acf_string_list_clear(names);
+  transfer_string_list_contents(namesList, names);
+}
+
+struct _acf_frame_t* ACF_CALLBACK
+browser_get_frame_byident(struct _acf_browser_t* self, int64 identifier) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return NULL;
+
+  // Execute
+  AcfRefPtr<AcfFrame> _retval =
+      AcfBrowserCppToC::Get(self)->GetFrame(identifier);
+
+  // Return type: refptr_same
+  return AcfFrameCppToC::Wrap(_retval);
+}
+
+struct _acf_frame_t* ACF_CALLBACK browser_get_frame(struct _acf_browser_t* self,
+                                                    const acf_string_t* name) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return NULL;
+  // Unverified params: name
+
+  // Execute
+  AcfRefPtr<AcfFrame> _retval =
+      AcfBrowserCppToC::Get(self)->GetFrame(AcfString(name));
+
+  // Return type: refptr_same
+  return AcfFrameCppToC::Wrap(_retval);
+}
+
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
@@ -314,6 +416,11 @@ AcfBrowserCppToC::AcfBrowserCppToC() {
   GetStruct()->set_visible = browser_set_visible;
   GetStruct()->get_visible = browser_get_visible;
   GetStruct()->get_profile = browser_get_profile;
+  GetStruct()->get_frame_count = browser_get_frame_count;
+  GetStruct()->get_frame_identifiers = browser_get_frame_identifiers;
+  GetStruct()->get_frame_names = browser_get_frame_names;
+  GetStruct()->get_frame_byident = browser_get_frame_byident;
+  GetStruct()->get_frame = browser_get_frame;
 }
 
 // DESTRUCTOR - Do not edit by hand.

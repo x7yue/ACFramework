@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=b166a8b8884f640f0b3f54c6a901db4c7c1d2338$
+// $hash=5ff60adacadc9c2575842b1c3381a0d98f41fee5$
 //
 
 #include "libacf_dll/cpptoc/profile_handler_cpptoc.h"
@@ -49,23 +49,6 @@ profile_handler_on_profile_destroyed(struct _acf_profile_handler_t* self,
       AcfProfileCToCpp::Wrap(profile));
 }
 
-void ACF_CALLBACK profile_handler_on_profile_remove_data_completed(
-    struct _acf_profile_handler_t* self,
-    struct _acf_profile_t* profile,
-    acf_user_data_t token) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  if (!self)
-    return;
-  // Verify param: profile; type: refptr_diff
-  if (!profile)
-    return;
-
-  // Execute
-  AcfProfileHandlerCppToC::Get(self)->OnProfileRemoveDataCompleted(
-      AcfProfileCToCpp::Wrap(profile), token);
-}
-
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
@@ -73,8 +56,6 @@ void ACF_CALLBACK profile_handler_on_profile_remove_data_completed(
 AcfProfileHandlerCppToC::AcfProfileHandlerCppToC() {
   GetStruct()->on_profile_created = profile_handler_on_profile_created;
   GetStruct()->on_profile_destroyed = profile_handler_on_profile_destroyed;
-  GetStruct()->on_profile_remove_data_completed =
-      profile_handler_on_profile_remove_data_completed;
 }
 
 // DESTRUCTOR - Do not edit by hand.

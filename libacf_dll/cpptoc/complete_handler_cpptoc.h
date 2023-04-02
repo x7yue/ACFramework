@@ -7,26 +7,26 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=0ef423c3509784ae27fd7461dabb796fdb8b541d$
+// $hash=ae1a857854d507ff4822daab1d59127a3bfac570$
 //
 
-#ifndef ACF_CPPTOC_PROFILE_CPPTOC_H_
-#define ACF_CPPTOC_PROFILE_CPPTOC_H_
+#ifndef ACF_CPPTOC_COMPLETE_HANDLER_CPPTOC_H_
+#define ACF_CPPTOC_COMPLETE_HANDLER_CPPTOC_H_
 #pragma once
 
 #include "include/acf_callback.h"
-#include "include/acf_profile.h"
 #include "include/capi/acf_callback_capi.h"
-#include "include/capi/acf_profile_capi.h"
 #include "libacf_dll/cpptoc/cpptoc_ref_counted.h"
 
 // Wrap a C++ class with a C structure.
-// This class may be instantiated and accessed DLL-side only.
-class AcfProfileCppToC
-    : public AcfCppToCRefCounted<AcfProfileCppToC, AcfProfile, acf_profile_t> {
+// This class may be instantiated and accessed wrapper-side only.
+class AcfCompleteHandlerCppToC
+    : public AcfCppToCRefCounted<AcfCompleteHandlerCppToC,
+                                 AcfCompleteHandler,
+                                 acf_complete_handler_t> {
  public:
-  AcfProfileCppToC();
-  virtual ~AcfProfileCppToC();
+  AcfCompleteHandlerCppToC();
+  virtual ~AcfCompleteHandlerCppToC();
 };
 
-#endif  // ACF_CPPTOC_PROFILE_CPPTOC_H_
+#endif  // ACF_CPPTOC_COMPLETE_HANDLER_CPPTOC_H_

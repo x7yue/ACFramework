@@ -7,7 +7,15 @@
 
 #include "include/capi/acf_base_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
+#include "include/internal/acf_string_list.h"
+#include "include/internal/acf_string_map.h"
+#include "include/internal/acf_string_multimap.h"
+#include "libacf_dll/transfer_util.h"
 #include "libacf_dll/wrapper_types.h"
+
+#ifndef DCHECK
+#define DCHECK(x)
+#endif
 
 // Wrap a C structure with a C++ class. This is used when the implementation
 // exists on the other side of the DLL boundary but will have methods called on

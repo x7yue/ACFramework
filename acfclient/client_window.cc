@@ -13,6 +13,7 @@
 #define IDC_CloseWindow 302
 #define IDC_ToggleVisible 303
 #define IDC_ClearCache 304
+#define IDC_EnumFrames 305
 
 extern AcfRefPtr<AcfEnvironment> g_env;
 extern AcfRefPtr<AcfProfile> g_profile;
@@ -260,6 +261,14 @@ void Window::CreateMenu() {
   info.wID = IDC_ClearCache;
   ::InsertMenuItem(more_menu_, count, TRUE, &info);
   count++;
+
+  labelStr = L"Enum Frames Info";
+  info.fMask |= MIIM_STRING | MIIM_ID;
+  info.cch = labelStr.size();
+  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str());
+  info.wID = IDC_EnumFrames;
+  ::InsertMenuItem(more_menu_, count, TRUE, &info);
+  count++;
 }
 
 bool Window::OnCommand(UINT id) {
@@ -324,7 +333,22 @@ bool Window::OnCommand(UINT id) {
     } break;
     case IDC_ClearCache: {
       g_profile->RemoveBrowsingData(AcfProfile::RemoveDataType::ALL_DATA_TYPES,
-                                    true, 0);
+                                    true, nullptr);
+    } break;
+    case IDC_EnumFrames: {
+      if (browser_weak_ptr_) {
+        std::vector<int64> m_ids;
+        browser_weak_ptr_->GetFrameIdentifiers(m_ids);
+
+        for (auto i : m_ids) {
+          AcfRefPtr<AcfFrame> f = browser_weak_ptr_->GetFrame(i);
+
+          if (f)
+            std::cout << "FrameID: " << f->GetIdentifier()
+                      << " Name: " << f->GetName().ToString()
+                      << " URL: " << f->GetURL().ToString() << "\n";
+        }
+      }
     } break;
     default:
       return false;

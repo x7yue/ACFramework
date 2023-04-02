@@ -2,15 +2,20 @@
 #define ACF_BROWSER_H_
 
 #include <wtypes.h>
+
 #include "include/acf_environment.h"
+#include "include/acf_frame.h"
+
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
+#include "include/internal/acf_string_list.h"
 #include "include/internal/acf_types.h"
 
 class AcfEnvironment;
 class AcfBrowser;
 class AcfNewWindowDelegate;
 class AcfProfile;
+class AcfFrame;
 
 ///
 /// Browser event list handler model
@@ -213,6 +218,36 @@ class AcfBrowser : public virtual AcfBaseRefCounted {
   ///
   /*--acf()--*/
   virtual AcfRefPtr<AcfProfile> GetProfile() = 0;
+
+  ///
+  /// Returns the number of frames that currently exist.
+  ///
+  /*--acf()--*/
+  virtual size_t GetFrameCount() = 0;
+
+  ///
+  /// Returns the identifiers of all existing frames.
+  ///
+  /*--acf(count_func=identifiers:GetFrameCount)--*/
+  virtual void GetFrameIdentifiers(std::vector<int64>& identifiers) = 0;
+
+  ///
+  /// Returns the names of all existing frames.
+  ///
+  /*--acf()--*/
+  virtual void GetFrameNames(std::vector<AcfString>& names) = 0;
+
+  ///
+  /// Returns the frame with the specified identifier, or NULL if not found.
+  ///
+  /*--acf(capi_name=get_frame_byident)--*/
+  virtual AcfRefPtr<AcfFrame> GetFrame(int64 identifier) = 0;
+
+  ///
+  /// Returns the frame with the specified name, or NULL if not found.
+  ///
+  /*--acf(optional_param=name)--*/
+  virtual AcfRefPtr<AcfFrame> GetFrame(const AcfString& name) = 0;
 };
 
 ///

@@ -7,32 +7,26 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=778395ae7c191c9699bb6cf83d1176b25b95a7d5$
+// $hash=1868c3a69751d4ce39b7862f7d30d2d093845c1d$
 //
 
-#ifndef ACF_CPPTOC_NEW_WINDOW_DELEGATE_CPPTOC_H_
-#define ACF_CPPTOC_NEW_WINDOW_DELEGATE_CPPTOC_H_
+#ifndef ACF_CPPTOC_FRAME_CPPTOC_H_
+#define ACF_CPPTOC_FRAME_CPPTOC_H_
 #pragma once
 
 #include "include/acf_browser.h"
-#include "include/acf_environment.h"
 #include "include/acf_frame.h"
-#include "include/acf_profile.h"
 #include "include/capi/acf_browser_capi.h"
-#include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
-#include "include/capi/acf_profile_capi.h"
 #include "libacf_dll/cpptoc/cpptoc_ref_counted.h"
 
 // Wrap a C++ class with a C structure.
 // This class may be instantiated and accessed DLL-side only.
-class AcfNewWindowDelegateCppToC
-    : public AcfCppToCRefCounted<AcfNewWindowDelegateCppToC,
-                                 AcfNewWindowDelegate,
-                                 acf_new_window_delegate_t> {
+class AcfFrameCppToC
+    : public AcfCppToCRefCounted<AcfFrameCppToC, AcfFrame, acf_frame_t> {
  public:
-  AcfNewWindowDelegateCppToC();
-  virtual ~AcfNewWindowDelegateCppToC();
+  AcfFrameCppToC();
+  virtual ~AcfFrameCppToC();
 };
 
-#endif  // ACF_CPPTOC_NEW_WINDOW_DELEGATE_CPPTOC_H_
+#endif  // ACF_CPPTOC_FRAME_CPPTOC_H_

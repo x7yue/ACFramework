@@ -7,18 +7,21 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=11cee37a5500cd1655337a0a49448447c03fa1e7$
+// $hash=448fb017c3082db5c34bb2908846e27481e447f0$
 //
 
 #ifndef ACF_CTOCPP_BROWSER_CTOCPP_H_
 #define ACF_CTOCPP_BROWSER_CTOCPP_H_
 #pragma once
 
+#include <vector>
 #include "include/acf_browser.h"
 #include "include/acf_environment.h"
+#include "include/acf_frame.h"
 #include "include/acf_profile.h"
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_environment_capi.h"
+#include "include/capi/acf_frame_capi.h"
 #include "include/capi/acf_profile_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
@@ -52,6 +55,11 @@ class AcfBrowserCToCpp
   void SetVisible(bool visible) override;
   bool GetVisible() override;
   AcfRefPtr<AcfProfile> GetProfile() override;
+  size_t GetFrameCount() override;
+  void GetFrameIdentifiers(std::vector<int64>& identifiers) override;
+  void GetFrameNames(std::vector<AcfString>& names) override;
+  AcfRefPtr<AcfFrame> GetFrame(int64 identifier) override;
+  AcfRefPtr<AcfFrame> GetFrame(const AcfString& name) override;
 };
 
 #endif  // ACF_CTOCPP_BROWSER_CTOCPP_H_

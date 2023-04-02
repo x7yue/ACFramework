@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=dc7ada37a2972631dc4ddde33261fcf01541933c$
+// $hash=cc166c81668ef9361a40fa6ed06a643ed543b02a$
 //
 
 #include "libacf_dll/ctocpp/profile_handler_ctocpp.h"
@@ -44,24 +44,6 @@ void AcfProfileHandlerCToCpp::OnProfileDestroyed(
 
   // Execute
   _struct->on_profile_destroyed(_struct, AcfProfileCppToC::Wrap(profile));
-}
-
-void AcfProfileHandlerCToCpp::OnProfileRemoveDataCompleted(
-    AcfRefPtr<AcfProfile> profile,
-    AcfUserData token) {
-  acf_profile_handler_t* _struct = GetStruct();
-  if (ACF_MEMBER_MISSING(_struct, on_profile_remove_data_completed))
-    return;
-
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  // Verify param: profile; type: refptr_diff
-  if (!profile.get())
-    return;
-
-  // Execute
-  _struct->on_profile_remove_data_completed(
-      _struct, AcfProfileCppToC::Wrap(profile), token);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

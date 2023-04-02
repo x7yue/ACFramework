@@ -7,26 +7,25 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=0ef423c3509784ae27fd7461dabb796fdb8b541d$
+// $hash=6b9da1f61263a6e7c1c81f7a681d755a94030dc1$
 //
 
-#ifndef ACF_CPPTOC_PROFILE_CPPTOC_H_
-#define ACF_CPPTOC_PROFILE_CPPTOC_H_
+#ifndef ACF_CPPTOC_BINARY_VALUE_CPPTOC_H_
+#define ACF_CPPTOC_BINARY_VALUE_CPPTOC_H_
 #pragma once
 
-#include "include/acf_callback.h"
-#include "include/acf_profile.h"
-#include "include/capi/acf_callback_capi.h"
-#include "include/capi/acf_profile_capi.h"
+#include "include/acf_values.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/cpptoc/cpptoc_ref_counted.h"
 
 // Wrap a C++ class with a C structure.
 // This class may be instantiated and accessed DLL-side only.
-class AcfProfileCppToC
-    : public AcfCppToCRefCounted<AcfProfileCppToC, AcfProfile, acf_profile_t> {
+class AcfBinaryValueCppToC : public AcfCppToCRefCounted<AcfBinaryValueCppToC,
+                                                        AcfBinaryValue,
+                                                        acf_binary_value_t> {
  public:
-  AcfProfileCppToC();
-  virtual ~AcfProfileCppToC();
+  AcfBinaryValueCppToC();
+  virtual ~AcfBinaryValueCppToC();
 };
 
-#endif  // ACF_CPPTOC_PROFILE_CPPTOC_H_
+#endif  // ACF_CPPTOC_BINARY_VALUE_CPPTOC_H_

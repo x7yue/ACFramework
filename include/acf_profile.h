@@ -4,9 +4,11 @@
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
 #include "include/internal/acf_types.h"
+#include "include/acf_callback.h"
 
 class AcfProfile;
 class AcfProfileHandler;
+class AcfCompleteHandler;
 
 ///
 /// Profile handler
@@ -26,13 +28,6 @@ class AcfProfileHandler : public virtual AcfBaseRefCounted {
   ///
   /*--acf()--*/
   virtual void OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) {}
-
-  ///
-  /// Called when profile remove data completed
-  ///
-  /*--acf()--*/
-  virtual void OnProfileRemoveDataCompleted(AcfRefPtr<AcfProfile> profile,
-                                            AcfUserData token) {}
 };
 
 ///
@@ -66,10 +61,10 @@ class AcfProfile : public virtual AcfBaseRefCounted {
   /// Remove browsing data when running profile,
   /// when completed it will call OnProfileRemoveDataCompleted
   ///
-  /*--acf()--*/
+  /*--acf(optional_param=handler)--*/
   virtual void RemoveBrowsingData(RemoveDataType data_type,
                                   bool no_checks,
-                                  AcfUserData token) = 0;
+                                  AcfRefPtr<AcfCompleteHandler> handler) = 0;
 };
 
 #endif

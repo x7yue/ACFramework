@@ -7,10 +7,11 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=cd6f996dc7d4ac1c95057e828ed5b1d7d57dbc37$
+// $hash=3169c4ab5ecb6c0c3a64efeb2a44c802fa55b7b0$
 //
 
 #include "libacf_dll/ctocpp/profile_ctocpp.h"
+#include "libacf_dll/cpptoc/complete_handler_cpptoc.h"
 #include "libacf_dll/cpptoc/profile_handler_cpptoc.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
@@ -59,17 +60,21 @@ AcfString AcfProfileCToCpp::GetPath() {
   return _retvalStr;
 }
 
-void AcfProfileCToCpp::RemoveBrowsingData(RemoveDataType data_type,
-                                          bool no_checks,
-                                          AcfUserData token) {
+void AcfProfileCToCpp::RemoveBrowsingData(
+    RemoveDataType data_type,
+    bool no_checks,
+    AcfRefPtr<AcfCompleteHandler> handler) {
   acf_profile_t* _struct = GetStruct();
   if (ACF_MEMBER_MISSING(_struct, remove_browsing_data))
     return;
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
+  // Unverified params: handler
+
   // Execute
-  _struct->remove_browsing_data(_struct, data_type, no_checks, token);
+  _struct->remove_browsing_data(_struct, data_type, no_checks,
+                                AcfCompleteHandlerCppToC::Wrap(handler));
 }
 
 // CONSTRUCTOR - Do not edit by hand.

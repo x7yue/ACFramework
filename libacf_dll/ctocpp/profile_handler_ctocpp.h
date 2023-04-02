@@ -7,14 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=59100f5a914e0c7323f2bb9740e0ddaf725b4770$
+// $hash=0a074285ebb7832664d1c3bc7c7cf22e435eac4d$
 //
 
 #ifndef ACF_CTOCPP_PROFILE_HANDLER_CTOCPP_H_
 #define ACF_CTOCPP_PROFILE_HANDLER_CTOCPP_H_
 #pragma once
 
+#include "include/acf_callback.h"
 #include "include/acf_profile.h"
+#include "include/capi/acf_callback_capi.h"
 #include "include/capi/acf_profile_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
@@ -31,8 +33,6 @@ class AcfProfileHandlerCToCpp
   // AcfProfileHandler methods.
   void OnProfileCreated(AcfRefPtr<AcfProfile> profile) override;
   void OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) override;
-  void OnProfileRemoveDataCompleted(AcfRefPtr<AcfProfile> profile,
-                                    AcfUserData token) override;
 };
 
 #endif  // ACF_CTOCPP_PROFILE_HANDLER_CTOCPP_H_

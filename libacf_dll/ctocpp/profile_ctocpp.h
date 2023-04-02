@@ -7,14 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=fd10614fec4e77bfb2ec7873ad327692764e0e07$
+// $hash=7247c37fc683b8af0c1ec6248568204379dc10a9$
 //
 
 #ifndef ACF_CTOCPP_PROFILE_CTOCPP_H_
 #define ACF_CTOCPP_PROFILE_CTOCPP_H_
 #pragma once
 
+#include "include/acf_callback.h"
 #include "include/acf_profile.h"
+#include "include/capi/acf_callback_capi.h"
 #include "include/capi/acf_profile_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
@@ -32,7 +34,7 @@ class AcfProfileCToCpp
   AcfString GetPath() override;
   void RemoveBrowsingData(RemoveDataType data_type,
                           bool no_checks,
-                          AcfUserData token) override;
+                          AcfRefPtr<AcfCompleteHandler> handler) override;
 };
 
 #endif  // ACF_CTOCPP_PROFILE_CTOCPP_H_

@@ -5,14 +5,14 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=1e8a3a2705ced46e52f233a40ec921aef414560e$
+// $hash=ee4fd5053b3947e5d74f3303aea245cc85830057$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_PROFILE_CAPI_H_
 #define ACF_INCLUDE_CAPI_ACF_PROFILE_CAPI_H_
 #pragma once
 
-#include "include/capi/acf_base_capi.h"
+#include "include/capi/acf_callback_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
 #include "include/internal/acf_types.h"
@@ -21,6 +21,7 @@
 extern "C" {
 #endif
 
+struct _acf_complete_handler_t;
 struct _acf_profile_handler_t;
 struct _acf_profile_t;
 
@@ -44,14 +45,6 @@ typedef struct _acf_profile_handler_t {
   ///
   void(ACF_CALLBACK* on_profile_destroyed)(struct _acf_profile_handler_t* self,
                                            struct _acf_profile_t* profile);
-
-  ///
-  /// Called when profile remove data completed
-  ///
-  void(ACF_CALLBACK* on_profile_remove_data_completed)(
-      struct _acf_profile_handler_t* self,
-      struct _acf_profile_t* profile,
-      acf_user_data_t token);
 } acf_profile_handler_t;
 
 ///
@@ -85,10 +78,11 @@ typedef struct _acf_profile_t {
   /// Remove browsing data when running profile, when completed it will call
   /// OnProfileRemoveDataCompleted
   ///
-  void(ACF_CALLBACK* remove_browsing_data)(struct _acf_profile_t* self,
-                                           acf_remove_data_type_t data_type,
-                                           int no_checks,
-                                           acf_user_data_t token);
+  void(ACF_CALLBACK* remove_browsing_data)(
+      struct _acf_profile_t* self,
+      acf_remove_data_type_t data_type,
+      int no_checks,
+      struct _acf_complete_handler_t* handler);
 } acf_profile_t;
 
 #ifdef __cplusplus
