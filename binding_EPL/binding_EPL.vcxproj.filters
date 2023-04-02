@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{3a15c90e-f24c-4aa9-9ab9-4fa2876aeaad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\dll">
+      <UniqueIdentifier>{a4192b7a-bafc-47c2-bd8a-970ee2a3d100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ec">
+      <UniqueIdentifier>{5c3cea5f-cc8a-478f-a184-84927716ee9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ACF_EPLBinding.e">
+      <Filter>src\ec</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\acf_env.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acf_handler.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acf_Class.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acf_Util.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acf_eprofile.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acf_ebrowser.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\acf_env.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acf_types.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acf_handler.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acf_Class.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acf_Util.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acf_eprofile.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acf_ebrowser.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
