@@ -2,6 +2,8 @@
 #include "client_window.h"
 #include "message_loop_manager.h"
 
+#include <sstream>
+
 #define IDC_GoBack 201
 #define IDC_GoForward 202
 #define IDC_Reload 203
@@ -14,12 +16,61 @@
 #define IDC_ToggleVisible 303
 #define IDC_ClearCache 304
 #define IDC_EnumFrames 305
+#define IDC_ExecuteJS 306
+#define IDC_GetSource 307
+#define IDC_GetAllCookies 308
 
 extern AcfRefPtr<AcfEnvironment> g_env;
-extern AcfRefPtr<AcfProfile> g_profile;
 extern acfclient::MessageWindow* msg_dispatcher;
 
 namespace {
+
+class TestCookieVisitor : public AcfCookieVisitor {
+ public:
+  TestCookieVisitor() {}
+  ~TestCookieVisitor() {}
+
+  void Visit(AcfRefPtr<AcfCookiesGetter> cookie_getter) override {
+    for (size_t i = 0; i < cookie_getter->GetCookiesCount(); i++) {
+      std::cout << "Name: "
+                << cookie_getter->GetCookieAt(i)->GetName().ToString()
+                << " Value: "
+                << cookie_getter->GetCookieAt(i)->GetValue().ToString() << '\n';
+    }
+  }
+
+  IMPLEMENT_REFCOUNTING(TestCookieVisitor);
+};
+
+class TestStringVisitor : public AcfStringVisitor {
+ public:
+  TestStringVisitor() {}
+  ~TestStringVisitor() {}
+
+  void Visit(const AcfString& string) override {
+    std::cout << "String Visitor: PayloadSize: " << string.size() << '\n';
+  }
+
+  IMPLEMENT_REFCOUNTING(TestStringVisitor);
+};
+
+class TestJSCallback : public AcfCompleteValueHandler {
+ public:
+  TestJSCallback() { std::cout << "JSCallback Init\n"; }
+  ~TestJSCallback() { std::cout << "JSCallback Quit\n"; }
+
+  void OnComplete(AcfRefPtr<AcfValue> value) override {
+    std::stringstream ss;
+    if (value->GetType() == AcfValueType::VTYPE_INT)
+      ss << value->GetInt();
+    if (value->GetType() == AcfValueType::VTYPE_STRING)
+      ss << value->GetString().ToString();
+    AcfString str(ss.str());
+    MessageBox(0, (LPWSTR)str.ToString16().data(), L"Execute result", 0);
+  }
+
+  IMPLEMENT_REFCOUNTING(TestJSCallback);
+};
 
 class TestTask_Quit : public acfclient::Task {
  public:
@@ -122,7 +173,7 @@ Window::Window(AcfRefPtr<AcfEnvironment> env,
   params.height = bound.bottom;
 
   // Call on any thread
-  env->CreateBrowser(g_profile, this, params, nullptr);
+  env->CreateBrowser(nullptr, this, params, nullptr);
 
   std::cout << "Window Create: " << g_browsers.size() << "\n";
 }
@@ -229,46 +280,25 @@ void Window::CreateMenu() {
   info.cbSize = sizeof(MENUITEMINFO);
 
   UINT count = 0;
+  std::wstring labelStr;
 
-  std::wstring labelStr(L"New Window");
-  info.fMask |= MIIM_STRING | MIIM_ID;
-  info.cch = labelStr.size();
-  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str());
-  info.wID = IDC_NewWindow;
-  ::InsertMenuItem(more_menu_, count, TRUE, &info);
+#define SET_MENU(name, idc)                               \
+  labelStr = L##name;                                     \
+  info.fMask |= MIIM_STRING | MIIM_ID;                    \
+  info.cch = labelStr.size();                             \
+  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str()); \
+  info.wID = idc;                                         \
+  ::InsertMenuItem(more_menu_, count, TRUE, &info);       \
   count++;
 
-  labelStr = L"Close Window";
-  info.fMask |= MIIM_STRING | MIIM_ID;
-  info.cch = labelStr.size();
-  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str());
-  info.wID = IDC_CloseWindow;
-  ::InsertMenuItem(more_menu_, count, TRUE, &info);
-  count++;
-
-  labelStr = L"Toggle Visibility";
-  info.fMask |= MIIM_STRING | MIIM_ID;
-  info.cch = labelStr.size();
-  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str());
-  info.wID = IDC_ToggleVisible;
-  ::InsertMenuItem(more_menu_, count, TRUE, &info);
-  count++;
-
-  labelStr = L"Clear All BrowsingData";
-  info.fMask |= MIIM_STRING | MIIM_ID;
-  info.cch = labelStr.size();
-  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str());
-  info.wID = IDC_ClearCache;
-  ::InsertMenuItem(more_menu_, count, TRUE, &info);
-  count++;
-
-  labelStr = L"Enum Frames Info";
-  info.fMask |= MIIM_STRING | MIIM_ID;
-  info.cch = labelStr.size();
-  info.dwTypeData = const_cast<LPWSTR>(labelStr.c_str());
-  info.wID = IDC_EnumFrames;
-  ::InsertMenuItem(more_menu_, count, TRUE, &info);
-  count++;
+  SET_MENU("New Window", IDC_NewWindow);
+  SET_MENU("Close Window", IDC_CloseWindow);
+  SET_MENU("Toggle Visibility", IDC_ToggleVisible);
+  SET_MENU("Clear All BrowsingData", IDC_ClearCache);
+  SET_MENU("Enum Frames Info", IDC_EnumFrames);
+  SET_MENU("Execute JS", IDC_ExecuteJS);
+  SET_MENU("Get Page Source", IDC_GetSource);
+  SET_MENU("Get All Cookies", IDC_GetAllCookies);
 }
 
 bool Window::OnCommand(UINT id) {
@@ -332,8 +362,8 @@ bool Window::OnCommand(UINT id) {
       }
     } break;
     case IDC_ClearCache: {
-      g_profile->RemoveBrowsingData(AcfProfile::RemoveDataType::ALL_DATA_TYPES,
-                                    true, nullptr);
+      g_env->GetDefaultProfile()->RemoveBrowsingData(
+          AcfProfile::RemoveDataType::ALL_DATA_TYPES, true, nullptr);
     } break;
     case IDC_EnumFrames: {
       if (browser_weak_ptr_) {
@@ -342,12 +372,29 @@ bool Window::OnCommand(UINT id) {
 
         for (auto i : m_ids) {
           AcfRefPtr<AcfFrame> f = browser_weak_ptr_->GetFrame(i);
-
+          
           if (f)
             std::cout << "FrameID: " << f->GetIdentifier()
                       << " Name: " << f->GetName().ToString()
                       << " URL: " << f->GetURL().ToString() << "\n";
         }
+      }
+    } break;
+    case IDC_ExecuteJS: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->GetMainFrame()->ExecuteJavascript(
+            "document.title", "about:blank", new TestJSCallback());
+      }
+    } break;
+    case IDC_GetSource: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->GetMainFrame()->GetSource(new TestStringVisitor());
+      }
+    } break;
+    case IDC_GetAllCookies: {
+      if (browser_weak_ptr_) {
+        auto cm = g_env->GetDefaultProfile()->GetCookieManager();
+        cm->GetCookies("", true, new TestCookieVisitor());
       }
     } break;
     default:
@@ -541,6 +588,57 @@ void Window::OnAddressChanged(AcfRefPtr<AcfBrowser> browser,
 void Window::OnFullscreenStateChanged(AcfRefPtr<AcfBrowser> browser,
                                       bool fullscreen) {
   std::cout << "OnFullscreenStateChanged: " << fullscreen << "\n";
+}
+
+void Window::OnAuthLoginRequest(AcfRefPtr<AcfBrowser> browser,
+                                bool is_proxy,
+                                const AcfString& url,
+                                const AcfString& scheme,
+                                const AcfString& realm,
+                                const AcfString& challenge,
+                                bool is_main_frame,
+                                AcfRefPtr<AcfLoginDelegate> delegate) {
+  std::cout << "OnAuthLoginRequest: " << url.ToString() << "\n";
+  
+  // Auth Test
+  if (url == "https://authenticationtest.com/HTTPAuth/")
+    delegate->Continue("user", "pass");
+}
+
+void Window::OnContextMenuRequest(AcfRefPtr<AcfBrowser> browser,
+                                  AcfRefPtr<AcfContextMenuParams> menu_params,
+                                  AcfRefPtr<AcfContextMenuModel> menu_model,
+                                  AcfRefPtr<AcfContextMenuCallback> callback) {
+  std::cout << "OnContextMenuRequest\n";
+  
+  menu_model->InsertSeparatorAt(menu_model->GetCount());
+  menu_model->InsertItemAt(menu_model->GetCount(), 310001, "Test Menu Item");
+  AcfRefPtr<AcfContextMenuModel> sub_menu = menu_model->InsertSubMenuAt(
+      menu_model->GetCount(), 310002, "Sub menu test");
+  sub_menu->InsertItemAt(sub_menu->GetCount(), 310003, "Normal item");
+  sub_menu->InsertSeparatorAt(sub_menu->GetCount());
+
+  sub_menu->InsertRadioItemAt(sub_menu->GetCount(), 310004, "Item 1", 1000);
+  sub_menu->SetCheckedAt(sub_menu->GetCount() - 1, true);
+
+  sub_menu->InsertRadioItemAt(sub_menu->GetCount(), 310005, "Item 2", 1000);
+  sub_menu->InsertRadioItemAt(sub_menu->GetCount(), 310006, "Item 3", 1000);
+  sub_menu->InsertSeparatorAt(sub_menu->GetCount());
+  sub_menu->InsertCheckItemAt(sub_menu->GetCount(), 310007, "Item 1");
+
+  sub_menu->InsertCheckItemAt(sub_menu->GetCount(), 310008, "Item 2");
+  sub_menu->SetCheckedAt(sub_menu->GetCount() - 1, true);
+
+  sub_menu->InsertCheckItemAt(sub_menu->GetCount(), 310009, "Item 3");
+}
+
+void Window::OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
+                                  AcfRefPtr<AcfContextMenuParams> menu_params,
+                                  int command_id,
+                                  int event_flags) {
+  if (command_id == 310001)
+    MessageBox(window_, L"Execute test menu", L"AcfClient", 0);
+  std::cout << "Execute command id: " << command_id << '\n';
 }
 
 }  // namespace acfclient

@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=41844883c0727afbaf65e455728ff1a6477cf7e0$
+// $hash=4770720bf8b5a8fa19a6eebef7ca2de6504cb325$
 //
 
 #include "libacf_dll/cpptoc/complete_handler_cpptoc.h"
@@ -17,14 +17,15 @@ namespace {
 // MEMBER FUNCTIONS - Body may be edited by hand.
 
 void ACF_CALLBACK
-complete_handler_on_complete(struct _acf_complete_handler_t* self) {
+complete_handler_on_complete(struct _acf_complete_handler_t* self,
+                             int success) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
     return;
 
   // Execute
-  AcfCompleteHandlerCppToC::Get(self)->OnComplete();
+  AcfCompleteHandlerCppToC::Get(self)->OnComplete(success ? true : false);
 }
 
 }  // namespace

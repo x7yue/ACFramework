@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=0a074285ebb7832664d1c3bc7c7cf22e435eac4d$
+// $hash=ad71fb357d15dfe2ed371911e73866d041a84fb6$
 //
 
 #ifndef ACF_CTOCPP_PROFILE_HANDLER_CTOCPP_H_
@@ -15,9 +15,13 @@
 #pragma once
 
 #include "include/acf_callback.h"
+#include "include/acf_environment.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_callback_capi.h"
+#include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.

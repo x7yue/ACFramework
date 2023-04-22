@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=3de7893d3e52f643d18d143f487ad6e7e73d92de$
+// $hash=5d330ff2ff9d4fcee5fb3cbbd558ef3b1a61b314$
 //
 
 #ifndef ACF_CTOCPP_BROWSER_HANDLER_CTOCPP_H_
@@ -52,6 +52,34 @@ class AcfBrowserHandlerCToCpp
                         const AcfString& address) override;
   void OnFullscreenStateChanged(AcfRefPtr<AcfBrowser> browser,
                                 bool fullscreen) override;
+  void OnAuthLoginRequest(AcfRefPtr<AcfBrowser> browser,
+                          bool is_proxy,
+                          const AcfString& url,
+                          const AcfString& scheme,
+                          const AcfString& realm,
+                          const AcfString& challenge,
+                          bool is_main_frame,
+                          AcfRefPtr<AcfLoginDelegate> delegate) override;
+  void OnContextMenuRequest(
+      AcfRefPtr<AcfBrowser> browser,
+      AcfRefPtr<AcfContextMenuParams> menu_params,
+      AcfRefPtr<AcfContextMenuModel> menu_model,
+      AcfRefPtr<AcfContextMenuCallback> callback) override;
+  void OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
+                            AcfRefPtr<AcfContextMenuParams> menu_params,
+                            int command_id,
+                            int event_flags) override;
+  void OnLoadStart(AcfRefPtr<AcfBrowser> browser,
+                   AcfRefPtr<AcfFrame> frame,
+                   int transition) override;
+  void OnLoadEnd(AcfRefPtr<AcfBrowser> browser,
+                 AcfRefPtr<AcfFrame> frame,
+                 const AcfString& url,
+                 int http_status_code) override;
+  void OnLoadError(AcfRefPtr<AcfBrowser> browser,
+                   AcfRefPtr<AcfFrame> frame,
+                   const AcfString& url,
+                   int error_code) override;
 };
 
 #endif  // ACF_CTOCPP_BROWSER_HANDLER_CTOCPP_H_

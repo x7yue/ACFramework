@@ -8,7 +8,6 @@
 #include "include/acf_environment.h"
 
 AcfRefPtr<AcfEnvironment> g_env;
-AcfRefPtr<AcfProfile> g_profile;
 acfclient::MessageWindow* msg_dispatcher;
 
 class TestTask : public acfclient::Task {
@@ -26,19 +25,6 @@ void TestTask::Execute() {
   window->Show();
 }
 
-class TestProfileHandler : public AcfProfileHandler {
- public:
-  void OnProfileCreated(AcfRefPtr<AcfProfile> profile) override {
-    // dispatch task
-    AcfRefPtr<TestTask> task = new TestTask();
-    msg_dispatcher->PostTask(task);
-  }
-
-  void OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) override {}
-
-  IMPLEMENT_REFCOUNTING(TestProfileHandler);
-};
-
 class TestEnvHandler : public AcfEnvironmentHandler {
  public:
   TestEnvHandler() { std::cout << "Init Handler\n"; }
@@ -52,7 +38,8 @@ class TestEnvHandler : public AcfEnvironmentHandler {
 void TestEnvHandler::OnEnvironmentInitialized(AcfRefPtr<AcfEnvironment> env) {
   std::cout << "[ACF] Browser version: " << env->GetBrowserVersion().c_str() << "\n";
 
-  g_profile = env->CreateProfile("ACFClientProfile", new TestProfileHandler());
+  AcfRefPtr<TestTask> task = new TestTask();
+  msg_dispatcher->PostTask(task);
 }
 
 void InitEnv(int argc, char** argv) {
@@ -87,11 +74,16 @@ int main(int argc, char** argv) {
 
   InitEnv(argc, argv);
 
+  if (!g_env) {
+    ::MessageBox(0,
+                 L"There is already a ACF browser window running in current "
+                 L"user data dir.",
+                 L"AcfClient", 0);
+    return 0;
+  }
+
   // Main loop
   MessageLoopRun();
-
-  g_profile.release();
-
 
   // wait for browser process
   std::cout << "[ACFClient] Browser ExitCode: " << g_env->Terminate();

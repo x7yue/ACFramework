@@ -19,26 +19,111 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\libacf_dll\cpptoc\binary_value_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\browser_cpptoc.cc" />
     <ClCompile Include="..\libacf_dll\cpptoc\browser_handler_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\complete_handler_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\complete_value_handler_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\context_menu_callback_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\context_menu_model_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\context_menu_params_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\cookies_getter_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\cookie_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\cookie_manager_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\cookie_visitor_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\dictionary_value_cpptoc.cc" />
     <ClCompile Include="..\libacf_dll\cpptoc\environment_handler_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\frame_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\list_value_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\login_delegate_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\new_window_delegate_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\number_complete_handler_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\profile_cpptoc.cc" />
     <ClCompile Include="..\libacf_dll\cpptoc\profile_handler_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\string_visitor_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\cpptoc\value_cpptoc.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\binary_value_ctocpp.cc" />
     <ClCompile Include="..\libacf_dll\ctocpp\browser_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\browser_handler_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\complete_handler_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\complete_value_handler_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_callback_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_model_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_params_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\cookies_getter_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\cookie_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\cookie_manager_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\cookie_visitor_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\dictionary_value_ctocpp.cc" />
     <ClCompile Include="..\libacf_dll\ctocpp\environment_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\environment_handler_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\frame_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\list_value_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\login_delegate_ctocpp.cc" />
     <ClCompile Include="..\libacf_dll\ctocpp\new_window_delegate_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\number_complete_handler_ctocpp.cc" />
     <ClCompile Include="..\libacf_dll\ctocpp\profile_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\profile_handler_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\string_visitor_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\ctocpp\value_ctocpp.cc" />
+    <ClCompile Include="..\libacf_dll\libacf_dll.cc" />
+    <ClCompile Include="..\libacf_dll\transfer_util.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\libacf_dll\cpptoc\binary_value_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\browser_cpptoc.h" />
     <ClInclude Include="..\libacf_dll\cpptoc\browser_handler_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\complete_handler_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\complete_value_handler_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\context_menu_callback_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\context_menu_model_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\context_menu_params_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\cookies_getter_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\cookie_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\cookie_manager_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\cookie_visitor_cpptoc.h" />
     <ClInclude Include="..\libacf_dll\cpptoc\cpptoc_ref_counted.h" />
     <ClInclude Include="..\libacf_dll\cpptoc\cpptoc_scoped.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\dictionary_value_cpptoc.h" />
     <ClInclude Include="..\libacf_dll\cpptoc\environment_handler_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\frame_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\list_value_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\login_delegate_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\new_window_delegate_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\number_complete_handler_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\profile_cpptoc.h" />
     <ClInclude Include="..\libacf_dll\cpptoc\profile_handler_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\string_visitor_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\cpptoc\value_cpptoc.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\binary_value_ctocpp.h" />
     <ClInclude Include="..\libacf_dll\ctocpp\browser_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\browser_handler_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\complete_handler_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\complete_value_handler_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_callback_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_model_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_params_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\cookies_getter_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\cookie_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\cookie_manager_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\cookie_visitor_ctocpp.h" />
     <ClInclude Include="..\libacf_dll\ctocpp\ctocpp_ref_counted.h" />
     <ClInclude Include="..\libacf_dll\ctocpp\ctocpp_scoped.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\dictionary_value_ctocpp.h" />
     <ClInclude Include="..\libacf_dll\ctocpp\environment_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\environment_handler_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\frame_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\list_value_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\login_delegate_ctocpp.h" />
     <ClInclude Include="..\libacf_dll\ctocpp\new_window_delegate_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\number_complete_handler_ctocpp.h" />
     <ClInclude Include="..\libacf_dll\ctocpp\profile_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\profile_handler_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\string_visitor_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\ctocpp\value_ctocpp.h" />
+    <ClInclude Include="..\libacf_dll\template_util.h" />
+    <ClInclude Include="..\libacf_dll\transfer_util.h" />
+    <ClInclude Include="..\libacf_dll\wrapper_types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -117,7 +202,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -136,7 +221,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -155,7 +240,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -174,7 +259,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>

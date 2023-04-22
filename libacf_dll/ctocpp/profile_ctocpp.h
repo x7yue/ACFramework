@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=7247c37fc683b8af0c1ec6248568204379dc10a9$
+// $hash=39a939001ece4ded4f4eebb11484d39d8c3fdba0$
 //
 
 #ifndef ACF_CTOCPP_PROFILE_CTOCPP_H_
@@ -15,9 +15,13 @@
 #pragma once
 
 #include "include/acf_callback.h"
+#include "include/acf_environment.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_callback_capi.h"
+#include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
@@ -30,11 +34,20 @@ class AcfProfileCToCpp
 
   // AcfProfile methods.
   AcfRefPtr<AcfProfileHandler> GetHandler() override;
+  AcfRefPtr<AcfEnvironment> GetEnvironment() override;
   bool IsValid() override;
   AcfString GetPath() override;
+  void SetPreference(const AcfString& name,
+                     AcfRefPtr<AcfValue> value,
+                     AcfRefPtr<AcfCompleteHandler> handler) override;
   void RemoveBrowsingData(RemoveDataType data_type,
                           bool no_checks,
                           AcfRefPtr<AcfCompleteHandler> handler) override;
+  AcfRefPtr<AcfCookieManager> GetCookieManager() override;
+  AcfRefPtr<AcfCookie> CreateCookie(const AcfString& name,
+                                    const AcfString& value,
+                                    const AcfString& domain,
+                                    const AcfString& path) override;
 };
 
 #endif  // ACF_CTOCPP_PROFILE_CTOCPP_H_

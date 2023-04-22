@@ -105,6 +105,12 @@ class AcfEnvironment : public virtual AcfBaseRefCounted {
   virtual int Terminate() = 0;
 
   ///
+  /// Get default profile
+  ///
+  /*--acf()--*/
+  virtual AcfRefPtr<AcfProfile> GetDefaultProfile() = 0;
+
+  ///
   /// Create a profile hosted a user profile
   /// each path could only create a profile
   ///

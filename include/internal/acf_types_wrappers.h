@@ -137,4 +137,4 @@ struct AcfBrowserCreateParamsTraits {
 };
 using AcfBrowserCreateParams = AcfStructBase<AcfBrowserCreateParamsTraits>;
 
-#endif
+#endif  // ACF_TYPES_WRAPPERS_H_

@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=e53c4444d4bbff3a31d27eac69f6a483b827989e$
+// $hash=bc64144a3e8cace2e3bf4080829ab0a922ccfd8d$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_FRAME_CAPI_H_
@@ -13,6 +13,7 @@
 #pragma once
 
 #include "include/capi/acf_browser_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_types.h"
 
@@ -21,6 +22,7 @@ extern "C" {
 #endif
 
 struct _acf_browser_t;
+struct _acf_complete_value_handler_t;
 
 ///
 /// Frame object that host a iframe dom in browser webcontents, Any operation is
@@ -80,6 +82,29 @@ typedef struct _acf_frame_t {
   /// Is frame main context in browser.
   ///
   int(ACF_CALLBACK* is_main)(struct _acf_frame_t* self);
+
+  ///
+  /// Execute javascripts in current frame context. value is invalid when return
+  ///
+  void(ACF_CALLBACK* execute_javascript)(
+      struct _acf_frame_t* self,
+      const acf_string_t* script,
+      const acf_string_t* url,
+      struct _acf_complete_value_handler_t* handler);
+
+  ///
+  /// Retrieve this frame's HTML source as a string sent to the specified
+  /// visitor.
+  ///
+  void(ACF_CALLBACK* get_source)(struct _acf_frame_t* self,
+                                 struct _acf_string_visitor_t* visitor);
+
+  ///
+  /// Retrieve this frame's display text as a string sent to the specified
+  /// visitor.
+  ///
+  void(ACF_CALLBACK* get_text)(struct _acf_frame_t* self,
+                               struct _acf_string_visitor_t* visitor);
 } acf_frame_t;
 
 #ifdef __cplusplus

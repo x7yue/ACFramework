@@ -4,8 +4,10 @@
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_types.h"
 #include "include/acf_browser.h"
+#include "include/acf_values.h"
 
 class AcfBrowser;
+class AcfCompleteValueHandler;
 
 ///
 /// Frame object that host a iframe dom in browser webcontents,
@@ -67,6 +69,30 @@ class AcfFrame : public virtual AcfBaseRefCounted {
   ///
   /*--acf()--*/
   virtual bool IsMain() = 0;
+
+  ///
+  /// Execute javascripts in current frame context.
+  /// value is invalid when return
+  ///
+  /*--acf(optional_param=handler)--*/
+  virtual void ExecuteJavascript(
+      const AcfString& script,
+      const AcfString& url,
+      AcfRefPtr<AcfCompleteValueHandler> handler) = 0;
+
+  ///
+  /// Retrieve this frame's HTML source as a string sent to the specified
+  /// visitor.
+  ///
+  /*--acf()--*/
+  virtual void GetSource(AcfRefPtr<AcfStringVisitor> visitor) = 0;
+
+  ///
+  /// Retrieve this frame's display text as a string sent to the specified
+  /// visitor.
+  ///
+  /*--acf()--*/
+  virtual void GetText(AcfRefPtr<AcfStringVisitor> visitor) = 0;
 };
 
 #endif

@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=448fb017c3082db5c34bb2908846e27481e447f0$
+// $hash=74e7f0b1e73ba0db6a39ce972adaeeee726db823$
 //
 
 #ifndef ACF_CTOCPP_BROWSER_CTOCPP_H_
@@ -60,6 +60,7 @@ class AcfBrowserCToCpp
   void GetFrameNames(std::vector<AcfString>& names) override;
   AcfRefPtr<AcfFrame> GetFrame(int64 identifier) override;
   AcfRefPtr<AcfFrame> GetFrame(const AcfString& name) override;
+  AcfRefPtr<AcfFrame> GetMainFrame() override;
 };
 
 #endif  // ACF_CTOCPP_BROWSER_CTOCPP_H_

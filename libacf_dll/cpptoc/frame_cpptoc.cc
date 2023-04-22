@@ -7,11 +7,13 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=fbb72b4bf66c2cfeb9f0d49ed2ef94b1c5fdcbb3$
+// $hash=8869760fcd10d3e0f048e02d4215f843ba004daf$
 //
 
 #include "libacf_dll/cpptoc/frame_cpptoc.h"
 #include "libacf_dll/cpptoc/browser_cpptoc.h"
+#include "libacf_dll/ctocpp/complete_value_handler_ctocpp.h"
+#include "libacf_dll/ctocpp/string_visitor_ctocpp.h"
 
 namespace {
 
@@ -126,6 +128,57 @@ int ACF_CALLBACK frame_is_main(struct _acf_frame_t* self) {
   return _retval;
 }
 
+void ACF_CALLBACK
+frame_execute_javascript(struct _acf_frame_t* self,
+                         const acf_string_t* script,
+                         const acf_string_t* url,
+                         acf_complete_value_handler_t* handler) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: script; type: string_byref_const
+  if (!script)
+    return;
+  // Verify param: url; type: string_byref_const
+  if (!url)
+    return;
+  // Unverified params: handler
+
+  // Execute
+  AcfFrameCppToC::Get(self)->ExecuteJavascript(
+      AcfString(script), AcfString(url),
+      AcfCompleteValueHandlerCToCpp::Wrap(handler));
+}
+
+void ACF_CALLBACK frame_get_source(struct _acf_frame_t* self,
+                                   acf_string_visitor_t* visitor) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: visitor; type: refptr_diff
+  if (!visitor)
+    return;
+
+  // Execute
+  AcfFrameCppToC::Get(self)->GetSource(AcfStringVisitorCToCpp::Wrap(visitor));
+}
+
+void ACF_CALLBACK frame_get_text(struct _acf_frame_t* self,
+                                 acf_string_visitor_t* visitor) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: visitor; type: refptr_diff
+  if (!visitor)
+    return;
+
+  // Execute
+  AcfFrameCppToC::Get(self)->GetText(AcfStringVisitorCToCpp::Wrap(visitor));
+}
+
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
@@ -139,6 +192,9 @@ AcfFrameCppToC::AcfFrameCppToC() {
   GetStruct()->get_name = frame_get_name;
   GetStruct()->get_identifier = frame_get_identifier;
   GetStruct()->is_main = frame_is_main;
+  GetStruct()->execute_javascript = frame_execute_javascript;
+  GetStruct()->get_source = frame_get_source;
+  GetStruct()->get_text = frame_get_text;
 }
 
 // DESTRUCTOR - Do not edit by hand.

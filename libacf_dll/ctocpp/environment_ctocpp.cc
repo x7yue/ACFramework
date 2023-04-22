@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=697205468301ebff1c5938a22e2ca2b6556e9611$
+// $hash=651b1f7eb6b2e6c9fa7c95af5234b49dfb29db88$
 //
 
 #include "libacf_dll/ctocpp/environment_ctocpp.h"
@@ -149,6 +149,20 @@ int AcfEnvironmentCToCpp::Terminate() {
 
   // Return type: simple
   return _retval;
+}
+
+AcfRefPtr<AcfProfile> AcfEnvironmentCToCpp::GetDefaultProfile() {
+  acf_environment_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_default_profile))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_profile_t* _retval = _struct->get_default_profile(_struct);
+
+  // Return type: refptr_same
+  return AcfProfileCToCpp::Wrap(_retval);
 }
 
 AcfRefPtr<AcfProfile> AcfEnvironmentCToCpp::CreateProfile(

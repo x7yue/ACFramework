@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=304647931ab80c1d16af25f00e23e9a741cc4dc3$
+// $hash=b6ca57001ccb09545330def7b19294512fbd526f$
 //
 
 #include "libacf_dll/cpptoc/environment_cpptoc.h"
@@ -163,6 +163,21 @@ int ACF_CALLBACK environment_terminate(struct _acf_environment_t* self) {
 }
 
 struct _acf_profile_t* ACF_CALLBACK
+environment_get_default_profile(struct _acf_environment_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return NULL;
+
+  // Execute
+  AcfRefPtr<AcfProfile> _retval =
+      AcfEnvironmentCppToC::Get(self)->GetDefaultProfile();
+
+  // Return type: refptr_same
+  return AcfProfileCppToC::Wrap(_retval);
+}
+
+struct _acf_profile_t* ACF_CALLBACK
 environment_create_profile(struct _acf_environment_t* self,
                            const acf_string_t* path,
                            struct _acf_profile_handler_t* handler) {
@@ -228,6 +243,7 @@ AcfEnvironmentCppToC::AcfEnvironmentCppToC() {
   GetStruct()->get_browser_version = environment_get_browser_version;
   GetStruct()->get_process_pid = environment_get_process_pid;
   GetStruct()->terminate = environment_terminate;
+  GetStruct()->get_default_profile = environment_get_default_profile;
   GetStruct()->create_profile = environment_create_profile;
   GetStruct()->create_browser = environment_create_browser;
 }

@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=77535febb1b39995c5a9ca00c4b514133239074f$
+// $hash=62442204c465db276899cfee5f596b59ec1e0582$
 //
 
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
@@ -402,6 +402,20 @@ AcfRefPtr<AcfFrame> AcfBrowserCToCpp::GetFrame(const AcfString& name) {
 
   // Execute
   acf_frame_t* _retval = _struct->get_frame(_struct, name.GetStruct());
+
+  // Return type: refptr_same
+  return AcfFrameCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfFrame> AcfBrowserCToCpp::GetMainFrame() {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_main_frame))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_frame_t* _retval = _struct->get_main_frame(_struct);
 
   // Return type: refptr_same
   return AcfFrameCToCpp::Wrap(_retval);

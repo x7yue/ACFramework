@@ -5,13 +5,14 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=8ddab34f038e17f0953b29c2b42eb8044eabdfee$
+// $hash=bafe3438d35d2227cb22c9d22360e7983952d816$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_BROWSER_CAPI_H_
 #define ACF_INCLUDE_CAPI_ACF_BROWSER_CAPI_H_
 #pragma once
 
+#include "include/capi/acf_context_menu_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
@@ -24,8 +25,10 @@ extern "C" {
 #endif
 
 struct _acf_browser_t;
+struct _acf_context_menu_callback_t;
 struct _acf_environment_t;
 struct _acf_frame_t;
+struct _acf_login_delegate_t;
 struct _acf_new_window_delegate_t;
 struct _acf_profile_t;
 
@@ -99,6 +102,66 @@ typedef struct _acf_browser_handler_t {
       struct _acf_browser_handler_t* self,
       struct _acf_browser_t* browser,
       int fullscreen);
+
+  ///
+  /// network need auth request
+  ///
+  void(ACF_CALLBACK* on_auth_login_request)(
+      struct _acf_browser_handler_t* self,
+      struct _acf_browser_t* browser,
+      int is_proxy,
+      const acf_string_t* url,
+      const acf_string_t* scheme,
+      const acf_string_t* realm,
+      const acf_string_t* challenge,
+      int is_main_frame,
+      struct _acf_login_delegate_t* delegate);
+
+  ///
+  /// Context menu request, return true (1) for blocking menu popup
+  ///
+  void(ACF_CALLBACK* on_context_menu_request)(
+      struct _acf_browser_handler_t* self,
+      struct _acf_browser_t* browser,
+      struct _acf_context_menu_params_t* menu_params,
+      struct _acf_context_menu_model_t* menu_model,
+      struct _acf_context_menu_callback_t* callback);
+
+  ///
+  /// Context menu request to execute |command_id| associate item command.
+  ///
+  void(ACF_CALLBACK* on_context_menu_execute)(
+      struct _acf_browser_handler_t* self,
+      struct _acf_browser_t* browser,
+      struct _acf_context_menu_params_t* menu_params,
+      int command_id,
+      int event_flags);
+
+  ///
+  /// Load start notify
+  ///
+  void(ACF_CALLBACK* on_load_start)(struct _acf_browser_handler_t* self,
+                                    struct _acf_browser_t* browser,
+                                    struct _acf_frame_t* frame,
+                                    int transition);
+
+  ///
+  /// Load end notify
+  ///
+  void(ACF_CALLBACK* on_load_end)(struct _acf_browser_handler_t* self,
+                                  struct _acf_browser_t* browser,
+                                  struct _acf_frame_t* frame,
+                                  const acf_string_t* url,
+                                  int http_status_code);
+
+  ///
+  /// Load error notify
+  ///
+  void(ACF_CALLBACK* on_load_error)(struct _acf_browser_handler_t* self,
+                                    struct _acf_browser_t* browser,
+                                    struct _acf_frame_t* frame,
+                                    const acf_string_t* url,
+                                    int error_code);
 } acf_browser_handler_t;
 
 ///
@@ -254,6 +317,18 @@ typedef struct _acf_browser_t {
   ///
   struct _acf_frame_t*(ACF_CALLBACK* get_frame)(struct _acf_browser_t* self,
                                                 const acf_string_t* name);
+
+  ///
+  /// Returns the main (top-level) frame for the browser. In the browser process
+  /// this will return a valid object until after
+  /// CefLifeSpanHandler::OnBeforeClose is called. In the renderer process this
+  /// will return NULL if the main frame is hosted in a different renderer
+  /// process (e.g. for cross-origin sub-frames). The main frame object will
+  /// change during cross-origin navigation or re-navigation after renderer
+  /// process termination (due to crashes, etc).
+  ///
+  struct _acf_frame_t*(ACF_CALLBACK* get_main_frame)(
+      struct _acf_browser_t* self);
 } acf_browser_t;
 
 ///
@@ -287,6 +362,44 @@ typedef struct _acf_new_window_delegate_t {
   void(ACF_CALLBACK* handle_request)(struct _acf_new_window_delegate_t* self,
                                      int handled);
 } acf_new_window_delegate_t;
+
+///
+/// Network auth callback delegate
+///
+typedef struct _acf_login_delegate_t {
+  ///
+  /// Base structure.
+  ///
+  acf_base_ref_counted_t base;
+
+  ///
+  /// Continue with username and password
+  ///
+  void(ACF_CALLBACK* cont)(struct _acf_login_delegate_t* self,
+                           const acf_string_t* user_name,
+                           const acf_string_t* password);
+
+  ///
+  /// Cancel auth request (Default process)
+  ///
+  void(ACF_CALLBACK* cancel)(struct _acf_login_delegate_t* self);
+} acf_login_delegate_t;
+
+///
+/// Context menu callback
+///
+typedef struct _acf_context_menu_callback_t {
+  ///
+  /// Base structure.
+  ///
+  acf_base_ref_counted_t base;
+
+  ///
+  /// Continue show menu
+  ///
+  void(ACF_CALLBACK* cont)(struct _acf_context_menu_callback_t* self,
+                           int suppress);
+} acf_context_menu_callback_t;
 
 #ifdef __cplusplus
 }

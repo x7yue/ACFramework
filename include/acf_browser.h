@@ -5,6 +5,7 @@
 
 #include "include/acf_environment.h"
 #include "include/acf_frame.h"
+#include "include/acf_context_menu.h"
 
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
@@ -16,6 +17,8 @@ class AcfBrowser;
 class AcfNewWindowDelegate;
 class AcfProfile;
 class AcfFrame;
+class AcfLoginDelegate;
+class AcfContextMenuCallback;
 
 ///
 /// Browser event list handler model
@@ -84,6 +87,63 @@ class AcfBrowserHandler : public virtual AcfBaseRefCounted {
   /*--acf()--*/
   virtual void OnFullscreenStateChanged(AcfRefPtr<AcfBrowser> browser,
                                         bool fullscreen) {}
+
+  ///
+  /// network need auth request
+  ///
+  /*--acf()--*/
+  virtual void OnAuthLoginRequest(AcfRefPtr<AcfBrowser> browser,
+                                  bool is_proxy,
+                                  const AcfString& url,
+                                  const AcfString& scheme,
+                                  const AcfString& realm,
+                                  const AcfString& challenge,
+                                  bool is_main_frame,
+                                  AcfRefPtr<AcfLoginDelegate> delegate) {}
+  ///
+  /// Context menu request, return true for blocking menu popup
+  ///
+  /*--acf()--*/
+  virtual void OnContextMenuRequest(AcfRefPtr<AcfBrowser> browser,
+                                    AcfRefPtr<AcfContextMenuParams> menu_params,
+                                    AcfRefPtr<AcfContextMenuModel> menu_model,
+                                    AcfRefPtr<AcfContextMenuCallback> callback) {
+  }
+
+  ///
+  /// Context menu request to execute |command_id| associate item command.
+  ///
+  /*--acf()--*/
+  virtual void OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
+                                    AcfRefPtr<AcfContextMenuParams> menu_params,
+                                    int command_id,
+                                    int event_flags) {}
+
+  ///
+  /// Load start notify
+  ///
+  /*--acf()--*/
+  virtual void OnLoadStart(AcfRefPtr<AcfBrowser> browser,
+                           AcfRefPtr<AcfFrame> frame,
+                           int transition) {}
+
+  ///
+  /// Load end notify
+  ///
+  /*--acf()--*/
+  virtual void OnLoadEnd(AcfRefPtr<AcfBrowser> browser,
+                         AcfRefPtr<AcfFrame> frame,
+                         const AcfString& url,
+                         int http_status_code) {}
+
+  ///
+  /// Load error notify
+  ///
+  /*--acf()--*/
+  virtual void OnLoadError(AcfRefPtr<AcfBrowser> browser,
+                           AcfRefPtr<AcfFrame> frame,
+                           const AcfString& url,
+                           int error_code) {}
 };
 
 ///
@@ -248,6 +308,18 @@ class AcfBrowser : public virtual AcfBaseRefCounted {
   ///
   /*--acf(optional_param=name)--*/
   virtual AcfRefPtr<AcfFrame> GetFrame(const AcfString& name) = 0;
+
+  ///
+  /// Returns the main (top-level) frame for the browser. In the browser process
+  /// this will return a valid object until after
+  /// CefLifeSpanHandler::OnBeforeClose is called. In the renderer process this
+  /// will return NULL if the main frame is hosted in a different renderer
+  /// process (e.g. for cross-origin sub-frames). The main frame object will
+  /// change during cross-origin navigation or re-navigation after renderer
+  /// process termination (due to crashes, etc).
+  ///
+  /*--acf()--*/
+  virtual AcfRefPtr<AcfFrame> GetMainFrame() = 0;
 };
 
 ///
@@ -278,6 +350,39 @@ class AcfNewWindowDelegate : public virtual AcfBaseRefCounted {
   ///
   /*--acf()--*/
   virtual void HandleRequest(bool handled) = 0;
+};
+
+///
+/// Network auth callback delegate
+///
+/*--acf(source=library)--*/
+class AcfLoginDelegate : public virtual AcfBaseRefCounted {
+ public:
+  ///
+  /// Continue with username and password
+  ///
+  /*--acf(capi_name=cont)--*/
+  virtual void Continue(const AcfString& user_name,
+                        const AcfString& password) = 0;
+
+  ///
+  /// Cancel auth request (Default process)
+  ///
+  /*--acf()--*/
+  virtual void Cancel() = 0;
+};
+
+///
+/// Context menu callback
+///
+/*--acf(source=library)--*/
+class AcfContextMenuCallback : public virtual AcfBaseRefCounted {
+ public:
+  ///
+  /// Continue show menu
+  ///
+  /*--acf(capi_name=cont)--*/
+  virtual void Continue(bool suppress) = 0;
 };
 
 #endif

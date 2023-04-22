@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=35afab52d08a908571a49497c15e8147a5fb5678$
+// $hash=5b57d81c946936f4681594662af435344c84fb3b$
 //
 
 #ifndef ACF_CTOCPP_FRAME_CTOCPP_H_
@@ -15,8 +15,10 @@
 #pragma once
 
 #include "include/acf_browser.h"
+#include "include/acf_callback.h"
 #include "include/acf_frame.h"
 #include "include/capi/acf_browser_capi.h"
+#include "include/capi/acf_callback_capi.h"
 #include "include/capi/acf_frame_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
@@ -37,6 +39,11 @@ class AcfFrameCToCpp
   AcfString GetName() override;
   int64 GetIdentifier() override;
   bool IsMain() override;
+  void ExecuteJavascript(const AcfString& script,
+                         const AcfString& url,
+                         AcfRefPtr<AcfCompleteValueHandler> handler) override;
+  void GetSource(AcfRefPtr<AcfStringVisitor> visitor) override;
+  void GetText(AcfRefPtr<AcfStringVisitor> visitor) override;
 };
 
 #endif  // ACF_CTOCPP_FRAME_CTOCPP_H_

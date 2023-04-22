@@ -56,7 +56,23 @@ class Window : public AcfBrowserHandler {
   void OnAddressChanged(AcfRefPtr<AcfBrowser> browser,
                         const AcfString& address) override;
   void OnFullscreenStateChanged(AcfRefPtr<AcfBrowser> browser, bool fullscreen) override;
-  
+  void OnAuthLoginRequest(AcfRefPtr<AcfBrowser> browser,
+                          bool is_proxy,
+                          const AcfString& url,
+                          const AcfString& scheme,
+                          const AcfString& realm,
+                          const AcfString& challenge,
+                          bool is_main_frame,
+                          AcfRefPtr<AcfLoginDelegate> delegate) override;
+  void OnContextMenuRequest(AcfRefPtr<AcfBrowser> browser,
+                            AcfRefPtr<AcfContextMenuParams> menu_params,
+                            AcfRefPtr<AcfContextMenuModel> menu_model,
+                            AcfRefPtr<AcfContextMenuCallback> callback) override;
+  void OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
+                            AcfRefPtr<AcfContextMenuParams> menu_params,
+                            int command_id,
+                            int event_flags) override;
+
   AcfBrowser* browser_weak_ptr_ = nullptr;
 
  private:

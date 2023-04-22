@@ -7,14 +7,14 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=267e403e5b8ea92773b2c32eedd7d9af688eedf3$
+// $hash=629bbc84706d955b6bb6065ff7c646eddbdd70fe$
 //
 
 #include "libacf_dll/ctocpp/complete_handler_ctocpp.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
 
-void AcfCompleteHandlerCToCpp::OnComplete() {
+void AcfCompleteHandlerCToCpp::OnComplete(bool success) {
   acf_complete_handler_t* _struct = GetStruct();
   if (ACF_MEMBER_MISSING(_struct, on_complete))
     return;
@@ -22,7 +22,7 @@ void AcfCompleteHandlerCToCpp::OnComplete() {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   // Execute
-  _struct->on_complete(_struct);
+  _struct->on_complete(_struct, success);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

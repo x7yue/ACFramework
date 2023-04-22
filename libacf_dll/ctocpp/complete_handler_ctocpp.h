@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=005b4c0589001e867df86cf3191beed0b2f6f8b1$
+// $hash=60751e602b1b071baceb0fe003fa9057a9155215$
 //
 
 #ifndef ACF_CTOCPP_COMPLETE_HANDLER_CTOCPP_H_
@@ -15,7 +15,9 @@
 #pragma once
 
 #include "include/acf_callback.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_callback_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
@@ -29,7 +31,7 @@ class AcfCompleteHandlerCToCpp
   virtual ~AcfCompleteHandlerCToCpp();
 
   // AcfCompleteHandler methods.
-  void OnComplete() override;
+  void OnComplete(bool success) override;
 };
 
 #endif  // ACF_CTOCPP_COMPLETE_HANDLER_CTOCPP_H_

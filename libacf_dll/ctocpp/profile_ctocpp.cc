@@ -7,12 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=3169c4ab5ecb6c0c3a64efeb2a44c802fa55b7b0$
+// $hash=98357cea7c80cfe0cc53219e98a57d3600fc6961$
 //
 
 #include "libacf_dll/ctocpp/profile_ctocpp.h"
 #include "libacf_dll/cpptoc/complete_handler_cpptoc.h"
 #include "libacf_dll/cpptoc/profile_handler_cpptoc.h"
+#include "libacf_dll/ctocpp/cookie_ctocpp.h"
+#include "libacf_dll/ctocpp/cookie_manager_ctocpp.h"
+#include "libacf_dll/ctocpp/environment_ctocpp.h"
+#include "libacf_dll/ctocpp/value_ctocpp.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
 
@@ -28,6 +32,20 @@ AcfRefPtr<AcfProfileHandler> AcfProfileCToCpp::GetHandler() {
 
   // Return type: refptr_diff
   return AcfProfileHandlerCppToC::Unwrap(_retval);
+}
+
+AcfRefPtr<AcfEnvironment> AcfProfileCToCpp::GetEnvironment() {
+  acf_profile_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_environment))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_environment_t* _retval = _struct->get_environment(_struct);
+
+  // Return type: refptr_same
+  return AcfEnvironmentCToCpp::Wrap(_retval);
 }
 
 bool AcfProfileCToCpp::IsValid() {
@@ -60,6 +78,26 @@ AcfString AcfProfileCToCpp::GetPath() {
   return _retvalStr;
 }
 
+void AcfProfileCToCpp::SetPreference(const AcfString& name,
+                                     AcfRefPtr<AcfValue> value,
+                                     AcfRefPtr<AcfCompleteHandler> handler) {
+  acf_profile_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, set_preference))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: name; type: string_byref_const
+  if (name.empty())
+    return;
+  // Unverified params: value, handler
+
+  // Execute
+  _struct->set_preference(_struct, name.GetStruct(),
+                          AcfValueCToCpp::Unwrap(value),
+                          AcfCompleteHandlerCppToC::Wrap(handler));
+}
+
 void AcfProfileCToCpp::RemoveBrowsingData(
     RemoveDataType data_type,
     bool no_checks,
@@ -75,6 +113,52 @@ void AcfProfileCToCpp::RemoveBrowsingData(
   // Execute
   _struct->remove_browsing_data(_struct, data_type, no_checks,
                                 AcfCompleteHandlerCppToC::Wrap(handler));
+}
+
+AcfRefPtr<AcfCookieManager> AcfProfileCToCpp::GetCookieManager() {
+  acf_profile_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_cookie_manager))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_cookie_manager_t* _retval = _struct->get_cookie_manager(_struct);
+
+  // Return type: refptr_same
+  return AcfCookieManagerCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfCookie> AcfProfileCToCpp::CreateCookie(const AcfString& name,
+                                                    const AcfString& value,
+                                                    const AcfString& domain,
+                                                    const AcfString& path) {
+  acf_profile_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, create_cookie))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: name; type: string_byref_const
+  if (name.empty())
+    return nullptr;
+  // Verify param: value; type: string_byref_const
+  if (value.empty())
+    return nullptr;
+  // Verify param: domain; type: string_byref_const
+  if (domain.empty())
+    return nullptr;
+  // Verify param: path; type: string_byref_const
+  if (path.empty())
+    return nullptr;
+
+  // Execute
+  acf_cookie_t* _retval =
+      _struct->create_cookie(_struct, name.GetStruct(), value.GetStruct(),
+                             domain.GetStruct(), path.GetStruct());
+
+  // Return type: refptr_same
+  return AcfCookieCToCpp::Wrap(_retval);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

@@ -5,19 +5,21 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=9d593f2bd3c349649a1851ef487f523829f150d2$
+// $hash=388063a369ca037cba72c13c89de6d1801d27b62$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_CALLBACK_CAPI_H_
 #define ACF_INCLUDE_CAPI_ACF_CALLBACK_CAPI_H_
 #pragma once
 
-#include "include/capi/acf_base_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+struct _acf_value_t;
 
 ///
 /// Complete event notify
@@ -31,8 +33,57 @@ typedef struct _acf_complete_handler_t {
   ///
   /// Called when task has been completed.
   ///
-  void(ACF_CALLBACK* on_complete)(struct _acf_complete_handler_t* self);
+  void(ACF_CALLBACK* on_complete)(struct _acf_complete_handler_t* self,
+                                  int success);
 } acf_complete_handler_t;
+
+///
+/// Complete callback with value
+///
+typedef struct _acf_complete_value_handler_t {
+  ///
+  /// Base structure.
+  ///
+  acf_base_ref_counted_t base;
+
+  ///
+  /// Called when task has been completed.
+  ///
+  void(ACF_CALLBACK* on_complete)(struct _acf_complete_value_handler_t* self,
+                                  struct _acf_value_t* value);
+} acf_complete_value_handler_t;
+
+///
+/// Implement this structure to receive string values asynchronously.
+///
+typedef struct _acf_string_visitor_t {
+  ///
+  /// Base structure.
+  ///
+  acf_base_ref_counted_t base;
+
+  ///
+  /// Method that will be executed.
+  ///
+  void(ACF_CALLBACK* visit)(struct _acf_string_visitor_t* self,
+                            const acf_string_t* string);
+} acf_string_visitor_t;
+
+///
+/// Complete event notify
+///
+typedef struct _acf_number_complete_handler_t {
+  ///
+  /// Base structure.
+  ///
+  acf_base_ref_counted_t base;
+
+  ///
+  /// Called when task has been completed.
+  ///
+  void(ACF_CALLBACK* on_complete)(struct _acf_number_complete_handler_t* self,
+                                  int value);
+} acf_number_complete_handler_t;
 
 #ifdef __cplusplus
 }

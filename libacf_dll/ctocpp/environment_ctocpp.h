@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=83e5c2b6844d84a46a6a6b1993f53c13408ce405$
+// $hash=970049ea7ac9bfa73bd1556e0775aceb7c7d8a5e$
 //
 
 #ifndef ACF_CTOCPP_ENVIRONMENT_CTOCPP_H_
@@ -38,6 +38,7 @@ class AcfEnvironmentCToCpp : public AcfCToCppRefCounted<AcfEnvironmentCToCpp,
   AcfString GetBrowserVersion() override;
   uint32 GetProcessPID() override;
   int Terminate() override;
+  AcfRefPtr<AcfProfile> GetDefaultProfile() override;
   AcfRefPtr<AcfProfile> CreateProfile(
       const AcfString& path,
       AcfRefPtr<AcfProfileHandler> handler) override;

@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=1b1f4851a4a9a4f28a379defccff717542097f0d$
+// $hash=55022b4976e6db7ea3bf2ddd3104bae26afdcdf7$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_ENVIRONMENT_CAPI_H_
@@ -96,6 +96,12 @@ typedef struct _acf_environment_t {
   /// Quit and wait for browser process return process exit code
   ///
   int(ACF_CALLBACK* terminate)(struct _acf_environment_t* self);
+
+  ///
+  /// Get default profile
+  ///
+  struct _acf_profile_t*(ACF_CALLBACK* get_default_profile)(
+      struct _acf_environment_t* self);
 
   ///
   /// Create a profile hosted a user profile each path could only create a

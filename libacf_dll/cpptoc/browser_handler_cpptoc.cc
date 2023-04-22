@@ -7,11 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=421e7d84957a13deb5dff5e072c1386f6dd95255$
+// $hash=6640d7131552b86e37d815f41b8d605a29aef657$
 //
 
 #include "libacf_dll/cpptoc/browser_handler_cpptoc.h"
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
+#include "libacf_dll/ctocpp/context_menu_callback_ctocpp.h"
+#include "libacf_dll/ctocpp/context_menu_model_ctocpp.h"
+#include "libacf_dll/ctocpp/context_menu_params_ctocpp.h"
+#include "libacf_dll/ctocpp/frame_ctocpp.h"
+#include "libacf_dll/ctocpp/login_delegate_ctocpp.h"
 #include "libacf_dll/ctocpp/new_window_delegate_ctocpp.h"
 
 namespace {
@@ -165,6 +170,173 @@ browser_handler_on_fullscreen_state_changed(struct _acf_browser_handler_t* self,
       AcfBrowserCToCpp::Wrap(browser), fullscreen ? true : false);
 }
 
+void ACF_CALLBACK
+browser_handler_on_auth_login_request(struct _acf_browser_handler_t* self,
+                                      struct _acf_browser_t* browser,
+                                      int is_proxy,
+                                      const acf_string_t* url,
+                                      const acf_string_t* scheme,
+                                      const acf_string_t* realm,
+                                      const acf_string_t* challenge,
+                                      int is_main_frame,
+                                      struct _acf_login_delegate_t* delegate) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Verify param: url; type: string_byref_const
+  if (!url)
+    return;
+  // Verify param: scheme; type: string_byref_const
+  if (!scheme)
+    return;
+  // Verify param: realm; type: string_byref_const
+  if (!realm)
+    return;
+  // Verify param: challenge; type: string_byref_const
+  if (!challenge)
+    return;
+  // Verify param: delegate; type: refptr_diff
+  if (!delegate)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnAuthLoginRequest(
+      AcfBrowserCToCpp::Wrap(browser), is_proxy ? true : false, AcfString(url),
+      AcfString(scheme), AcfString(realm), AcfString(challenge),
+      is_main_frame ? true : false, AcfLoginDelegateCToCpp::Wrap(delegate));
+}
+
+void ACF_CALLBACK browser_handler_on_context_menu_request(
+    struct _acf_browser_handler_t* self,
+    struct _acf_browser_t* browser,
+    struct _acf_context_menu_params_t* menu_params,
+    struct _acf_context_menu_model_t* menu_model,
+    struct _acf_context_menu_callback_t* callback) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Verify param: menu_params; type: refptr_diff
+  if (!menu_params)
+    return;
+  // Verify param: menu_model; type: refptr_diff
+  if (!menu_model)
+    return;
+  // Verify param: callback; type: refptr_diff
+  if (!callback)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnContextMenuRequest(
+      AcfBrowserCToCpp::Wrap(browser),
+      AcfContextMenuParamsCToCpp::Wrap(menu_params),
+      AcfContextMenuModelCToCpp::Wrap(menu_model),
+      AcfContextMenuCallbackCToCpp::Wrap(callback));
+}
+
+void ACF_CALLBACK browser_handler_on_context_menu_execute(
+    struct _acf_browser_handler_t* self,
+    struct _acf_browser_t* browser,
+    struct _acf_context_menu_params_t* menu_params,
+    int command_id,
+    int event_flags) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Verify param: menu_params; type: refptr_diff
+  if (!menu_params)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnContextMenuExecute(
+      AcfBrowserCToCpp::Wrap(browser),
+      AcfContextMenuParamsCToCpp::Wrap(menu_params), command_id, event_flags);
+}
+
+void ACF_CALLBACK
+browser_handler_on_load_start(struct _acf_browser_handler_t* self,
+                              struct _acf_browser_t* browser,
+                              struct _acf_frame_t* frame,
+                              int transition) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Verify param: frame; type: refptr_diff
+  if (!frame)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnLoadStart(
+      AcfBrowserCToCpp::Wrap(browser), AcfFrameCToCpp::Wrap(frame), transition);
+}
+
+void ACF_CALLBACK
+browser_handler_on_load_end(struct _acf_browser_handler_t* self,
+                            struct _acf_browser_t* browser,
+                            struct _acf_frame_t* frame,
+                            const acf_string_t* url,
+                            int http_status_code) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Verify param: frame; type: refptr_diff
+  if (!frame)
+    return;
+  // Verify param: url; type: string_byref_const
+  if (!url)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnLoadEnd(
+      AcfBrowserCToCpp::Wrap(browser), AcfFrameCToCpp::Wrap(frame),
+      AcfString(url), http_status_code);
+}
+
+void ACF_CALLBACK
+browser_handler_on_load_error(struct _acf_browser_handler_t* self,
+                              struct _acf_browser_t* browser,
+                              struct _acf_frame_t* frame,
+                              const acf_string_t* url,
+                              int error_code) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Verify param: frame; type: refptr_diff
+  if (!frame)
+    return;
+  // Verify param: url; type: string_byref_const
+  if (!url)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnLoadError(
+      AcfBrowserCToCpp::Wrap(browser), AcfFrameCToCpp::Wrap(frame),
+      AcfString(url), error_code);
+}
+
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
@@ -181,6 +353,14 @@ AcfBrowserHandlerCppToC::AcfBrowserHandlerCppToC() {
   GetStruct()->on_address_changed = browser_handler_on_address_changed;
   GetStruct()->on_fullscreen_state_changed =
       browser_handler_on_fullscreen_state_changed;
+  GetStruct()->on_auth_login_request = browser_handler_on_auth_login_request;
+  GetStruct()->on_context_menu_request =
+      browser_handler_on_context_menu_request;
+  GetStruct()->on_context_menu_execute =
+      browser_handler_on_context_menu_execute;
+  GetStruct()->on_load_start = browser_handler_on_load_start;
+  GetStruct()->on_load_end = browser_handler_on_load_end;
+  GetStruct()->on_load_error = browser_handler_on_load_error;
 }
 
 // DESTRUCTOR - Do not edit by hand.

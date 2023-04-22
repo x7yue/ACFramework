@@ -7,10 +7,12 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=320968e24ec0d27bb79bc196825ddafae72bb4b4$
+// $hash=a950a43b348d95298c248dbca3f2a1d668613091$
 //
 
 #include "libacf_dll/ctocpp/frame_ctocpp.h"
+#include "libacf_dll/cpptoc/complete_value_handler_cpptoc.h"
+#include "libacf_dll/cpptoc/string_visitor_cpptoc.h"
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
@@ -133,6 +135,59 @@ bool AcfFrameCToCpp::IsMain() {
 
   // Return type: bool
   return _retval ? true : false;
+}
+
+void AcfFrameCToCpp::ExecuteJavascript(
+    const AcfString& script,
+    const AcfString& url,
+    AcfRefPtr<AcfCompleteValueHandler> handler) {
+  acf_frame_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, execute_javascript))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: script; type: string_byref_const
+  if (script.empty())
+    return;
+  // Verify param: url; type: string_byref_const
+  if (url.empty())
+    return;
+  // Unverified params: handler
+
+  // Execute
+  _struct->execute_javascript(_struct, script.GetStruct(), url.GetStruct(),
+                              AcfCompleteValueHandlerCppToC::Wrap(handler));
+}
+
+void AcfFrameCToCpp::GetSource(AcfRefPtr<AcfStringVisitor> visitor) {
+  acf_frame_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_source))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: visitor; type: refptr_diff
+  if (!visitor.get())
+    return;
+
+  // Execute
+  _struct->get_source(_struct, AcfStringVisitorCppToC::Wrap(visitor));
+}
+
+void AcfFrameCToCpp::GetText(AcfRefPtr<AcfStringVisitor> visitor) {
+  acf_frame_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_text))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: visitor; type: refptr_diff
+  if (!visitor.get())
+    return;
+
+  // Execute
+  _struct->get_text(_struct, AcfStringVisitorCppToC::Wrap(visitor));
 }
 
 // CONSTRUCTOR - Do not edit by hand.

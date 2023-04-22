@@ -7,11 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=b22493faadb139d571bd08e0e85ada5ed3fac0b0$
+// $hash=bf72b3e13afa5a7e543b51daac73ba4c3fd2fd5e$
 //
 
 #include "libacf_dll/ctocpp/browser_handler_ctocpp.h"
 #include "libacf_dll/cpptoc/browser_cpptoc.h"
+#include "libacf_dll/cpptoc/context_menu_callback_cpptoc.h"
+#include "libacf_dll/cpptoc/context_menu_model_cpptoc.h"
+#include "libacf_dll/cpptoc/context_menu_params_cpptoc.h"
+#include "libacf_dll/cpptoc/frame_cpptoc.h"
+#include "libacf_dll/cpptoc/login_delegate_cpptoc.h"
 #include "libacf_dll/cpptoc/new_window_delegate_cpptoc.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
@@ -164,6 +169,176 @@ void AcfBrowserHandlerCToCpp::OnFullscreenStateChanged(
   // Execute
   _struct->on_fullscreen_state_changed(_struct, AcfBrowserCppToC::Wrap(browser),
                                        fullscreen);
+}
+
+void AcfBrowserHandlerCToCpp::OnAuthLoginRequest(
+    AcfRefPtr<AcfBrowser> browser,
+    bool is_proxy,
+    const AcfString& url,
+    const AcfString& scheme,
+    const AcfString& realm,
+    const AcfString& challenge,
+    bool is_main_frame,
+    AcfRefPtr<AcfLoginDelegate> delegate) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_auth_login_request))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Verify param: url; type: string_byref_const
+  if (url.empty())
+    return;
+  // Verify param: scheme; type: string_byref_const
+  if (scheme.empty())
+    return;
+  // Verify param: realm; type: string_byref_const
+  if (realm.empty())
+    return;
+  // Verify param: challenge; type: string_byref_const
+  if (challenge.empty())
+    return;
+  // Verify param: delegate; type: refptr_diff
+  if (!delegate.get())
+    return;
+
+  // Execute
+  _struct->on_auth_login_request(
+      _struct, AcfBrowserCppToC::Wrap(browser), is_proxy, url.GetStruct(),
+      scheme.GetStruct(), realm.GetStruct(), challenge.GetStruct(),
+      is_main_frame, AcfLoginDelegateCppToC::Wrap(delegate));
+}
+
+void AcfBrowserHandlerCToCpp::OnContextMenuRequest(
+    AcfRefPtr<AcfBrowser> browser,
+    AcfRefPtr<AcfContextMenuParams> menu_params,
+    AcfRefPtr<AcfContextMenuModel> menu_model,
+    AcfRefPtr<AcfContextMenuCallback> callback) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_context_menu_request))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Verify param: menu_params; type: refptr_diff
+  if (!menu_params.get())
+    return;
+  // Verify param: menu_model; type: refptr_diff
+  if (!menu_model.get())
+    return;
+  // Verify param: callback; type: refptr_diff
+  if (!callback.get())
+    return;
+
+  // Execute
+  _struct->on_context_menu_request(
+      _struct, AcfBrowserCppToC::Wrap(browser),
+      AcfContextMenuParamsCppToC::Wrap(menu_params),
+      AcfContextMenuModelCppToC::Wrap(menu_model),
+      AcfContextMenuCallbackCppToC::Wrap(callback));
+}
+
+void AcfBrowserHandlerCToCpp::OnContextMenuExecute(
+    AcfRefPtr<AcfBrowser> browser,
+    AcfRefPtr<AcfContextMenuParams> menu_params,
+    int command_id,
+    int event_flags) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_context_menu_execute))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Verify param: menu_params; type: refptr_diff
+  if (!menu_params.get())
+    return;
+
+  // Execute
+  _struct->on_context_menu_execute(
+      _struct, AcfBrowserCppToC::Wrap(browser),
+      AcfContextMenuParamsCppToC::Wrap(menu_params), command_id, event_flags);
+}
+
+void AcfBrowserHandlerCToCpp::OnLoadStart(AcfRefPtr<AcfBrowser> browser,
+                                          AcfRefPtr<AcfFrame> frame,
+                                          int transition) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_load_start))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Verify param: frame; type: refptr_diff
+  if (!frame.get())
+    return;
+
+  // Execute
+  _struct->on_load_start(_struct, AcfBrowserCppToC::Wrap(browser),
+                         AcfFrameCppToC::Wrap(frame), transition);
+}
+
+void AcfBrowserHandlerCToCpp::OnLoadEnd(AcfRefPtr<AcfBrowser> browser,
+                                        AcfRefPtr<AcfFrame> frame,
+                                        const AcfString& url,
+                                        int http_status_code) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_load_end))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Verify param: frame; type: refptr_diff
+  if (!frame.get())
+    return;
+  // Verify param: url; type: string_byref_const
+  if (url.empty())
+    return;
+
+  // Execute
+  _struct->on_load_end(_struct, AcfBrowserCppToC::Wrap(browser),
+                       AcfFrameCppToC::Wrap(frame), url.GetStruct(),
+                       http_status_code);
+}
+
+void AcfBrowserHandlerCToCpp::OnLoadError(AcfRefPtr<AcfBrowser> browser,
+                                          AcfRefPtr<AcfFrame> frame,
+                                          const AcfString& url,
+                                          int error_code) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_load_error))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Verify param: frame; type: refptr_diff
+  if (!frame.get())
+    return;
+  // Verify param: url; type: string_byref_const
+  if (url.empty())
+    return;
+
+  // Execute
+  _struct->on_load_error(_struct, AcfBrowserCppToC::Wrap(browser),
+                         AcfFrameCppToC::Wrap(frame), url.GetStruct(),
+                         error_code);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

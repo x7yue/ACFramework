@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=3efe621f20e09cfa380ed63153df4500b93a53de$
+// $hash=6b0b03776cfa48d53a2c6d021f6d3567adcf83f5$
 //
 
 #include "libacf_dll/cpptoc/browser_cpptoc.h"
@@ -390,6 +390,20 @@ struct _acf_frame_t* ACF_CALLBACK browser_get_frame(struct _acf_browser_t* self,
   return AcfFrameCppToC::Wrap(_retval);
 }
 
+struct _acf_frame_t* ACF_CALLBACK
+browser_get_main_frame(struct _acf_browser_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return NULL;
+
+  // Execute
+  AcfRefPtr<AcfFrame> _retval = AcfBrowserCppToC::Get(self)->GetMainFrame();
+
+  // Return type: refptr_same
+  return AcfFrameCppToC::Wrap(_retval);
+}
+
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
@@ -421,6 +435,7 @@ AcfBrowserCppToC::AcfBrowserCppToC() {
   GetStruct()->get_frame_names = browser_get_frame_names;
   GetStruct()->get_frame_byident = browser_get_frame_byident;
   GetStruct()->get_frame = browser_get_frame;
+  GetStruct()->get_main_frame = browser_get_main_frame;
 }
 
 // DESTRUCTOR - Do not edit by hand.
