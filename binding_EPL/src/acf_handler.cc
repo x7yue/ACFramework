@@ -120,34 +120,6 @@ void ProfileHandler::OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) {
   }
 }
 
-void ProfileHandler::OnProfileRemoveDataCompleted(AcfRefPtr<AcfProfile> profile,
-                                                  AcfUserData token) {
-  if (this->callback_ != NULL) {
-    LPVOID pClass = this->callback_;
-    profile->AddRef();
-    IMP_NEWECLASS(TempProfile, profile.get(), eClass::m_pVfTable_Profile,
-                  acf_cpp_fntable_profile);
-    __asm {
-			push ecx;
-			push ebx;
-			push edi;
-			push esi;
-			mov ebx, pClass;
-			mov edx, [ebx];
-			lea ecx, pClass;
-			push token;
-			push TempProfile;
-			push ecx;
-			call[edx + 0x10];
-			pop esi;
-			pop edi;
-			pop ebx;
-			pop ecx;
-    }
-    profile->Release();
-  }
-}
-
 BrowserHandler::BrowserHandler(LPVOID callback) : callback_(callback) {}
 
 BrowserHandler::~BrowserHandler() {

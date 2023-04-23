@@ -32,8 +32,6 @@ class ProfileHandler : public AcfProfileHandler {
  protected:
   void OnProfileCreated(AcfRefPtr<AcfProfile> profile) override;
   void OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) override;
-  void OnProfileRemoveDataCompleted(AcfRefPtr<AcfProfile> profile,
-                                    AcfUserData token) override;
 
  private:
   LPVOID callback_;

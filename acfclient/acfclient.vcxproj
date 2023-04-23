@@ -19,13 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="client_window.cc" />
-    <ClCompile Include="main.cc" />
-    <ClCompile Include="message_loop_manager.cc" />
+    <ClCompile Include="src\client_window.cc" />
+    <ClCompile Include="src\main.cc" />
+    <ClCompile Include="src\message_loop_manager.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="client_window.h" />
-    <ClInclude Include="message_loop_manager.h" />
+    <ClInclude Include="src\client_window.h" />
+    <ClInclude Include="src\message_loop_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

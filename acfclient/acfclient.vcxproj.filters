@@ -6,21 +6,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="client_window.cc">
+    <ClCompile Include="src\client_window.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="main.cc">
+    <ClCompile Include="src\main.cc">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="message_loop_manager.cc">
+    <ClCompile Include="src\message_loop_manager.cc">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="client_window.h">
+    <ClInclude Include="src\client_window.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="message_loop_manager.h">
+    <ClInclude Include="src\message_loop_manager.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

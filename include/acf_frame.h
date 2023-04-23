@@ -5,9 +5,11 @@
 #include "include/internal/acf_types.h"
 #include "include/acf_browser.h"
 #include "include/acf_values.h"
+#include "include/acf_callback.h"
 
 class AcfBrowser;
 class AcfCompleteValueHandler;
+class AcfStringVisitor;
 
 ///
 /// Frame object that host a iframe dom in browser webcontents,
