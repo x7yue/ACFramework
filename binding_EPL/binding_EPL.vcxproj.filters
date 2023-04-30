@@ -17,45 +17,48 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\acf_env.cc">
+    <ClCompile Include="src\wrapper_environment.cc">
       <Filter>src\dll</Filter>
     </ClCompile>
-    <ClCompile Include="src\acf_handler.cc">
+    <ClCompile Include="src\wrapper_handler_interface.cc">
       <Filter>src\dll</Filter>
     </ClCompile>
-    <ClCompile Include="src\acf_Class.cc">
+    <ClCompile Include="src\struct_class.cc">
       <Filter>src\dll</Filter>
     </ClCompile>
-    <ClCompile Include="src\acf_Util.cc">
+    <ClCompile Include="src\wrapper_utility.cc">
       <Filter>src\dll</Filter>
     </ClCompile>
-    <ClCompile Include="src\acf_eprofile.cc">
+    <ClCompile Include="src\wrapper_profile.cc">
       <Filter>src\dll</Filter>
     </ClCompile>
-    <ClCompile Include="src\acf_ebrowser.cc">
+    <ClCompile Include="src\wrapper_browser.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\message_pump.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wrapper_values.cc">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wrapper_callback.cc">
       <Filter>src\dll</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\acf_env.h">
+    <ClInclude Include="src\wrapper_types.h">
       <Filter>src\dll</Filter>
     </ClInclude>
-    <ClInclude Include="src\acf_types.h">
+    <ClInclude Include="src\wrapper_handler_interface.h">
       <Filter>src\dll</Filter>
     </ClInclude>
-    <ClInclude Include="src\acf_handler.h">
+    <ClInclude Include="src\struct_class.h">
       <Filter>src\dll</Filter>
     </ClInclude>
-    <ClInclude Include="src\acf_Class.h">
+    <ClInclude Include="src\wrapper_utility.h">
       <Filter>src\dll</Filter>
     </ClInclude>
-    <ClInclude Include="src\acf_Util.h">
-      <Filter>src\dll</Filter>
-    </ClInclude>
-    <ClInclude Include="src\acf_eprofile.h">
-      <Filter>src\dll</Filter>
-    </ClInclude>
-    <ClInclude Include="src\acf_ebrowser.h">
+    <ClInclude Include="src\message_pump.h">
       <Filter>src\dll</Filter>
     </ClInclude>
   </ItemGroup>

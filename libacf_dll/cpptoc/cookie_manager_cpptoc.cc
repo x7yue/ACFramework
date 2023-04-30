@@ -7,11 +7,12 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=3b4752e9741a074e931c680c25f8fdb3fedca9ae$
+// $hash=0e73addb4f3adad2276af6fea9df3c2f2f926e5e$
 //
 
 #include "libacf_dll/cpptoc/cookie_manager_cpptoc.h"
 #include "libacf_dll/cpptoc/cookie_cpptoc.h"
+#include "libacf_dll/cpptoc/profile_cpptoc.h"
 #include "libacf_dll/ctocpp/complete_handler_ctocpp.h"
 #include "libacf_dll/ctocpp/cookie_visitor_ctocpp.h"
 #include "libacf_dll/ctocpp/number_complete_handler_ctocpp.h"
@@ -19,6 +20,21 @@
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
+
+acf_profile_t* ACF_CALLBACK
+cookie_manager_get_profile(struct _acf_cookie_manager_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return NULL;
+
+  // Execute
+  AcfRefPtr<AcfProfile> _retval =
+      AcfCookieManagerCppToC::Get(self)->GetProfile();
+
+  // Return type: refptr_same
+  return AcfProfileCppToC::Wrap(_retval);
+}
 
 void ACF_CALLBACK cookie_manager_get_cookies(struct _acf_cookie_manager_t* self,
                                              const acf_string_t* url,
@@ -96,6 +112,7 @@ void ACF_CALLBACK cookie_manager_flush_store(struct _acf_cookie_manager_t* self,
 // CONSTRUCTOR - Do not edit by hand.
 
 AcfCookieManagerCppToC::AcfCookieManagerCppToC() {
+  GetStruct()->get_profile = cookie_manager_get_profile;
   GetStruct()->get_cookies = cookie_manager_get_cookies;
   GetStruct()->set_cookie = cookie_manager_set_cookie;
   GetStruct()->delete_cookies = cookie_manager_delete_cookies;

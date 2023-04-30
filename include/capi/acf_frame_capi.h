@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=bc64144a3e8cace2e3bf4080829ab0a922ccfd8d$
+// $hash=ba30b885edfdd1e7b24a6ba96f51647160ef2b82$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_FRAME_CAPI_H_
@@ -13,6 +13,7 @@
 #pragma once
 
 #include "include/capi/acf_browser_capi.h"
+#include "include/capi/acf_callback_capi.h"
 #include "include/capi/acf_values_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_types.h"
@@ -23,6 +24,7 @@ extern "C" {
 
 struct _acf_browser_t;
 struct _acf_complete_value_handler_t;
+struct _acf_string_visitor_t;
 
 ///
 /// Frame object that host a iframe dom in browser webcontents, Any operation is

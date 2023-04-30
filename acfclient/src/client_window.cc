@@ -514,8 +514,7 @@ void Window::OnBrowserCreated(AcfRefPtr<AcfBrowser> browser) {
 
   if (new_browser_delegate_) {
     new_browser_delegate_->SetNewBrowser(browser);
-    new_browser_delegate_->HandleRequest(true);
-    new_browser_delegate_ = nullptr;
+    new_browser_delegate_.reset();
   } else {
     browser->LoadURL("bilibili.com");
   }

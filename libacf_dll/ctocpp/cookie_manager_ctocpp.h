@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=c12fa36ccb04cf317a38ae3ebb0e0203cc7a6a01$
+// $hash=6b1470679a0d87289fd58e1f5bd395df5d93e94b$
 //
 
 #ifndef ACF_CTOCPP_COOKIE_MANAGER_CTOCPP_H_
@@ -35,6 +35,7 @@ class AcfCookieManagerCToCpp
   virtual ~AcfCookieManagerCToCpp();
 
   // AcfCookieManager methods.
+  AcfRefPtr<AcfProfile> GetProfile() override;
   void GetCookies(const AcfString& url,
                   bool includeHttpOnly,
                   AcfRefPtr<AcfCookieVisitor> visitor) override;

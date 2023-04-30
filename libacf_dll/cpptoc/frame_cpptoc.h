@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=7dce10d2363120569838311c7685d081e5ae1d56$
+// $hash=37b83cd3b55c930913284e9313ca029fb9ee34e4$
 //
 
 #ifndef ACF_CPPTOC_FRAME_CPPTOC_H_

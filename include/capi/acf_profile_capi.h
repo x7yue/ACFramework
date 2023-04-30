@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=1daa4135432f53d92d321b849f6a1898851f8ef8$
+// $hash=450490422dce334585a3067af8435e338712c231$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_PROFILE_CAPI_H_
@@ -311,6 +311,12 @@ typedef struct _acf_cookie_manager_t {
   /// Base structure.
   ///
   acf_base_ref_counted_t base;
+
+  ///
+  /// Get hosted profile object
+  ///
+  struct _acf_profile_t*(ACF_CALLBACK* get_profile)(
+      struct _acf_cookie_manager_t* self);
 
   ///
   /// Visit cookies on the current thread. The returned cookies are ordered by

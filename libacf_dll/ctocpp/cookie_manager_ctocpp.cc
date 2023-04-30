@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=2e06fdbce8f2eed2e638d7fcab79cb89aa3f2fd3$
+// $hash=b42aed7220917c74d3bcd47311cb28a412c622fe$
 //
 
 #include "libacf_dll/ctocpp/cookie_manager_ctocpp.h"
@@ -15,8 +15,23 @@
 #include "libacf_dll/cpptoc/cookie_visitor_cpptoc.h"
 #include "libacf_dll/cpptoc/number_complete_handler_cpptoc.h"
 #include "libacf_dll/ctocpp/cookie_ctocpp.h"
+#include "libacf_dll/ctocpp/profile_ctocpp.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
+
+AcfRefPtr<AcfProfile> AcfCookieManagerCToCpp::GetProfile() {
+  acf_cookie_manager_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, get_profile))
+    return nullptr;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_profile_t* _retval = _struct->get_profile(_struct);
+
+  // Return type: refptr_same
+  return AcfProfileCToCpp::Wrap(_retval);
+}
 
 void AcfCookieManagerCToCpp::GetCookies(const AcfString& url,
                                         bool includeHttpOnly,

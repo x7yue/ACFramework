@@ -302,6 +302,12 @@ class AcfCookieVisitor : public virtual AcfBaseRefCounted {
 class AcfCookieManager : public virtual AcfBaseRefCounted {
  public:
   ///
+  /// Get hosted profile object
+  ///
+  /*--acf()--*/
+  virtual AcfRefPtr<AcfProfile> GetProfile() = 0;
+
+  ///
   /// Visit cookies on the current thread. The returned cookies are ordered by
   /// longest path, then by earliest creation date. Returns false if cookies
   /// cannot be accessed.

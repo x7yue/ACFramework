@@ -22,21 +22,22 @@
     <None Include="ACF_EPLBinding.e" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\acf_Class.cc" />
-    <ClCompile Include="src\acf_ebrowser.cc" />
-    <ClCompile Include="src\acf_env.cc" />
-    <ClCompile Include="src\acf_handler.cc" />
-    <ClCompile Include="src\acf_eprofile.cc" />
-    <ClCompile Include="src\acf_Util.cc" />
+    <ClCompile Include="src\struct_class.cc" />
+    <ClCompile Include="src\wrapper_browser.cc" />
+    <ClCompile Include="src\wrapper_callback.cc" />
+    <ClCompile Include="src\wrapper_environment.cc" />
+    <ClCompile Include="src\wrapper_handler_interface.cc" />
+    <ClCompile Include="src\wrapper_profile.cc" />
+    <ClCompile Include="src\wrapper_utility.cc" />
+    <ClCompile Include="src\message_pump.cc" />
+    <ClCompile Include="src\wrapper_values.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\acf_Class.h" />
-    <ClInclude Include="src\acf_ebrowser.h" />
-    <ClInclude Include="src\acf_env.h" />
-    <ClInclude Include="src\acf_handler.h" />
-    <ClInclude Include="src\acf_eprofile.h" />
-    <ClInclude Include="src\acf_types.h" />
-    <ClInclude Include="src\acf_Util.h" />
+    <ClInclude Include="src\struct_class.h" />
+    <ClInclude Include="src\wrapper_handler_interface.h" />
+    <ClInclude Include="src\wrapper_types.h" />
+    <ClInclude Include="src\wrapper_utility.h" />
+    <ClInclude Include="src\message_pump.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

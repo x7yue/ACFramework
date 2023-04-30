@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=5b57d81c946936f4681594662af435344c84fb3b$
+// $hash=e39e86fae010678d540c6313f8035cc32e0305a9$
 //
 
 #ifndef ACF_CTOCPP_FRAME_CTOCPP_H_
