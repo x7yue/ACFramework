@@ -118,25 +118,15 @@ int ACF_CALLBACK terminate_process(AcfEnvironment* obj) {
   return obj->Terminate();
 }
 
-BOOL ACF_CALLBACK get_default_profile(AcfEnvironment* obj, DWORD* retObj) {
-  AcfRefPtr<AcfProfile> pf = obj->GetDefaultProfile();
-
-  if (pf) {
-    pf->AddRef();
-    retObj[1] = (DWORD)pf.get();
-    retObj[2] = (DWORD)acf_cpp_fntable_profile;
-  }
-
-  return !!pf.get();
-}
-
-BOOL ACF_CALLBACK create_profile(AcfEnvironment* obj, LPCSTR path,
+BOOL ACF_CALLBACK create_profile(AcfEnvironment* obj, LPCSTR path, bool sync,
                                  DWORD* retObj) {
   AcfRefPtr<AcfProfile> profile = obj->CreateProfile(path, nullptr);
 
   // Wait for thread synchronize
-  while (!profile->IsValid()) {
-    ::Sleep(10);
+  if (sync) {
+    while (!profile->IsValid()) {
+      ::Sleep(10);
+    }
   }
 
   if (profile) {
@@ -158,7 +148,7 @@ using BrowserParams = struct {
 };
 BOOL ACF_CALLBACK create_browser(AcfEnvironment* obj, AcfProfile* profile,
                                  BrowserParams* pparams, int udata,
-                                 LPVOID callback, 
+                                 LPVOID callback,
                                  DWORD* retObj) {
   AcfRefPtr<wrapper::BrowserHandler> lphandler(
       new wrapper::BrowserHandler(callback));
@@ -183,10 +173,22 @@ BOOL ACF_CALLBACK create_browser(AcfEnvironment* obj, AcfProfile* profile,
   return !!browser.get();
 }
 
+BOOL ACF_CALLBACK get_default_profile(AcfEnvironment* obj, DWORD* retObj) {
+  AcfRefPtr<AcfProfile> pf = obj->GetDefaultProfile();
+
+  if (pf) {
+    pf->AddRef();
+    retObj[1] = (DWORD)pf.get();
+    retObj[2] = (DWORD)acf_cpp_fntable_profile;
+  }
+
+  return !!pf.get();
+}
+
 }  // namespacek
 
 DWORD acf_cpp_fntable_environment[] = {
     (DWORD)is_same,        (DWORD)is_valid,       (DWORD)get_handler,
     (DWORD)get_version,    (DWORD)get_process_id, (DWORD)terminate_process,
-    (DWORD)create_profile, (DWORD)create_browser,
+    (DWORD)create_profile, (DWORD)create_browser, (DWORD)get_default_profile,
 };
