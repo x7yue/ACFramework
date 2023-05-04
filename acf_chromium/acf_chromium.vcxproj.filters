@@ -18,6 +18,12 @@
     <ClCompile Include="..\libacf_dll\transfer_util.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\binary_value_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\browser_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
     <ClCompile Include="..\libacf_dll\cpptoc\browser_handler_cpptoc.cc">
       <Filter>src\cpptoc</Filter>
     </ClCompile>
@@ -25,69 +31,6 @@
       <Filter>src\cpptoc</Filter>
     </ClCompile>
     <ClCompile Include="..\libacf_dll\cpptoc\complete_value_handler_cpptoc.cc">
-      <Filter>src\cpptoc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\cpptoc\cookie_visitor_cpptoc.cc">
-      <Filter>src\cpptoc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\cpptoc\environment_handler_cpptoc.cc">
-      <Filter>src\cpptoc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\cpptoc\profile_handler_cpptoc.cc">
-      <Filter>src\cpptoc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\cpptoc\string_visitor_cpptoc.cc">
-      <Filter>src\cpptoc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\binary_value_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\browser_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_callback_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_model_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_params_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\cookie_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\cookie_manager_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\cookies_getter_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\dictionary_value_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\environment_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\frame_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\list_value_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\login_delegate_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\new_window_delegate_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\profile_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\value_ctocpp.cc">
-      <Filter>src\ctocpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\libacf_dll\cpptoc\browser_cpptoc.cc">
       <Filter>src\cpptoc</Filter>
     </ClCompile>
     <ClCompile Include="..\libacf_dll\cpptoc\context_menu_callback_cpptoc.cc">
@@ -105,10 +48,22 @@
     <ClCompile Include="..\libacf_dll\cpptoc\cookie_manager_cpptoc.cc">
       <Filter>src\cpptoc</Filter>
     </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\cookie_visitor_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
     <ClCompile Include="..\libacf_dll\cpptoc\cookies_getter_cpptoc.cc">
       <Filter>src\cpptoc</Filter>
     </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\dictionary_value_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\environment_handler_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
     <ClCompile Include="..\libacf_dll\cpptoc\frame_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\list_value_cpptoc.cc">
       <Filter>src\cpptoc</Filter>
     </ClCompile>
     <ClCompile Include="..\libacf_dll\cpptoc\login_delegate_cpptoc.cc">
@@ -123,6 +78,18 @@
     <ClCompile Include="..\libacf_dll\cpptoc\profile_cpptoc.cc">
       <Filter>src\cpptoc</Filter>
     </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\string_visitor_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\cpptoc\value_cpptoc.cc">
+      <Filter>src\cpptoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\binary_value_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\browser_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
     <ClCompile Include="..\libacf_dll\ctocpp\browser_handler_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
@@ -132,19 +99,58 @@
     <ClCompile Include="..\libacf_dll\ctocpp\complete_value_handler_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_callback_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_model_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\context_menu_params_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\cookie_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\cookie_manager_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
     <ClCompile Include="..\libacf_dll\ctocpp\cookie_visitor_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\cookies_getter_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\dictionary_value_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\environment_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
     <ClCompile Include="..\libacf_dll\ctocpp\environment_handler_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\frame_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\list_value_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\login_delegate_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\new_window_delegate_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
     <ClCompile Include="..\libacf_dll\ctocpp\number_complete_handler_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="..\libacf_dll\ctocpp\profile_handler_ctocpp.cc">
+    <ClCompile Include="..\libacf_dll\ctocpp\profile_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
     <ClCompile Include="..\libacf_dll\ctocpp\string_visitor_ctocpp.cc">
+      <Filter>src\ctocpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libacf_dll\ctocpp\value_ctocpp.cc">
       <Filter>src\ctocpp</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,6 +164,12 @@
     <ClInclude Include="..\libacf_dll\wrapper_types.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\binary_value_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\browser_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
     <ClInclude Include="..\libacf_dll\cpptoc\browser_handler_cpptoc.h">
       <Filter>src\cpptoc</Filter>
     </ClInclude>
@@ -165,81 +177,6 @@
       <Filter>src\cpptoc</Filter>
     </ClInclude>
     <ClInclude Include="..\libacf_dll\cpptoc\complete_value_handler_cpptoc.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\cookie_visitor_cpptoc.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\cpptoc_ref_counted.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\cpptoc_scoped.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\environment_handler_cpptoc.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\profile_handler_cpptoc.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\string_visitor_cpptoc.h">
-      <Filter>src\cpptoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\binary_value_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\browser_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_callback_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_model_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_params_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\cookie_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\cookie_manager_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\cookies_getter_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\ctocpp_ref_counted.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\ctocpp_scoped.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\dictionary_value_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\environment_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\frame_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\list_value_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\login_delegate_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\new_window_delegate_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\profile_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\value_ctocpp.h">
-      <Filter>src\ctocpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\libacf_dll\cpptoc\browser_cpptoc.h">
       <Filter>src\cpptoc</Filter>
     </ClInclude>
     <ClInclude Include="..\libacf_dll\cpptoc\context_menu_callback_cpptoc.h">
@@ -257,10 +194,28 @@
     <ClInclude Include="..\libacf_dll\cpptoc\cookie_manager_cpptoc.h">
       <Filter>src\cpptoc</Filter>
     </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\cookie_visitor_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
     <ClInclude Include="..\libacf_dll\cpptoc\cookies_getter_cpptoc.h">
       <Filter>src\cpptoc</Filter>
     </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\cpptoc_ref_counted.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\cpptoc_scoped.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\dictionary_value_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\environment_handler_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
     <ClInclude Include="..\libacf_dll\cpptoc\frame_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\list_value_cpptoc.h">
       <Filter>src\cpptoc</Filter>
     </ClInclude>
     <ClInclude Include="..\libacf_dll\cpptoc\login_delegate_cpptoc.h">
@@ -275,6 +230,18 @@
     <ClInclude Include="..\libacf_dll\cpptoc\profile_cpptoc.h">
       <Filter>src\cpptoc</Filter>
     </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\string_visitor_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\cpptoc\value_cpptoc.h">
+      <Filter>src\cpptoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\binary_value_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\browser_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
     <ClInclude Include="..\libacf_dll\ctocpp\browser_handler_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
@@ -284,19 +251,64 @@
     <ClInclude Include="..\libacf_dll\ctocpp\complete_value_handler_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_callback_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_model_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\context_menu_params_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\cookie_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\cookie_manager_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
     <ClInclude Include="..\libacf_dll\ctocpp\cookie_visitor_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\cookies_getter_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\ctocpp_ref_counted.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\ctocpp_scoped.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\dictionary_value_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\environment_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
     <ClInclude Include="..\libacf_dll\ctocpp\environment_handler_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\frame_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\list_value_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\login_delegate_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\new_window_delegate_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
     <ClInclude Include="..\libacf_dll\ctocpp\number_complete_handler_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="..\libacf_dll\ctocpp\profile_handler_ctocpp.h">
+    <ClInclude Include="..\libacf_dll\ctocpp\profile_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
     <ClInclude Include="..\libacf_dll\ctocpp\string_visitor_ctocpp.h">
+      <Filter>src\ctocpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libacf_dll\ctocpp\value_ctocpp.h">
       <Filter>src\ctocpp</Filter>
     </ClInclude>
   </ItemGroup>

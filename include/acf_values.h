@@ -3,8 +3,11 @@
 
 #include <vector>
 #include "include/internal/acf_scoped_refptr.h"
+#include "include/internal/acf_string.h"
+#include "include/internal/acf_string_list.h"
 #include "include/internal/acf_types.h"
 
+class AcfValue;
 class AcfBinaryValue;
 class AcfDictionaryValue;
 class AcfListValue;
@@ -19,12 +22,6 @@ typedef acf_value_type_t AcfValueType;
 /*--acf(source=library)--*/
 class AcfValue : public virtual AcfBaseRefCounted {
  public:
-  ///
-  /// Creates a new object.
-  ///
-  /*--acf()--*/
-  static AcfRefPtr<AcfValue> Create();
-
   ///
   /// Returns true if the underlying data is valid. This will always be true for
   /// simple types. For complex types (binary, dictionary and list) the
@@ -200,13 +197,6 @@ class AcfValue : public virtual AcfBaseRefCounted {
 class AcfBinaryValue : public virtual AcfBaseRefCounted {
  public:
   ///
-  /// Creates a new object that is not owned by any other object. The specified
-  /// |data| will be copied.
-  ///
-  /*--acf()--*/
-  static AcfRefPtr<AcfBinaryValue> Create(const void* data, size_t data_size);
-
-  ///
   /// Returns true if this object is valid. This object may become invalid if
   /// the underlying data is owned by another object (e.g. list or dictionary)
   /// and that other object is then modified or destroyed. Do not call any other
@@ -266,12 +256,6 @@ class AcfBinaryValue : public virtual AcfBaseRefCounted {
 class AcfDictionaryValue : public virtual AcfBaseRefCounted {
  public:
   typedef std::vector<AcfString> KeyList;
-
-  ///
-  /// Creates a new object that is not owned by any other object.
-  ///
-  /*--acf()--*/
-  static AcfRefPtr<AcfDictionaryValue> Create();
 
   ///
   /// Returns true if this object is valid. This object may become invalid if
@@ -496,12 +480,6 @@ class AcfDictionaryValue : public virtual AcfBaseRefCounted {
 /*--acf(source=library)--*/
 class AcfListValue : public virtual AcfBaseRefCounted {
  public:
-  ///
-  /// Creates a new object that is not owned by any other object.
-  ///
-  /*--acf()--*/
-  static AcfRefPtr<AcfListValue> Create();
-
   ///
   /// Returns true if this object is valid. This object may become invalid if
   /// the underlying data is owned by another object (e.g. list or dictionary)

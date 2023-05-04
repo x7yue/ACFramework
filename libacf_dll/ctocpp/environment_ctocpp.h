@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=970049ea7ac9bfa73bd1556e0775aceb7c7d8a5e$
+// $hash=a83f09ee8fefe57b3ed8cdac8b5edec2b8eca235$
 //
 
 #ifndef ACF_CTOCPP_ENVIRONMENT_CTOCPP_H_
@@ -17,9 +17,11 @@
 #include "include/acf_browser.h"
 #include "include/acf_environment.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
@@ -41,7 +43,7 @@ class AcfEnvironmentCToCpp : public AcfCToCppRefCounted<AcfEnvironmentCToCpp,
   AcfRefPtr<AcfProfile> GetDefaultProfile() override;
   AcfRefPtr<AcfProfile> CreateProfile(
       const AcfString& path,
-      AcfRefPtr<AcfProfileHandler> handler) override;
+      AcfRefPtr<AcfCompleteHandler> handler) override;
   AcfRefPtr<AcfBrowser> CreateBrowser(AcfRefPtr<AcfProfile> profile,
                                       AcfRefPtr<AcfBrowserHandler> handler,
                                       const AcfBrowserCreateParams& params,

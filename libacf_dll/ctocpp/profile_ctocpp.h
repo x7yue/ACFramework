@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=39a939001ece4ded4f4eebb11484d39d8c3fdba0$
+// $hash=b836fec069c20d017ce7841e9b42cea729103272$
 //
 
 #ifndef ACF_CTOCPP_PROFILE_CTOCPP_H_
@@ -33,7 +33,6 @@ class AcfProfileCToCpp
   virtual ~AcfProfileCToCpp();
 
   // AcfProfile methods.
-  AcfRefPtr<AcfProfileHandler> GetHandler() override;
   AcfRefPtr<AcfEnvironment> GetEnvironment() override;
   bool IsValid() override;
   AcfString GetPath() override;
@@ -44,10 +43,6 @@ class AcfProfileCToCpp
                           bool no_checks,
                           AcfRefPtr<AcfCompleteHandler> handler) override;
   AcfRefPtr<AcfCookieManager> GetCookieManager() override;
-  AcfRefPtr<AcfCookie> CreateCookie(const AcfString& name,
-                                    const AcfString& value,
-                                    const AcfString& domain,
-                                    const AcfString& path) override;
 };
 
 #endif  // ACF_CTOCPP_PROFILE_CTOCPP_H_

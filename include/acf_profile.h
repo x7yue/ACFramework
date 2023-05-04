@@ -13,32 +13,11 @@
 class AcfCookie;
 class AcfValue;
 class AcfProfile;
-class AcfProfileHandler;
 class AcfCompleteHandler;
 class AcfCookieManager;
 class AcfCookieVisitor;
 class AcfCookiesGetter;
 class AcfEnvironment;
-
-///
-/// Profile handler
-///
-/*--acf(source=client)--*/
-class AcfProfileHandler : public virtual AcfBaseRefCounted {
- public:
-  ///
-  /// Called on profile created on remote,
-  /// maybe created with failed.
-  ///
-  /*--acf()--*/
-  virtual void OnProfileCreated(AcfRefPtr<AcfProfile> profile) {}
-
-  ///
-  /// Called when profile destroyed
-  ///
-  /*--acf()--*/
-  virtual void OnProfileDestroyed(AcfRefPtr<AcfProfile> profile) {}
-};
 
 ///
 /// ACF's profile object for create browser in environment.
@@ -48,12 +27,6 @@ class AcfProfileHandler : public virtual AcfBaseRefCounted {
 class AcfProfile : public virtual AcfBaseRefCounted {
  public:
   typedef acf_remove_data_type_t RemoveDataType;
-
-  ///
-  /// Get event handler
-  ///
-  /*--acf()--*/
-  virtual AcfRefPtr<AcfProfileHandler> GetHandler() = 0;
 
   ///
   /// Get host environment object
@@ -95,15 +68,6 @@ class AcfProfile : public virtual AcfBaseRefCounted {
   ///
   /*--acf()--*/
   virtual AcfRefPtr<AcfCookieManager> GetCookieManager() = 0;
-
-  ///
-  /// Create a default cookie data.
-  ///
-  /*--acf()--*/
-  virtual AcfRefPtr<AcfCookie> CreateCookie(const AcfString& name,
-                                            const AcfString& value,
-                                            const AcfString& domain,
-                                            const AcfString& path) = 0;
 };
 
 ///

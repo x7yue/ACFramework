@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=5d4d41236f898fbcba5b2e35f555b20a2cf11a47$
+// $hash=c807cb8bc4b4b6bf7e626890cc546e1e28093ac6$
 //
 
 #include "libacf_dll/ctocpp/environment_handler_ctocpp.h"
@@ -15,10 +15,10 @@
 
 // VIRTUAL METHODS - Body may be edited by hand.
 
-void AcfEnvironmentHandlerCToCpp::OnEnvironmentInitialized(
-    AcfRefPtr<AcfEnvironment> env) {
+void AcfEnvironmentHandlerCToCpp::OnInitialized(AcfRefPtr<AcfEnvironment> env,
+                                                bool success) {
   acf_environment_handler_t* _struct = GetStruct();
-  if (ACF_MEMBER_MISSING(_struct, on_environment_initialized))
+  if (ACF_MEMBER_MISSING(_struct, on_initialized))
     return;
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
@@ -28,23 +28,7 @@ void AcfEnvironmentHandlerCToCpp::OnEnvironmentInitialized(
     return;
 
   // Execute
-  _struct->on_environment_initialized(_struct, AcfEnvironmentCppToC::Wrap(env));
-}
-
-void AcfEnvironmentHandlerCToCpp::OnEnvironmentDestroyed(
-    AcfRefPtr<AcfEnvironment> env) {
-  acf_environment_handler_t* _struct = GetStruct();
-  if (ACF_MEMBER_MISSING(_struct, on_environment_destroyed))
-    return;
-
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  // Verify param: env; type: refptr_diff
-  if (!env.get())
-    return;
-
-  // Execute
-  _struct->on_environment_destroyed(_struct, AcfEnvironmentCppToC::Wrap(env));
+  _struct->on_initialized(_struct, AcfEnvironmentCppToC::Wrap(env), success);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

@@ -20,6 +20,7 @@
 #define IDC_GetSource 307
 #define IDC_GetAllCookies 308
 
+extern AcfRefPtr<AcfProfile> g_profile;
 extern AcfRefPtr<AcfEnvironment> g_env;
 extern acfclient::MessageWindow* msg_dispatcher;
 
@@ -173,7 +174,7 @@ Window::Window(AcfRefPtr<AcfEnvironment> env,
   params.height = bound.bottom;
 
   // Call on any thread
-  env->CreateBrowser(nullptr, this, params, nullptr);
+  env->CreateBrowser(g_profile, this, params, nullptr);
 
   std::cout << "Window Create: " << g_browsers.size() << "\n";
 }
@@ -393,7 +394,7 @@ bool Window::OnCommand(UINT id) {
     } break;
     case IDC_GetAllCookies: {
       if (browser_weak_ptr_) {
-        auto cm = g_env->GetDefaultProfile()->GetCookieManager();
+        auto cm = g_profile->GetCookieManager();
         cm->GetCookies("", true, new TestCookieVisitor());
       }
     } break;

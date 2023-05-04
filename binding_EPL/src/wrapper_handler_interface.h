@@ -17,8 +17,7 @@ class EnvironmentHandler : public AcfEnvironmentHandler {
   ~EnvironmentHandler();
 
  protected:
-  void OnEnvironmentInitialized(AcfRefPtr<AcfEnvironment> env) override;
-  void OnEnvironmentDestroyed(AcfRefPtr<AcfEnvironment> env) override;
+  void OnInitialized(AcfRefPtr<AcfEnvironment> env, bool success) override;
 
  private:
   LPVOID callback_;

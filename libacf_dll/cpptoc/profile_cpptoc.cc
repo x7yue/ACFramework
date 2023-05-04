@@ -7,35 +7,18 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=b9600238cecb93c1f85a525878121793651e0ba6$
+// $hash=99e7357c86b6f7f64bfc3859f1709d18635eb77e$
 //
 
 #include "libacf_dll/cpptoc/profile_cpptoc.h"
-#include "libacf_dll/cpptoc/cookie_cpptoc.h"
 #include "libacf_dll/cpptoc/cookie_manager_cpptoc.h"
 #include "libacf_dll/cpptoc/environment_cpptoc.h"
 #include "libacf_dll/cpptoc/value_cpptoc.h"
 #include "libacf_dll/ctocpp/complete_handler_ctocpp.h"
-#include "libacf_dll/ctocpp/profile_handler_ctocpp.h"
 
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
-
-acf_profile_handler_t* ACF_CALLBACK
-profile_get_handler(struct _acf_profile_t* self) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  if (!self)
-    return NULL;
-
-  // Execute
-  AcfRefPtr<AcfProfileHandler> _retval =
-      AcfProfileCppToC::Get(self)->GetHandler();
-
-  // Return type: refptr_diff
-  return AcfProfileHandlerCToCpp::Unwrap(_retval);
-}
 
 acf_environment_t* ACF_CALLBACK
 profile_get_environment(struct _acf_profile_t* self) {
@@ -130,50 +113,17 @@ profile_get_cookie_manager(struct _acf_profile_t* self) {
   return AcfCookieManagerCppToC::Wrap(_retval);
 }
 
-struct _acf_cookie_t* ACF_CALLBACK
-profile_create_cookie(struct _acf_profile_t* self,
-                      const acf_string_t* name,
-                      const acf_string_t* value,
-                      const acf_string_t* domain,
-                      const acf_string_t* path) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  if (!self)
-    return NULL;
-  // Verify param: name; type: string_byref_const
-  if (!name)
-    return NULL;
-  // Verify param: value; type: string_byref_const
-  if (!value)
-    return NULL;
-  // Verify param: domain; type: string_byref_const
-  if (!domain)
-    return NULL;
-  // Verify param: path; type: string_byref_const
-  if (!path)
-    return NULL;
-
-  // Execute
-  AcfRefPtr<AcfCookie> _retval = AcfProfileCppToC::Get(self)->CreateCookie(
-      AcfString(name), AcfString(value), AcfString(domain), AcfString(path));
-
-  // Return type: refptr_same
-  return AcfCookieCppToC::Wrap(_retval);
-}
-
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 AcfProfileCppToC::AcfProfileCppToC() {
-  GetStruct()->get_handler = profile_get_handler;
   GetStruct()->get_environment = profile_get_environment;
   GetStruct()->is_valid = profile_is_valid;
   GetStruct()->get_path = profile_get_path;
   GetStruct()->set_preference = profile_set_preference;
   GetStruct()->remove_browsing_data = profile_remove_browsing_data;
   GetStruct()->get_cookie_manager = profile_get_cookie_manager;
-  GetStruct()->create_cookie = profile_create_cookie;
 }
 
 // DESTRUCTOR - Do not edit by hand.

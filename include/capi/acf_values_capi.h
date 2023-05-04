@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=dff2628dc0640d492341822c24650840fc5de213$
+// $hash=bf2698b63f1172c464b8ba1dce9e936eefef84ba$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_VALUES_CAPI_H_
@@ -14,6 +14,7 @@
 
 #include "include/capi/acf_base_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
+#include "include/internal/acf_string.h"
 #include "include/internal/acf_string_list.h"
 #include "include/internal/acf_types.h"
 
@@ -24,6 +25,7 @@ extern "C" {
 struct _acf_binary_value_t;
 struct _acf_dictionary_value_t;
 struct _acf_list_value_t;
+struct _acf_value_t;
 
 ///
 /// Structure that wraps other data value types. Complex types (binary,
@@ -192,11 +194,6 @@ typedef struct _acf_value_t {
 } acf_value_t;
 
 ///
-/// Creates a new object.
-///
-ACF_EXPORT acf_value_t* acf_value_create(void);
-
-///
 /// Structure representing a binary value. Can be used on any process and
 /// thread.
 ///
@@ -254,13 +251,6 @@ typedef struct _acf_binary_value_t {
                                  size_t buffer_size,
                                  size_t data_offset);
 } acf_binary_value_t;
-
-///
-/// Creates a new object that is not owned by any other object. The specified
-/// |data| will be copied.
-///
-ACF_EXPORT acf_binary_value_t* acf_binary_value_create(const void* data,
-                                                       size_t data_size);
 
 ///
 /// Structure representing a dictionary value. Can be used on any process and
@@ -498,11 +488,6 @@ typedef struct _acf_dictionary_value_t {
 } acf_dictionary_value_t;
 
 ///
-/// Creates a new object that is not owned by any other object.
-///
-ACF_EXPORT acf_dictionary_value_t* acf_dictionary_value_create(void);
-
-///
 /// Structure representing a list value. Can be used on any process and thread.
 ///
 typedef struct _acf_list_value_t {
@@ -717,11 +702,6 @@ typedef struct _acf_list_value_t {
                               size_t index,
                               struct _acf_list_value_t* value);
 } acf_list_value_t;
-
-///
-/// Creates a new object that is not owned by any other object.
-///
-ACF_EXPORT acf_list_value_t* acf_list_value_create(void);
 
 #ifdef __cplusplus
 }

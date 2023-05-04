@@ -40,6 +40,13 @@ extern DWORD acf_cpp_fntable_profile[];
 extern DWORD acf_cpp_fntable_browser[];
 extern DWORD acf_cpp_fntable_new_window_delegate[];
 
+DLL_EXPORTS(PostTaskOnUIThread, BOOL)
+(UITask::TaskCallback callback, intptr_t param) {
+  g_message_pump->PostTask(new UITask(callback, param));
+
+  return !!g_message_pump;
+}
+
 DLL_EXPORTS(InitACFContext, BOOL)() {
   g_message_pump.reset(new acf_wrapper::MessagePump(GetModuleHandle(0)));
   return AcfEnvironment::InitACFContext();
@@ -48,13 +55,6 @@ DLL_EXPORTS(InitACFContext, BOOL)() {
 DLL_EXPORTS(QuitACFContext, BOOL)() {
   g_message_pump.reset();
   return AcfEnvironment::QuitACFContext();
-}
-
-DLL_EXPORTS(PostTaskOnUIThread, BOOL)
-(UITask::TaskCallback callback, intptr_t param) {
-  g_message_pump->PostTask(new UITask(callback, param));
-
-  return !!g_message_pump;
 }
 
 using EnvironmentParams = struct {

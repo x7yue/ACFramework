@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=e8bcd09a7f991313efc72c496c96ce92f90b7790$
+// $hash=90bf8f9af4053232a8e5fdce49503e4500eb09b8$
 //
 
 #include "libacf_dll/cpptoc/environment_handler_cpptoc.h"
@@ -17,9 +17,10 @@ namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
 
-void ACF_CALLBACK environment_handler_on_environment_initialized(
-    struct _acf_environment_handler_t* self,
-    struct _acf_environment_t* env) {
+void ACF_CALLBACK
+environment_handler_on_initialized(struct _acf_environment_handler_t* self,
+                                   struct _acf_environment_t* env,
+                                   int success) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -29,24 +30,8 @@ void ACF_CALLBACK environment_handler_on_environment_initialized(
     return;
 
   // Execute
-  AcfEnvironmentHandlerCppToC::Get(self)->OnEnvironmentInitialized(
-      AcfEnvironmentCToCpp::Wrap(env));
-}
-
-void ACF_CALLBACK environment_handler_on_environment_destroyed(
-    struct _acf_environment_handler_t* self,
-    struct _acf_environment_t* env) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  if (!self)
-    return;
-  // Verify param: env; type: refptr_diff
-  if (!env)
-    return;
-
-  // Execute
-  AcfEnvironmentHandlerCppToC::Get(self)->OnEnvironmentDestroyed(
-      AcfEnvironmentCToCpp::Wrap(env));
+  AcfEnvironmentHandlerCppToC::Get(self)->OnInitialized(
+      AcfEnvironmentCToCpp::Wrap(env), success ? true : false);
 }
 
 }  // namespace
@@ -54,10 +39,7 @@ void ACF_CALLBACK environment_handler_on_environment_destroyed(
 // CONSTRUCTOR - Do not edit by hand.
 
 AcfEnvironmentHandlerCppToC::AcfEnvironmentHandlerCppToC() {
-  GetStruct()->on_environment_initialized =
-      environment_handler_on_environment_initialized;
-  GetStruct()->on_environment_destroyed =
-      environment_handler_on_environment_destroyed;
+  GetStruct()->on_initialized = environment_handler_on_initialized;
 }
 
 // DESTRUCTOR - Do not edit by hand.

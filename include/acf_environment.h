@@ -3,6 +3,7 @@
 
 #include "include/acf_browser.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/internal/acf_def.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
@@ -11,11 +12,15 @@
 #include <string>
 #include <wtypes.h>
 
+class AcfValue;
+class AcfBinaryValue;
+class AcfDictionaryValue;
+class AcfListValue;
 class AcfProfile;
 class AcfEnvironment;
 class AcfBrowser;
 class AcfBrowserHandler;
-class AcfProfileHandler;
+class AcfCookie;
 
 ///
 /// Environment event handler
@@ -27,13 +32,7 @@ class AcfEnvironmentHandler : public virtual AcfBaseRefCounted {
   /// called when the environment has been initialized
   ///
   /*--acf()--*/
-  virtual void OnEnvironmentInitialized(AcfRefPtr<AcfEnvironment> env) {}
-
-  ///
-  /// called before environment destroyed
-  ///
-  /*--acf()--*/
-  virtual void OnEnvironmentDestroyed(AcfRefPtr<AcfEnvironment> env) {}
+  virtual void OnInitialized(AcfRefPtr<AcfEnvironment> env, bool success) {}
 };
 
 ///
@@ -66,6 +65,40 @@ class AcfEnvironment : public virtual AcfBaseRefCounted {
       const AcfString& browser_path,
       const AcfEnvironmentSettings& settings,
       AcfRefPtr<AcfEnvironmentHandler> handler);
+
+  ///
+  /// Creates a new value object.
+  ///
+  /*--acf()--*/
+  static AcfRefPtr<AcfValue> CreateValue();
+
+  ///
+  /// Creates a new object that is not owned by any other object. The specified
+  /// |data| will be copied.
+  ///
+  /*--acf()--*/
+  static AcfRefPtr<AcfBinaryValue> CreateBinary(const void* data, size_t data_size);
+
+  ///
+  /// Creates a new object that is not owned by any other object.
+  ///
+  /*--acf()--*/
+  static AcfRefPtr<AcfDictionaryValue> CreateDictionary();
+
+  ///
+  /// Creates a new object that is not owned by any other object.
+  ///
+  /*--acf()--*/
+  static AcfRefPtr<AcfListValue> CreateList();
+
+  ///
+  /// Create a default cookie data.
+  ///
+  /*--acf()--*/
+  static AcfRefPtr<AcfCookie> CreateCookie(const AcfString& name,
+                                           const AcfString& value,
+                                           const AcfString& domain,
+                                           const AcfString& path);
 
   ///
   /// Is same object
@@ -117,7 +150,7 @@ class AcfEnvironment : public virtual AcfBaseRefCounted {
   /*--acf(optional_param=handler)--*/
   virtual AcfRefPtr<AcfProfile> CreateProfile(
       const AcfString& path,
-      AcfRefPtr<AcfProfileHandler> handler) = 0;
+      AcfRefPtr<AcfCompleteHandler> handler) = 0;
 
   ///
   /// Create browser from environment (async)

@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=331f89435b35570dbf9de5f20229ec832879cc11$
+// $hash=6928b5587758a0b3eadd0e88849e55929d6a7ae4$
 //
 
 #ifndef ACF_WRAPPER_TYPES_H_
@@ -38,7 +38,6 @@ enum AcfWrapperType {
   WT_NEW_WINDOW_DELEGATE,
   WT_NUMBER_COMPLETE_HANDLER,
   WT_PROFILE,
-  WT_PROFILE_HANDLER,
   WT_STRING_VISITOR,
   WT_VALUE,
 

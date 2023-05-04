@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=450490422dce334585a3067af8435e338712c231$
+// $hash=ccff50c259f10f7f85a55770dbabfc34d2e564db$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_PROFILE_CAPI_H_
@@ -29,31 +29,8 @@ struct _acf_cookie_t;
 struct _acf_cookie_visitor_t;
 struct _acf_cookies_getter_t;
 struct _acf_environment_t;
-struct _acf_profile_handler_t;
 struct _acf_profile_t;
 struct _acf_value_t;
-
-///
-/// Profile handler
-///
-typedef struct _acf_profile_handler_t {
-  ///
-  /// Base structure.
-  ///
-  acf_base_ref_counted_t base;
-
-  ///
-  /// Called on profile created on remote, maybe created with failed.
-  ///
-  void(ACF_CALLBACK* on_profile_created)(struct _acf_profile_handler_t* self,
-                                         struct _acf_profile_t* profile);
-
-  ///
-  /// Called when profile destroyed
-  ///
-  void(ACF_CALLBACK* on_profile_destroyed)(struct _acf_profile_handler_t* self,
-                                           struct _acf_profile_t* profile);
-} acf_profile_handler_t;
 
 ///
 /// ACF's profile object for create browser in environment. In chromium, it is
@@ -64,12 +41,6 @@ typedef struct _acf_profile_t {
   /// Base structure.
   ///
   acf_base_ref_counted_t base;
-
-  ///
-  /// Get event handler
-  ///
-  struct _acf_profile_handler_t*(ACF_CALLBACK* get_handler)(
-      struct _acf_profile_t* self);
 
   ///
   /// Get host environment object
@@ -111,16 +82,6 @@ typedef struct _acf_profile_t {
   ///
   struct _acf_cookie_manager_t*(ACF_CALLBACK* get_cookie_manager)(
       struct _acf_profile_t* self);
-
-  ///
-  /// Create a default cookie data.
-  ///
-  struct _acf_cookie_t*(ACF_CALLBACK* create_cookie)(
-      struct _acf_profile_t* self,
-      const acf_string_t* name,
-      const acf_string_t* value,
-      const acf_string_t* domain,
-      const acf_string_t* path);
 } acf_profile_t;
 
 ///

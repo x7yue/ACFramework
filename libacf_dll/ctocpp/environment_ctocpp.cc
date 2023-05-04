@@ -7,15 +7,20 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=651b1f7eb6b2e6c9fa7c95af5234b49dfb29db88$
+// $hash=ae8556c88727a2b1f68d0982359e3bec577c662a$
 //
 
 #include "libacf_dll/ctocpp/environment_ctocpp.h"
 #include "libacf_dll/cpptoc/browser_handler_cpptoc.h"
+#include "libacf_dll/cpptoc/complete_handler_cpptoc.h"
 #include "libacf_dll/cpptoc/environment_handler_cpptoc.h"
-#include "libacf_dll/cpptoc/profile_handler_cpptoc.h"
+#include "libacf_dll/ctocpp/binary_value_ctocpp.h"
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
+#include "libacf_dll/ctocpp/cookie_ctocpp.h"
+#include "libacf_dll/ctocpp/dictionary_value_ctocpp.h"
+#include "libacf_dll/ctocpp/list_value_ctocpp.h"
 #include "libacf_dll/ctocpp/profile_ctocpp.h"
+#include "libacf_dll/ctocpp/value_ctocpp.h"
 
 // STATIC METHODS - Body may be edited by hand.
 
@@ -57,6 +62,79 @@ AcfRefPtr<AcfEnvironment> AcfEnvironment::CreateEnvironment(
 
   // Return type: refptr_same
   return AcfEnvironmentCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfValue> AcfEnvironment::CreateValue() {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_value_t* _retval = acf_environment_create_value();
+
+  // Return type: refptr_same
+  return AcfValueCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfBinaryValue> AcfEnvironment::CreateBinary(const void* data,
+                                                       size_t data_size) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: data; type: simple_byaddr
+  if (!data)
+    return nullptr;
+
+  // Execute
+  acf_binary_value_t* _retval = acf_environment_create_binary(data, data_size);
+
+  // Return type: refptr_same
+  return AcfBinaryValueCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfDictionaryValue> AcfEnvironment::CreateDictionary() {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_dictionary_value_t* _retval = acf_environment_create_dictionary();
+
+  // Return type: refptr_same
+  return AcfDictionaryValueCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfListValue> AcfEnvironment::CreateList() {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  acf_list_value_t* _retval = acf_environment_create_list();
+
+  // Return type: refptr_same
+  return AcfListValueCToCpp::Wrap(_retval);
+}
+
+AcfRefPtr<AcfCookie> AcfEnvironment::CreateCookie(const AcfString& name,
+                                                  const AcfString& value,
+                                                  const AcfString& domain,
+                                                  const AcfString& path) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: name; type: string_byref_const
+  if (name.empty())
+    return nullptr;
+  // Verify param: value; type: string_byref_const
+  if (value.empty())
+    return nullptr;
+  // Verify param: domain; type: string_byref_const
+  if (domain.empty())
+    return nullptr;
+  // Verify param: path; type: string_byref_const
+  if (path.empty())
+    return nullptr;
+
+  // Execute
+  acf_cookie_t* _retval =
+      acf_environment_create_cookie(name.GetStruct(), value.GetStruct(),
+                                    domain.GetStruct(), path.GetStruct());
+
+  // Return type: refptr_same
+  return AcfCookieCToCpp::Wrap(_retval);
 }
 
 // VIRTUAL METHODS - Body may be edited by hand.
@@ -167,7 +245,7 @@ AcfRefPtr<AcfProfile> AcfEnvironmentCToCpp::GetDefaultProfile() {
 
 AcfRefPtr<AcfProfile> AcfEnvironmentCToCpp::CreateProfile(
     const AcfString& path,
-    AcfRefPtr<AcfProfileHandler> handler) {
+    AcfRefPtr<AcfCompleteHandler> handler) {
   acf_environment_t* _struct = GetStruct();
   if (ACF_MEMBER_MISSING(_struct, create_profile))
     return nullptr;
@@ -181,7 +259,7 @@ AcfRefPtr<AcfProfile> AcfEnvironmentCToCpp::CreateProfile(
 
   // Execute
   acf_profile_t* _retval = _struct->create_profile(
-      _struct, path.GetStruct(), AcfProfileHandlerCppToC::Wrap(handler));
+      _struct, path.GetStruct(), AcfCompleteHandlerCppToC::Wrap(handler));
 
   // Return type: refptr_same
   return AcfProfileCToCpp::Wrap(_retval);

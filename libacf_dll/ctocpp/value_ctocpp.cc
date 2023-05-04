@@ -7,25 +7,13 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=5aa9b9b117c9b66e26e6d82c3659a5e9015a9f4c$
+// $hash=b7a01936deef7194577bd7594fd44c602d076843$
 //
 
 #include "libacf_dll/ctocpp/value_ctocpp.h"
 #include "libacf_dll/ctocpp/binary_value_ctocpp.h"
 #include "libacf_dll/ctocpp/dictionary_value_ctocpp.h"
 #include "libacf_dll/ctocpp/list_value_ctocpp.h"
-
-// STATIC METHODS - Body may be edited by hand.
-
-AcfRefPtr<AcfValue> AcfValue::Create() {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  // Execute
-  acf_value_t* _retval = acf_value_create();
-
-  // Return type: refptr_same
-  return AcfValueCToCpp::Wrap(_retval);
-}
 
 // VIRTUAL METHODS - Body may be edited by hand.
 

@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=55022b4976e6db7ea3bf2ddd3104bae26afdcdf7$
+// $hash=03bae0b2e2b3e225902d7c6517cf580f6c2ed183$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_ENVIRONMENT_CAPI_H_
@@ -14,6 +14,7 @@
 
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "include/internal/acf_def.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
@@ -23,11 +24,15 @@
 extern "C" {
 #endif
 
+struct _acf_binary_value_t;
 struct _acf_browser_handler_t;
 struct _acf_browser_t;
+struct _acf_cookie_t;
+struct _acf_dictionary_value_t;
 struct _acf_environment_t;
-struct _acf_profile_handler_t;
+struct _acf_list_value_t;
 struct _acf_profile_t;
+struct _acf_value_t;
 
 ///
 /// Environment event handler
@@ -41,16 +46,9 @@ typedef struct _acf_environment_handler_t {
   ///
   /// called when the environment has been initialized
   ///
-  void(ACF_CALLBACK* on_environment_initialized)(
-      struct _acf_environment_handler_t* self,
-      struct _acf_environment_t* env);
-
-  ///
-  /// called before environment destroyed
-  ///
-  void(ACF_CALLBACK* on_environment_destroyed)(
-      struct _acf_environment_handler_t* self,
-      struct _acf_environment_t* env);
+  void(ACF_CALLBACK* on_initialized)(struct _acf_environment_handler_t* self,
+                                     struct _acf_environment_t* env,
+                                     int success);
 } acf_environment_handler_t;
 
 ///
@@ -110,7 +108,7 @@ typedef struct _acf_environment_t {
   struct _acf_profile_t*(ACF_CALLBACK* create_profile)(
       struct _acf_environment_t* self,
       const acf_string_t* path,
-      struct _acf_profile_handler_t* handler);
+      struct _acf_complete_handler_t* handler);
 
   ///
   /// Create browser from environment (async) return object immediately but the
@@ -143,6 +141,39 @@ ACF_EXPORT acf_environment_t* acf_environment_create(
     const acf_string_t* browser_path,
     const struct _acf_environment_settings_t* settings,
     acf_environment_handler_t* handler);
+
+///
+/// Creates a new value object.
+///
+ACF_EXPORT struct _acf_value_t* acf_environment_create_value(void);
+
+///
+/// Creates a new object that is not owned by any other object. The specified
+/// |data| will be copied.
+///
+ACF_EXPORT struct _acf_binary_value_t* acf_environment_create_binary(
+    const void* data,
+    size_t data_size);
+
+///
+/// Creates a new object that is not owned by any other object.
+///
+ACF_EXPORT struct _acf_dictionary_value_t* acf_environment_create_dictionary(
+    void);
+
+///
+/// Creates a new object that is not owned by any other object.
+///
+ACF_EXPORT struct _acf_list_value_t* acf_environment_create_list(void);
+
+///
+/// Create a default cookie data.
+///
+ACF_EXPORT struct _acf_cookie_t* acf_environment_create_cookie(
+    const acf_string_t* name,
+    const acf_string_t* value,
+    const acf_string_t* domain,
+    const acf_string_t* path);
 
 #ifdef __cplusplus
 }

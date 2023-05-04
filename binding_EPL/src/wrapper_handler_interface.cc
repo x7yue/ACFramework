@@ -21,8 +21,8 @@ EnvironmentHandler::~EnvironmentHandler() {
   if (callback_) LocalFree(callback_);
 }
 
-void EnvironmentHandler::OnEnvironmentInitialized(
-    AcfRefPtr<AcfEnvironment> env) {
+void EnvironmentHandler::OnInitialized(AcfRefPtr<AcfEnvironment> env,
+                                       bool success) {
   if (this->callback_ != NULL) {
     LPVOID pClass = this->callback_;
     env->AddRef();
@@ -36,35 +36,11 @@ void EnvironmentHandler::OnEnvironmentInitialized(
 			mov ebx, pClass;
 			mov edx, [ebx];
 			lea ecx, pClass;
+			movzx eax, success; 
+			push eax;
 			push TempEnv;
 			push ecx;
 			call[edx + 0x08];
-			pop esi;
-			pop edi;
-			pop ebx;
-			pop ecx;
-    }
-    env->Release();
-  }
-}
-
-void EnvironmentHandler::OnEnvironmentDestroyed(AcfRefPtr<AcfEnvironment> env) {
-  if (this->callback_ != NULL) {
-    LPVOID pClass = this->callback_;
-    env->AddRef();
-    IMP_NEWECLASS(TempEnv, env.get(), eClass::m_pVfTable_Environment,
-                  acf_cpp_fntable_environment);
-    __asm {
-			push ecx;
-			push ebx;
-			push edi;
-			push esi;
-			mov ebx, pClass;
-			mov edx, [ebx];
-			lea ecx, pClass;
-			push TempEnv;
-			push ecx;
-			call[edx + 0x0C];
 			pop esi;
 			pop edi;
 			pop ebx;

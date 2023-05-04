@@ -1,4 +1,5 @@
 #include "include/acf_values.h"
+#include "include/acf_environment.h"
 
 #include "wrapper_utility.h"
 #include "wrapper_types.h"
@@ -177,7 +178,7 @@ BOOL ACF_CALLBACK value_set_list(AcfValue* obj, AcfListValue* value) {
 } // namespace
 
 DLL_EXPORTS(ValueCreate, BOOL)(DWORD* target) {
-  AcfRefPtr<AcfValue> lpObj = AcfValue::Create();
+  AcfRefPtr<AcfValue> lpObj = AcfEnvironment::CreateValue();
 
   lpObj->AddRef();
   target[1] = (DWORD)((LPVOID)lpObj.get());
@@ -255,7 +256,7 @@ int ACF_CALLBACK binary_get_data(AcfBinaryValue* obj, LPVOID buffer, int size,
 }  // namespace
 
 DLL_EXPORTS(BinaryValueCreate, BOOL)(DWORD* target, LPVOID buffer, int size) {
-  AcfRefPtr<AcfBinaryValue> lpObj = AcfBinaryValue::Create(buffer, size);
+  AcfRefPtr<AcfBinaryValue> lpObj = AcfEnvironment::CreateBinary(buffer, size);
 
   lpObj->AddRef();
   target[1] = (DWORD)((LPVOID)lpObj.get());
@@ -514,7 +515,7 @@ bool ACF_CALLBACK dictionary_set_list(AcfDictionaryValue* obj, LPCSTR key,
 }  // namespace
 
 DLL_EXPORTS(DictionaryValueCreate, BOOL)(DWORD* target) {
-  AcfRefPtr<AcfDictionaryValue> lpObj = AcfDictionaryValue::Create();
+  AcfRefPtr<AcfDictionaryValue> lpObj = AcfEnvironment::CreateDictionary();
 
   lpObj->AddRef();
   target[1] = (DWORD)((LPVOID)lpObj.get());
@@ -747,7 +748,7 @@ bool ACF_CALLBACK list_set_list(AcfListValue* obj, int key,
 }  // namespace
 
 DLL_EXPORTS(ListValueCreate, BOOL)(DWORD* target) {
-  AcfRefPtr<AcfListValue> lpObj = AcfListValue::Create();
+  AcfRefPtr<AcfListValue> lpObj = AcfEnvironment::CreateList();
 
   lpObj->AddRef();
   target[1] = (DWORD)((LPVOID)lpObj.get());

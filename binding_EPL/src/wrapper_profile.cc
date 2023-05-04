@@ -105,9 +105,8 @@ PACF_COOKIE transfer_cookie_data(AcfRefPtr<AcfCookie> cookie) {
   return pCookie;
 }
 
-AcfRefPtr<AcfCookie> transfer_cookie_data(AcfRefPtr<AcfProfile> profile,
-                                          PACF_COOKIE cookie) {
-  AcfRefPtr<AcfCookie> pCookie = profile->CreateCookie(
+AcfRefPtr<AcfCookie> transfer_cookie_data(PACF_COOKIE cookie) {
+  AcfRefPtr<AcfCookie> pCookie = AcfEnvironment::CreateCookie(
       cookie->name, cookie->value, cookie->domain, cookie->path);
 
   pCookie->SetSecure(cookie->secure);
@@ -181,7 +180,7 @@ int ACF_CALLBACK visit_cookies_sync(AcfCookieManager* obj, LPCSTR url,
 
 void ACF_CALLBACK set_cookie(AcfCookieManager* obj, LPCSTR url,
                              PACF_COOKIE* ckdata) {
-  obj->SetCookie(url, transfer_cookie_data(obj->GetProfile(), *ckdata), nullptr);
+  obj->SetCookie(url, transfer_cookie_data(*ckdata), nullptr);
 }
 
 void ACF_CALLBACK delete_cookies(AcfCookieManager* obj, LPCSTR url,

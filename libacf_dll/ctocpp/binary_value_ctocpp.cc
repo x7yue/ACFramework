@@ -7,27 +7,10 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=a013c8f25d82a9770995422a05bf00e063c5b123$
+// $hash=30acc7a072aa74b3b93a6e3789c40c0480c2b8ef$
 //
 
 #include "libacf_dll/ctocpp/binary_value_ctocpp.h"
-
-// STATIC METHODS - Body may be edited by hand.
-
-AcfRefPtr<AcfBinaryValue> AcfBinaryValue::Create(const void* data,
-                                                 size_t data_size) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  // Verify param: data; type: simple_byaddr
-  if (!data)
-    return nullptr;
-
-  // Execute
-  acf_binary_value_t* _retval = acf_binary_value_create(data, data_size);
-
-  // Return type: refptr_same
-  return AcfBinaryValueCToCpp::Wrap(_retval);
-}
 
 // VIRTUAL METHODS - Body may be edited by hand.
 

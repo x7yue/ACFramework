@@ -13,6 +13,13 @@
 template <class T>
 class acf_scoped_refptr;
 
+// Takes an instance of T, which is a ref counted type, and wraps the object
+// into a scoped_refptr<T>.
+template <typename T>
+acf_scoped_refptr<T> WrapRefCounted(T* t) {
+  return acf_scoped_refptr<T>(t);
+}
+
 ///
 /// A smart pointer class for reference counted objects.  Use this class instead
 /// of calling AddRef and Release manually on a reference counted object to
