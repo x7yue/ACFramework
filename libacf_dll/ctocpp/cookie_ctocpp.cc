@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=b9f1b7452eeb3296bc3fd573489391683a2ab400$
+// $hash=5cd2c432234043ee17896008322967a7ad961945$
 //
 
 #include "libacf_dll/ctocpp/cookie_ctocpp.h"
@@ -37,9 +37,7 @@ void AcfCookieCToCpp::SetName(const AcfString& value) {
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Verify param: value; type: string_byref_const
-  if (value.empty())
-    return;
+  // Unverified params: value
 
   // Execute
   _struct->set_name(_struct, value.GetStruct());
@@ -68,9 +66,7 @@ void AcfCookieCToCpp::SetValue(const AcfString& value) {
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Verify param: value; type: string_byref_const
-  if (value.empty())
-    return;
+  // Unverified params: value
 
   // Execute
   _struct->set_value(_struct, value.GetStruct());
@@ -99,9 +95,7 @@ void AcfCookieCToCpp::SetDomain(const AcfString& value) {
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Verify param: value; type: string_byref_const
-  if (value.empty())
-    return;
+  // Unverified params: value
 
   // Execute
   _struct->set_domain(_struct, value.GetStruct());
@@ -130,9 +124,7 @@ void AcfCookieCToCpp::SetPath(const AcfString& value) {
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Verify param: value; type: string_byref_const
-  if (value.empty())
-    return;
+  // Unverified params: value
 
   // Execute
   _struct->set_path(_struct, value.GetStruct());

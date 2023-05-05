@@ -6,6 +6,7 @@
 #include "include/acf_environment.h"
 #include "include/acf_frame.h"
 #include "include/acf_context_menu.h"
+#include "include/acf_values.h"
 
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
@@ -19,6 +20,7 @@ class AcfProfile;
 class AcfFrame;
 class AcfLoginDelegate;
 class AcfContextMenuCallback;
+class AcfDictionaryValue;
 
 ///
 /// Browser event list handler model
@@ -169,7 +171,7 @@ class AcfBrowser : public virtual AcfBaseRefCounted {
   /// Get browser create's sign.
   ///
   /*--acf()--*/
-  virtual AcfUserData GetUserData() = 0;
+  virtual AcfRefPtr<AcfDictionaryValue> GetExtraInfo() = 0;
 
   ///
   /// Get parent environment

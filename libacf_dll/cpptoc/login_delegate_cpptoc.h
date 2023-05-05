@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=56e3c10d0f78c3928add01f92975217624c0fe0a$
+// $hash=9a6dc59d5bba76160dc09656f602ce45f5d7e575$
 //
 
 #ifndef ACF_CPPTOC_LOGIN_DELEGATE_CPPTOC_H_
@@ -18,10 +18,12 @@
 #include "include/acf_environment.h"
 #include "include/acf_frame.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/cpptoc/cpptoc_ref_counted.h"
 
 // Wrap a C++ class with a C structure.

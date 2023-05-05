@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=22a2cd520ce4b67f1234ea89a9b62f4bff55c34d$
+// $hash=e6424f9e3cdeb1103e57ead535b23da77011276b$
 //
 
 #include "libacf_dll/cpptoc/environment_cpptoc.h"
@@ -123,29 +123,11 @@ ACF_EXPORT struct _acf_list_value_t* acf_environment_create_list() {
   return AcfListValueCppToC::Wrap(_retval);
 }
 
-ACF_EXPORT struct _acf_cookie_t* acf_environment_create_cookie(
-    const acf_string_t* name,
-    const acf_string_t* value,
-    const acf_string_t* domain,
-    const acf_string_t* path) {
+ACF_EXPORT struct _acf_cookie_t* acf_environment_create_cookie() {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Verify param: name; type: string_byref_const
-  if (!name)
-    return NULL;
-  // Verify param: value; type: string_byref_const
-  if (!value)
-    return NULL;
-  // Verify param: domain; type: string_byref_const
-  if (!domain)
-    return NULL;
-  // Verify param: path; type: string_byref_const
-  if (!path)
-    return NULL;
-
   // Execute
-  AcfRefPtr<AcfCookie> _retval = AcfEnvironment::CreateCookie(
-      AcfString(name), AcfString(value), AcfString(domain), AcfString(path));
+  AcfRefPtr<AcfCookie> _retval = AcfEnvironment::CreateCookie();
 
   // Return type: refptr_same
   return AcfCookieCppToC::Wrap(_retval);
@@ -284,7 +266,7 @@ environment_create_browser(struct _acf_environment_t* self,
                            struct _acf_profile_t* profile,
                            acf_browser_handler_t* handler,
                            const struct _acf_browser_create_params_t* params,
-                           acf_user_data_t user_data) {
+                           struct _acf_dictionary_value_t* extra_info) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -295,7 +277,7 @@ environment_create_browser(struct _acf_environment_t* self,
   if (!template_util::has_valid_size(params)) {
     return NULL;
   }
-  // Unverified params: profile, handler
+  // Unverified params: profile, handler, extra_info
 
   // Translate param: params; type: struct_byref_const
   AcfBrowserCreateParams paramsObj;
@@ -306,7 +288,8 @@ environment_create_browser(struct _acf_environment_t* self,
   AcfRefPtr<AcfBrowser> _retval =
       AcfEnvironmentCppToC::Get(self)->CreateBrowser(
           AcfProfileCppToC::Unwrap(profile),
-          AcfBrowserHandlerCToCpp::Wrap(handler), paramsObj, user_data);
+          AcfBrowserHandlerCToCpp::Wrap(handler), paramsObj,
+          AcfDictionaryValueCppToC::Unwrap(extra_info));
 
   // Return type: refptr_same
   return AcfBrowserCppToC::Wrap(_retval);

@@ -3,6 +3,8 @@
 #include "include/acf_profile.h"
 #include "wrapper_utility.h"
 
+#include <iostream>
+
 extern DWORD acf_cpp_fntable_profile[];
 extern DWORD acf_cpp_fntable_environment[];
 extern DWORD acf_cpp_fntable_cookiemanager[];
@@ -106,19 +108,35 @@ PACF_COOKIE transfer_cookie_data(AcfRefPtr<AcfCookie> cookie) {
 }
 
 AcfRefPtr<AcfCookie> transfer_cookie_data(PACF_COOKIE cookie) {
-  AcfRefPtr<AcfCookie> pCookie = AcfEnvironment::CreateCookie(
-      cookie->name, cookie->value, cookie->domain, cookie->path);
+  AcfRefPtr<AcfCookie> pCookie = AcfEnvironment::CreateCookie();
 
-  pCookie->SetSecure(cookie->secure);
-  pCookie->SetHttponly(cookie->httponly);
+  if (cookie) {
+    std::cout << "Ptr: " << pCookie.get() << '\n';
 
-  pCookie->SetSameSite((AcfCookie::AcfCookieSameSite)cookie->same_site);
-  pCookie->SetPriority((AcfCookie::AcfCookiePriority)cookie->priority);
+    if (cookie->name && *cookie->name) {
+      pCookie->SetName(cookie->name);
+    }
+    if (cookie->value && *cookie->value) {
+      pCookie->SetValue(cookie->value);
+    }
+    if (cookie->domain && *cookie->domain) {
+      pCookie->SetDomain(cookie->domain);
+    }
+    if (cookie->path && *cookie->path) {
+      pCookie->SetPath(cookie->path);
+    }
 
-  pCookie->SetCreation(cookie->creation);
-  pCookie->SetExpiry(cookie->expires);
-  pCookie->SetLastAccess(cookie->last_access);
-  pCookie->SetLastUpdate(cookie->last_update);
+    pCookie->SetSecure(cookie->secure);
+    pCookie->SetHttponly(cookie->httponly);
+
+    pCookie->SetSameSite((AcfCookie::AcfCookieSameSite)cookie->same_site);
+    pCookie->SetPriority((AcfCookie::AcfCookiePriority)cookie->priority);
+
+    pCookie->SetCreation(cookie->creation);
+    pCookie->SetExpiry(cookie->expires);
+    pCookie->SetLastAccess(cookie->last_access);
+    pCookie->SetLastUpdate(cookie->last_update);
+  }
 
   return pCookie;
 }

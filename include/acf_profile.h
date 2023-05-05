@@ -88,7 +88,7 @@ class AcfCookie : public virtual AcfBaseRefCounted {
   ///
   /// Set cookie name
   ///
-  /*--acf()--*/
+  /*--acf(optional_param=value)--*/
   virtual void SetName(const AcfString& value) = 0;
 
   ///
@@ -100,7 +100,7 @@ class AcfCookie : public virtual AcfBaseRefCounted {
   ///
   /// Set cookie value
   ///
-  /*--acf()--*/
+  /*--acf(optional_param=value)--*/
   virtual void SetValue(const AcfString& value) = 0;
 
   ///
@@ -112,7 +112,7 @@ class AcfCookie : public virtual AcfBaseRefCounted {
   ///
   /// Set cookie domain
   ///
-  /*--acf()--*/
+  /*--acf(optional_param=value)--*/
   virtual void SetDomain(const AcfString& value) = 0;
 
   ///
@@ -124,7 +124,7 @@ class AcfCookie : public virtual AcfBaseRefCounted {
   ///
   /// Set cookie path
   ///
-  /*--acf()--*/
+  /*--acf(optional_param=value)--*/
   virtual void SetPath(const AcfString& value) = 0;
 
   ///

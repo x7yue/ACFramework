@@ -147,7 +147,7 @@ using BrowserParams = struct {
   int height;
 };
 BOOL ACF_CALLBACK create_browser(AcfEnvironment* obj, AcfProfile* profile,
-                                 BrowserParams* pparams, int udata,
+                                 BrowserParams* pparams, AcfDictionaryValue* extra,
                                  LPVOID callback,
                                  DWORD* retObj) {
   AcfRefPtr<wrapper::BrowserHandler> lphandler(
@@ -162,7 +162,7 @@ BOOL ACF_CALLBACK create_browser(AcfEnvironment* obj, AcfProfile* profile,
   params.height = pparams->height;
 
   AcfRefPtr<AcfBrowser> browser =
-      obj->CreateBrowser(profile, lphandler, params, (void*)udata);
+      obj->CreateBrowser(profile, lphandler, params, extra);
 
   if (browser) {
     browser->AddRef();

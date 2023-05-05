@@ -7,11 +7,12 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=6b0b03776cfa48d53a2c6d021f6d3567adcf83f5$
+// $hash=efcc4574f7526a17e0fa46161c30635017ba8c7b$
 //
 
 #include "libacf_dll/cpptoc/browser_cpptoc.h"
 #include <algorithm>
+#include "libacf_dll/cpptoc/dictionary_value_cpptoc.h"
 #include "libacf_dll/cpptoc/environment_cpptoc.h"
 #include "libacf_dll/cpptoc/frame_cpptoc.h"
 #include "libacf_dll/cpptoc/profile_cpptoc.h"
@@ -55,18 +56,19 @@ browser_get_handler(struct _acf_browser_t* self) {
   return AcfBrowserHandlerCToCpp::Unwrap(_retval);
 }
 
-acf_user_data_t ACF_CALLBACK
-browser_get_user_data(struct _acf_browser_t* self) {
+struct _acf_dictionary_value_t* ACF_CALLBACK
+browser_get_extra_info(struct _acf_browser_t* self) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
-    return nullptr;
+    return NULL;
 
   // Execute
-  acf_user_data_t _retval = AcfBrowserCppToC::Get(self)->GetUserData();
+  AcfRefPtr<AcfDictionaryValue> _retval =
+      AcfBrowserCppToC::Get(self)->GetExtraInfo();
 
-  // Return type: simple
-  return _retval;
+  // Return type: refptr_same
+  return AcfDictionaryValueCppToC::Wrap(_retval);
 }
 
 struct _acf_environment_t* ACF_CALLBACK
@@ -411,7 +413,7 @@ browser_get_main_frame(struct _acf_browser_t* self) {
 AcfBrowserCppToC::AcfBrowserCppToC() {
   GetStruct()->is_same = browser_is_same;
   GetStruct()->get_handler = browser_get_handler;
-  GetStruct()->get_user_data = browser_get_user_data;
+  GetStruct()->get_extra_info = browser_get_extra_info;
   GetStruct()->get_environment = browser_get_environment;
   GetStruct()->close = browser_close;
   GetStruct()->get_window_handle = browser_get_window_handle;

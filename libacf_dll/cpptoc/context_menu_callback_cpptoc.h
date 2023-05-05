@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=58517666d79a9ba23e47eff52a9fed9f4ca9ab38$
+// $hash=35cf40b0450efb303b1657aa88b76bccf417d7f6$
 //
 
 #ifndef ACF_CPPTOC_CONTEXT_MENU_CALLBACK_CPPTOC_H_
@@ -18,10 +18,12 @@
 #include "include/acf_environment.h"
 #include "include/acf_frame.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/cpptoc/cpptoc_ref_counted.h"
 
 // Wrap a C++ class with a C structure.

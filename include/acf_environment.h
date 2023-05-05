@@ -95,10 +95,7 @@ class AcfEnvironment : public virtual AcfBaseRefCounted {
   /// Create a default cookie data.
   ///
   /*--acf()--*/
-  static AcfRefPtr<AcfCookie> CreateCookie(const AcfString& name,
-                                           const AcfString& value,
-                                           const AcfString& domain,
-                                           const AcfString& path);
+  static AcfRefPtr<AcfCookie> CreateCookie();
 
   ///
   /// Is same object
@@ -156,12 +153,12 @@ class AcfEnvironment : public virtual AcfBaseRefCounted {
   /// Create browser from environment (async)
   /// return object immediately but the object was invalid.
   ///
-  /*--acf(optional_param=profile, optional_param=handler)--*/
+  /*--acf(optional_param=profile, optional_param=handler, optional_param=extra_info)--*/
   virtual AcfRefPtr<AcfBrowser> CreateBrowser(
       AcfRefPtr<AcfProfile> profile,
       AcfRefPtr<AcfBrowserHandler> handler,
       const AcfBrowserCreateParams& params,
-      AcfUserData user_data) = 0;
+      AcfRefPtr<AcfDictionaryValue> extra_info) = 0;
 };
 
 #endif

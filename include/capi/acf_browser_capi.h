@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=bafe3438d35d2227cb22c9d22360e7983952d816$
+// $hash=ad269f403aabc819eba6cdf681e03fb28d662271$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_BROWSER_CAPI_H_
@@ -15,6 +15,7 @@
 #include "include/capi/acf_context_menu_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
 #include "include/internal/acf_string_list.h"
@@ -26,6 +27,7 @@ extern "C" {
 
 struct _acf_browser_t;
 struct _acf_context_menu_callback_t;
+struct _acf_dictionary_value_t;
 struct _acf_environment_t;
 struct _acf_frame_t;
 struct _acf_login_delegate_t;
@@ -189,7 +191,8 @@ typedef struct _acf_browser_t {
   ///
   /// Get browser create's sign.
   ///
-  acf_user_data_t(ACF_CALLBACK* get_user_data)(struct _acf_browser_t* self);
+  struct _acf_dictionary_value_t*(ACF_CALLBACK* get_extra_info)(
+      struct _acf_browser_t* self);
 
   ///
   /// Get parent environment

@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=27e408cffd53397fbfe4b9ac9d97d9e520e01600$
+// $hash=752b82ae91f626571ee7c6e0d18c44414eed3f0a$
 //
 
 #include "libacf_dll/cpptoc/cookie_cpptoc.h"
@@ -35,9 +35,7 @@ void ACF_CALLBACK cookie_set_name(struct _acf_cookie_t* self,
 
   if (!self)
     return;
-  // Verify param: value; type: string_byref_const
-  if (!value)
-    return;
+  // Unverified params: value
 
   // Execute
   AcfCookieCppToC::Get(self)->SetName(AcfString(value));
@@ -63,9 +61,7 @@ void ACF_CALLBACK cookie_set_value(struct _acf_cookie_t* self,
 
   if (!self)
     return;
-  // Verify param: value; type: string_byref_const
-  if (!value)
-    return;
+  // Unverified params: value
 
   // Execute
   AcfCookieCppToC::Get(self)->SetValue(AcfString(value));
@@ -91,9 +87,7 @@ void ACF_CALLBACK cookie_set_domain(struct _acf_cookie_t* self,
 
   if (!self)
     return;
-  // Verify param: value; type: string_byref_const
-  if (!value)
-    return;
+  // Unverified params: value
 
   // Execute
   AcfCookieCppToC::Get(self)->SetDomain(AcfString(value));
@@ -118,9 +112,7 @@ void ACF_CALLBACK cookie_set_path(struct _acf_cookie_t* self,
 
   if (!self)
     return;
-  // Verify param: value; type: string_byref_const
-  if (!value)
-    return;
+  // Unverified params: value
 
   // Execute
   AcfCookieCppToC::Get(self)->SetPath(AcfString(value));

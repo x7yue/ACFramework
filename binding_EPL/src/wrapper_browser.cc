@@ -8,6 +8,7 @@ extern DWORD acf_cpp_fntable_environment[];
 extern DWORD acf_cpp_fntable_profile[];
 extern DWORD acf_cpp_fntable_frame[];
 extern DWORD acf_cpp_fntable_value[];
+extern DWORD acf_cpp_fntable_dictionary[];
 
 namespace {
 
@@ -79,7 +80,17 @@ void ACF_CALLBACK set_visible(AcfBrowser* obj, bool visible) {
 
 BOOL ACF_CALLBACK get_visible(AcfBrowser* obj) { return obj->GetVisible(); }
 
-void* ACF_CALLBACK get_user_data(AcfBrowser* obj) { return obj->GetUserData(); }
+BOOL ACF_CALLBACK get_user_data(AcfBrowser* obj, DWORD* retObj) {
+  AcfRefPtr<AcfDictionaryValue> data = obj->GetExtraInfo();
+
+  if (retObj && data) {
+    data->AddRef();
+    retObj[1] = (DWORD)data.get();
+    retObj[2] = (DWORD)acf_cpp_fntable_dictionary;
+  }
+  
+  return !!retObj;
+}
 
 int ACF_CALLBACK get_frame_count(AcfBrowser* obj) { return obj->GetFrameCount(); }
 

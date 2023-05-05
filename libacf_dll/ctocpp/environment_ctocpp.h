@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=a83f09ee8fefe57b3ed8cdac8b5edec2b8eca235$
+// $hash=f17d1b74b03b217bcc53fcfe8875db530641b0c3$
 //
 
 #ifndef ACF_CTOCPP_ENVIRONMENT_CTOCPP_H_
@@ -44,10 +44,11 @@ class AcfEnvironmentCToCpp : public AcfCToCppRefCounted<AcfEnvironmentCToCpp,
   AcfRefPtr<AcfProfile> CreateProfile(
       const AcfString& path,
       AcfRefPtr<AcfCompleteHandler> handler) override;
-  AcfRefPtr<AcfBrowser> CreateBrowser(AcfRefPtr<AcfProfile> profile,
-                                      AcfRefPtr<AcfBrowserHandler> handler,
-                                      const AcfBrowserCreateParams& params,
-                                      AcfUserData user_data) override;
+  AcfRefPtr<AcfBrowser> CreateBrowser(
+      AcfRefPtr<AcfProfile> profile,
+      AcfRefPtr<AcfBrowserHandler> handler,
+      const AcfBrowserCreateParams& params,
+      AcfRefPtr<AcfDictionaryValue> extra_info) override;
 };
 
 #endif  // ACF_CTOCPP_ENVIRONMENT_CTOCPP_H_

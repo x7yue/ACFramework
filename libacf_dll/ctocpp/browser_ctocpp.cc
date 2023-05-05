@@ -7,12 +7,13 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=62442204c465db276899cfee5f596b59ec1e0582$
+// $hash=de1d9ca8aadea90fead498b549a22081ed6fad0b$
 //
 
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
 #include <algorithm>
 #include "libacf_dll/cpptoc/browser_handler_cpptoc.h"
+#include "libacf_dll/ctocpp/dictionary_value_ctocpp.h"
 #include "libacf_dll/ctocpp/environment_ctocpp.h"
 #include "libacf_dll/ctocpp/frame_ctocpp.h"
 #include "libacf_dll/ctocpp/profile_ctocpp.h"
@@ -52,18 +53,18 @@ AcfRefPtr<AcfBrowserHandler> AcfBrowserCToCpp::GetHandler() {
   return AcfBrowserHandlerCppToC::Unwrap(_retval);
 }
 
-AcfUserData AcfBrowserCToCpp::GetUserData() {
+AcfRefPtr<AcfDictionaryValue> AcfBrowserCToCpp::GetExtraInfo() {
   acf_browser_t* _struct = GetStruct();
-  if (ACF_MEMBER_MISSING(_struct, get_user_data))
+  if (ACF_MEMBER_MISSING(_struct, get_extra_info))
     return nullptr;
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   // Execute
-  acf_user_data_t _retval = _struct->get_user_data(_struct);
+  acf_dictionary_value_t* _retval = _struct->get_extra_info(_struct);
 
-  // Return type: simple
-  return _retval;
+  // Return type: refptr_same
+  return AcfDictionaryValueCToCpp::Wrap(_retval);
 }
 
 AcfRefPtr<AcfEnvironment> AcfBrowserCToCpp::GetEnvironment() {

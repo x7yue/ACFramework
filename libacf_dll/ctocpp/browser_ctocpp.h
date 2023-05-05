@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=74e7f0b1e73ba0db6a39ce972adaeeee726db823$
+// $hash=c239010b10ff5d45ed100f04d9efc2a106dae11e$
 //
 
 #ifndef ACF_CTOCPP_BROWSER_CTOCPP_H_
@@ -19,10 +19,12 @@
 #include "include/acf_environment.h"
 #include "include/acf_frame.h"
 #include "include/acf_profile.h"
+#include "include/acf_values.h"
 #include "include/capi/acf_browser_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
 #include "include/capi/acf_profile_capi.h"
+#include "include/capi/acf_values_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
@@ -36,7 +38,7 @@ class AcfBrowserCToCpp
   // AcfBrowser methods.
   bool IsSame(AcfRefPtr<AcfBrowser> that) override;
   AcfRefPtr<AcfBrowserHandler> GetHandler() override;
-  AcfUserData GetUserData() override;
+  AcfRefPtr<AcfDictionaryValue> GetExtraInfo() override;
   AcfRefPtr<AcfEnvironment> GetEnvironment() override;
   void Close(bool force) override;
   AcfWindowHandle GetWindowHandle() override;

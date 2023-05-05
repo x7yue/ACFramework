@@ -5,7 +5,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=03bae0b2e2b3e225902d7c6517cf580f6c2ed183$
+// $hash=dcd502993145ff3885d3ba8afc7a0921277c9804$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_ENVIRONMENT_CAPI_H_
@@ -119,7 +119,7 @@ typedef struct _acf_environment_t {
       struct _acf_profile_t* profile,
       struct _acf_browser_handler_t* handler,
       const struct _acf_browser_create_params_t* params,
-      acf_user_data_t user_data);
+      struct _acf_dictionary_value_t* extra_info);
 } acf_environment_t;
 
 ///
@@ -169,11 +169,7 @@ ACF_EXPORT struct _acf_list_value_t* acf_environment_create_list(void);
 ///
 /// Create a default cookie data.
 ///
-ACF_EXPORT struct _acf_cookie_t* acf_environment_create_cookie(
-    const acf_string_t* name,
-    const acf_string_t* value,
-    const acf_string_t* domain,
-    const acf_string_t* path);
+ACF_EXPORT struct _acf_cookie_t* acf_environment_create_cookie(void);
 
 #ifdef __cplusplus
 }
