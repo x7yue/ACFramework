@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=bf72b3e13afa5a7e543b51daac73ba4c3fd2fd5e$
+// $hash=ef858752f9915cb2d2f00d03e5930e370c49d6db$
 //
 
 #include "libacf_dll/ctocpp/browser_handler_ctocpp.h"
@@ -18,6 +18,7 @@
 #include "libacf_dll/cpptoc/frame_cpptoc.h"
 #include "libacf_dll/cpptoc/login_delegate_cpptoc.h"
 #include "libacf_dll/cpptoc/new_window_delegate_cpptoc.h"
+#include "libacf_dll/transfer_util.h"
 
 // VIRTUAL METHODS - Body may be edited by hand.
 
@@ -124,9 +125,7 @@ void AcfBrowserHandlerCToCpp::OnTitleChanged(AcfRefPtr<AcfBrowser> browser,
   // Verify param: browser; type: refptr_diff
   if (!browser.get())
     return;
-  // Verify param: title; type: string_byref_const
-  if (title.empty())
-    return;
+  // Unverified params: title
 
   // Execute
   _struct->on_title_changed(_struct, AcfBrowserCppToC::Wrap(browser),
@@ -144,9 +143,7 @@ void AcfBrowserHandlerCToCpp::OnAddressChanged(AcfRefPtr<AcfBrowser> browser,
   // Verify param: browser; type: refptr_diff
   if (!browser.get())
     return;
-  // Verify param: address; type: string_byref_const
-  if (address.empty())
-    return;
+  // Unverified params: address
 
   // Execute
   _struct->on_address_changed(_struct, AcfBrowserCppToC::Wrap(browser),
@@ -189,21 +186,10 @@ void AcfBrowserHandlerCToCpp::OnAuthLoginRequest(
   // Verify param: browser; type: refptr_diff
   if (!browser.get())
     return;
-  // Verify param: url; type: string_byref_const
-  if (url.empty())
-    return;
-  // Verify param: scheme; type: string_byref_const
-  if (scheme.empty())
-    return;
-  // Verify param: realm; type: string_byref_const
-  if (realm.empty())
-    return;
-  // Verify param: challenge; type: string_byref_const
-  if (challenge.empty())
-    return;
   // Verify param: delegate; type: refptr_diff
   if (!delegate.get())
     return;
+  // Unverified params: url, scheme, realm, challenge
 
   // Execute
   _struct->on_auth_login_request(
@@ -305,9 +291,7 @@ void AcfBrowserHandlerCToCpp::OnLoadEnd(AcfRefPtr<AcfBrowser> browser,
   // Verify param: frame; type: refptr_diff
   if (!frame.get())
     return;
-  // Verify param: url; type: string_byref_const
-  if (url.empty())
-    return;
+  // Unverified params: url
 
   // Execute
   _struct->on_load_end(_struct, AcfBrowserCppToC::Wrap(browser),
@@ -331,14 +315,116 @@ void AcfBrowserHandlerCToCpp::OnLoadError(AcfRefPtr<AcfBrowser> browser,
   // Verify param: frame; type: refptr_diff
   if (!frame.get())
     return;
-  // Verify param: url; type: string_byref_const
-  if (url.empty())
-    return;
+  // Unverified params: url
 
   // Execute
   _struct->on_load_error(_struct, AcfBrowserCppToC::Wrap(browser),
                          AcfFrameCppToC::Wrap(frame), url.GetStruct(),
                          error_code);
+}
+
+void AcfBrowserHandlerCToCpp::OnFaviconURLChange(
+    AcfRefPtr<AcfBrowser> browser,
+    const std::vector<AcfString>& icon_urls) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_favicon_urlchange))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Unverified params: icon_urls
+
+  // Translate param: icon_urls; type: string_vec_byref_const
+  acf_string_list_t icon_urlsList = acf_string_list_alloc();
+  DCHECK(icon_urlsList);
+  if (icon_urlsList)
+    transfer_string_list_contents(icon_urls, icon_urlsList);
+
+  // Execute
+  _struct->on_favicon_urlchange(_struct, AcfBrowserCppToC::Wrap(browser),
+                                icon_urlsList);
+
+  // Restore param:icon_urls; type: string_vec_byref_const
+  if (icon_urlsList)
+    acf_string_list_free(icon_urlsList);
+}
+
+void AcfBrowserHandlerCToCpp::OnConsoleMessage(AcfRefPtr<AcfBrowser> browser,
+                                               int level,
+                                               const AcfString& message,
+                                               const AcfString& source,
+                                               int line,
+                                               const AcfString& trace) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_console_message))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+  // Unverified params: message, source, trace
+
+  // Execute
+  _struct->on_console_message(_struct, AcfBrowserCppToC::Wrap(browser), level,
+                              message.GetStruct(), source.GetStruct(), line,
+                              trace.GetStruct());
+}
+
+void AcfBrowserHandlerCToCpp::OnLoadingProgressChange(
+    AcfRefPtr<AcfBrowser> browser,
+    double progress) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_loading_progress_change))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+
+  // Execute
+  _struct->on_loading_progress_change(_struct, AcfBrowserCppToC::Wrap(browser),
+                                      progress);
+}
+
+void AcfBrowserHandlerCToCpp::OnAudioStateChange(AcfRefPtr<AcfBrowser> browser,
+                                                 bool audible) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, on_audio_state_change))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+
+  // Execute
+  _struct->on_audio_state_change(_struct, AcfBrowserCppToC::Wrap(browser),
+                                 audible);
+}
+
+void AcfBrowserHandlerCToCpp::DidMuteStateUpdate(AcfRefPtr<AcfBrowser> browser,
+                                                 bool muted) {
+  acf_browser_handler_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, did_mute_state_update))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: browser; type: refptr_diff
+  if (!browser.get())
+    return;
+
+  // Execute
+  _struct->did_mute_state_update(_struct, AcfBrowserCppToC::Wrap(browser),
+                                 muted);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

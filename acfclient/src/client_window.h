@@ -72,6 +72,17 @@ class Window : public AcfBrowserHandler {
                             AcfRefPtr<AcfContextMenuParams> menu_params,
                             int command_id,
                             int event_flags) override;
+  void OnFaviconURLChange(AcfRefPtr<AcfBrowser> browser,
+                          const std::vector<AcfString>& icon_urls) override;
+  void OnConsoleMessage(AcfRefPtr<AcfBrowser> browser,
+                        int level,
+                        const AcfString& message,
+                        const AcfString& source,
+                        int line,
+                        const AcfString& trace) override;
+  void OnLoadingProgressChange(AcfRefPtr<AcfBrowser> browser,
+                               double progress) override;
+  void OnAudioStateChange(AcfRefPtr<AcfBrowser> browser, bool audible) override;
 
   AcfBrowser* browser_weak_ptr_ = nullptr;
 

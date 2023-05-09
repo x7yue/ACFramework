@@ -1,23 +1,28 @@
-#ifndef ACF_acf_scoped_refptr_H_
-#define ACF_acf_scoped_refptr_H_
+#ifndef ACF_BASE_SCOPEDREFPTR_H_
+#define ACF_BASE_SCOPEDREFPTR_H_
 #pragma once
 
 #include <stddef.h>
 
-#include <memory>
 #include <atomic>
 #include <iosfwd>
+#include <memory>
 #include <type_traits>
 #include <utility>
 
+#if defined(USING_CHROMIUM_INCLUDES)
+// When building CEF include the Chromium header directly.
+#include "base/memory/scoped_refptr.h"
+#else  // !USING_CHROMIUM_INCLUDES
+
 template <class T>
-class acf_scoped_refptr;
+class scoped_refptr;
 
 // Takes an instance of T, which is a ref counted type, and wraps the object
 // into a scoped_refptr<T>.
 template <typename T>
-acf_scoped_refptr<T> WrapRefCounted(T* t) {
-  return acf_scoped_refptr<T>(t);
+scoped_refptr<T> WrapRefCounted(T* t) {
+  return scoped_refptr<T>(t);
 }
 
 ///
@@ -36,13 +41,13 @@ acf_scoped_refptr<T> WrapRefCounted(T* t) {
 ///   };
 ///
 ///   void some_function() {
-///     acf_scoped_refptr<MyFoo> foo = MakeRefCounted<MyFoo>();
+///     scoped_refptr<MyFoo> foo = MakeRefCounted<MyFoo>();
 ///     foo->Method(param);
 ///     // |foo| is released when this function returns
 ///   }
 ///
 ///   void some_other_function() {
-///     acf_scoped_refptr<MyFoo> foo = MakeRefCounted<MyFoo>();
+///     scoped_refptr<MyFoo> foo = MakeRefCounted<MyFoo>();
 ///     ...
 ///     foo.reset();  // explicitly releases |foo|
 ///     ...
@@ -51,14 +56,14 @@ acf_scoped_refptr<T> WrapRefCounted(T* t) {
 ///   }
 /// </pre>
 ///
-/// The above examples show how acf_scoped_refptr<T> acts like a pointer to T.
-/// Given two acf_scoped_refptr<T> classes, it is also possible to exchange
+/// The above examples show how scoped_refptr<T> acts like a pointer to T.
+/// Given two scoped_refptr<T> classes, it is also possible to exchange
 /// references between the two objects, like so:
 ///
 /// <pre>
 ///   {
-///     acf_scoped_refptr<MyFoo> a = MakeRefCounted<MyFoo>();
-///     acf_scoped_refptr<MyFoo> b;
+///     scoped_refptr<MyFoo> a = MakeRefCounted<MyFoo>();
+///     scoped_refptr<MyFoo> b;
 ///
 ///     b.swap(a);
 ///     // now, |b| references the MyFoo object, and |a| references nullptr.
@@ -70,8 +75,8 @@ acf_scoped_refptr<T> WrapRefCounted(T* t) {
 ///
 /// <pre>
 ///   {
-///     acf_scoped_refptr<MyFoo> a = MakeRefCounted<MyFoo>();
-///     acf_scoped_refptr<MyFoo> b;
+///     scoped_refptr<MyFoo> a = MakeRefCounted<MyFoo>();
+///     scoped_refptr<MyFoo> b;
 ///
 ///     b = a;
 ///     // now, |a| and |b| each own a reference to the same MyFoo object.
@@ -82,49 +87,49 @@ acf_scoped_refptr<T> WrapRefCounted(T* t) {
 /// https://chromium.googlesource.com/chromium/src/+/lkgr/styleguide/c++/c++.md#object-ownership-and-calling-conventions
 /// Specifically:
 ///   If the function (at least sometimes) takes a ref on a refcounted object,
-///   declare the param as acf_scoped_refptr<T>. The caller can decide whether
+///   declare the param as scoped_refptr<T>. The caller can decide whether
 ///   it wishes to transfer ownership (by calling std::move(t) when passing t)
 ///   or retain its ref (by simply passing t directly). In other words, use
-///   acf_scoped_refptr like you would a std::unique_ptr except in the odd case
+///   scoped_refptr like you would a std::unique_ptr except in the odd case
 ///   where it's required to hold on to a ref while handing one to another
 ///   component (if a component merely needs to use t on the stack without
 ///   keeping a ref: pass t as a raw T*).
 ///
 template <class T>
-class acf_scoped_refptr {
+class scoped_refptr {
  public:
   typedef T element_type;
 
-  constexpr acf_scoped_refptr() = default;
+  constexpr scoped_refptr() = default;
 
   // Allow implicit construction from nullptr.
-  constexpr acf_scoped_refptr(std::nullptr_t) {}
+  constexpr scoped_refptr(std::nullptr_t) {}
 
   // Constructs from a raw pointer. Note that this constructor allows implicit
-  // conversion from T* to acf_scoped_refptr<T> which is strongly discouraged.
+  // conversion from T* to scoped_refptr<T> which is strongly discouraged.
   // If you are creating a new ref-counted object please use
   // base::MakeRefCounted<T>() or base::WrapRefCounted<T>(). Otherwise you
-  // should move or copy construct from an existing acf_scoped_refptr<T> to the
+  // should move or copy construct from an existing scoped_refptr<T> to the
   // ref-counted object.
-  acf_scoped_refptr(T* p) : ptr_(p) {
+  scoped_refptr(T* p) : ptr_(p) {
     if (ptr_)
       AddRef(ptr_);
   }
 
   // Copy constructor. This is required in addition to the copy conversion
   // constructor below.
-  acf_scoped_refptr(const acf_scoped_refptr& r) : acf_scoped_refptr(r.ptr_) {}
+  scoped_refptr(const scoped_refptr& r) : scoped_refptr(r.ptr_) {}
 
   // Copy conversion constructor.
   template <typename U,
             typename = typename std::enable_if<
                 std::is_convertible<U*, T*>::value>::type>
-  acf_scoped_refptr(const acf_scoped_refptr<U>& r)
-      : acf_scoped_refptr(r.ptr_) {}
+  scoped_refptr(const scoped_refptr<U>& r)
+      : scoped_refptr(r.ptr_) {}
 
   // Move constructor. This is required in addition to the move conversion
   // constructor below.
-  acf_scoped_refptr(acf_scoped_refptr&& r) noexcept : ptr_(r.ptr_) {
+  scoped_refptr(scoped_refptr&& r) noexcept : ptr_(r.ptr_) {
     r.ptr_ = nullptr;
   }
 
@@ -132,11 +137,11 @@ class acf_scoped_refptr {
   template <typename U,
             typename = typename std::enable_if<
                 std::is_convertible<U*, T*>::value>::type>
-  acf_scoped_refptr(acf_scoped_refptr<U>&& r) noexcept : ptr_(r.ptr_) {
+  scoped_refptr(scoped_refptr<U>&& r) noexcept : ptr_(r.ptr_) {
     r.ptr_ = nullptr;
   }
 
-  ~acf_scoped_refptr() {
+  ~scoped_refptr() {
     if (ptr_)
       Release(ptr_);
   }
@@ -147,43 +152,43 @@ class acf_scoped_refptr {
 
   T* operator->() const { return ptr_; }
 
-  acf_scoped_refptr& operator=(std::nullptr_t) {
+  scoped_refptr& operator=(std::nullptr_t) {
     reset();
     return *this;
   }
 
-  acf_scoped_refptr& operator=(T* p) { return *this = acf_scoped_refptr(p); }
+  scoped_refptr& operator=(T* p) { return *this = scoped_refptr(p); }
 
   // Unified assignment operator.
-  acf_scoped_refptr& operator=(acf_scoped_refptr r) noexcept {
+  scoped_refptr& operator=(scoped_refptr r) noexcept {
     swap(r);
     return *this;
   }
 
   // Sets managed object to null and releases reference to the previous managed
   // object, if it existed.
-  void reset() { acf_scoped_refptr().swap(*this); }
+  void reset() { scoped_refptr().swap(*this); }
 
   // Returns the owned pointer (if any), releasing ownership to the caller. The
   // caller is responsible for managing the lifetime of the reference.
   T* release();
 
-  void swap(acf_scoped_refptr& r) noexcept { std::swap(ptr_, r.ptr_); }
+  void swap(scoped_refptr& r) noexcept { std::swap(ptr_, r.ptr_); }
 
   explicit operator bool() const { return ptr_ != nullptr; }
 
   template <typename U>
-  bool operator==(const acf_scoped_refptr<U>& rhs) const {
+  bool operator==(const scoped_refptr<U>& rhs) const {
     return ptr_ == rhs.get();
   }
 
   template <typename U>
-  bool operator!=(const acf_scoped_refptr<U>& rhs) const {
+  bool operator!=(const scoped_refptr<U>& rhs) const {
     return !operator==(rhs);
   }
 
   template <typename U>
-  bool operator<(const acf_scoped_refptr<U>& rhs) const {
+  bool operator<(const scoped_refptr<U>& rhs) const {
     return ptr_ < rhs.get();
   }
 
@@ -193,18 +198,18 @@ class acf_scoped_refptr {
  private:
   // Friend required for move constructors that set r.ptr_ to null.
   template <typename U>
-  friend class acf_scoped_refptr;
+  friend class scoped_refptr;
 
   // Non-inline helpers to allow:
   //     class Opaque;
-  //     extern template class acf_scoped_refptr<Opaque>;
+  //     extern template class scoped_refptr<Opaque>;
   // Otherwise the compiler will complain that Opaque is an incomplete type.
   static void AddRef(T* ptr);
   static void Release(T* ptr);
 };
 
 template <typename T>
-T* acf_scoped_refptr<T>::release() {
+T* scoped_refptr<T>::release() {
   T* ptr = ptr_;
   ptr_ = nullptr;
   return ptr;
@@ -212,65 +217,67 @@ T* acf_scoped_refptr<T>::release() {
 
 // static
 template <typename T>
-void acf_scoped_refptr<T>::AddRef(T* ptr) {
+void scoped_refptr<T>::AddRef(T* ptr) {
   ptr->AddRef();
 }
 
 // static
 template <typename T>
-void acf_scoped_refptr<T>::Release(T* ptr) {
+void scoped_refptr<T>::Release(T* ptr) {
   ptr->Release();
 }
 
 template <typename T, typename U>
-bool operator==(const acf_scoped_refptr<T>& lhs, const U* rhs) {
+bool operator==(const scoped_refptr<T>& lhs, const U* rhs) {
   return lhs.get() == rhs;
 }
 
 template <typename T, typename U>
-bool operator==(const T* lhs, const acf_scoped_refptr<U>& rhs) {
+bool operator==(const T* lhs, const scoped_refptr<U>& rhs) {
   return lhs == rhs.get();
 }
 
 template <typename T>
-bool operator==(const acf_scoped_refptr<T>& lhs, std::nullptr_t null) {
+bool operator==(const scoped_refptr<T>& lhs, std::nullptr_t null) {
   return !static_cast<bool>(lhs);
 }
 
 template <typename T>
-bool operator==(std::nullptr_t null, const acf_scoped_refptr<T>& rhs) {
+bool operator==(std::nullptr_t null, const scoped_refptr<T>& rhs) {
   return !static_cast<bool>(rhs);
 }
 
 template <typename T, typename U>
-bool operator!=(const acf_scoped_refptr<T>& lhs, const U* rhs) {
+bool operator!=(const scoped_refptr<T>& lhs, const U* rhs) {
   return !operator==(lhs, rhs);
 }
 
 template <typename T, typename U>
-bool operator!=(const T* lhs, const acf_scoped_refptr<U>& rhs) {
+bool operator!=(const T* lhs, const scoped_refptr<U>& rhs) {
   return !operator==(lhs, rhs);
 }
 
 template <typename T>
-bool operator!=(const acf_scoped_refptr<T>& lhs, std::nullptr_t null) {
+bool operator!=(const scoped_refptr<T>& lhs, std::nullptr_t null) {
   return !operator==(lhs, null);
 }
 
 template <typename T>
-bool operator!=(std::nullptr_t null, const acf_scoped_refptr<T>& rhs) {
+bool operator!=(std::nullptr_t null, const scoped_refptr<T>& rhs) {
   return !operator==(null, rhs);
 }
 
 template <typename T>
-std::ostream& operator<<(std::ostream& out, const acf_scoped_refptr<T>& p) {
+std::ostream& operator<<(std::ostream& out, const scoped_refptr<T>& p) {
   return out << p.get();
 }
 
 template <typename T>
-void swap(acf_scoped_refptr<T>& lhs, acf_scoped_refptr<T>& rhs) noexcept {
+void swap(scoped_refptr<T>& lhs, scoped_refptr<T>& rhs) noexcept {
   lhs.swap(rhs);
 }
+
+#endif  // !USING_CHROMIUM_INCLUDES
 
 ///
 /// All ref-counted framework classes must extend this class.
@@ -435,7 +442,7 @@ class AcfRefCount {
 /// Define refcount implement
 ///
 template <class T>
-using AcfRefPtr = acf_scoped_refptr<T>;
+using AcfRefPtr = scoped_refptr<T>;
 
 ///
 /// A CefOwnPtr<T> is like a T*, except that the destructor of CefOwnPtr<T>
@@ -454,4 +461,4 @@ using AcfOwnPtr = std::unique_ptr<T, D>;
 template <class T>
 using AcfRawPtr = T*;
 
-#endif  // CEF_INCLUDE_BASE_CEF_acf_scoped_refptr_H_
+#endif  // CEF_INCLUDE_BASE_CEF_scoped_refptr_H_

@@ -137,4 +137,22 @@ struct AcfBrowserCreateParamsTraits {
 };
 using AcfBrowserCreateParams = AcfStructBase<AcfBrowserCreateParamsTraits>;
 
+///
+/// Class representing a a keyboard event.
+///
+class AcfKeyEvent : public acf_key_event_t {
+ public:
+  AcfKeyEvent() : acf_key_event_t{} {}
+  AcfKeyEvent(const acf_key_event_t& r) : acf_key_event_t(r) {}
+};
+
+///
+/// Class representing a mouse event.
+///
+class AcfMouseEvent : public acf_mouse_event_t {
+ public:
+  AcfMouseEvent() : acf_mouse_event_t{} {}
+  AcfMouseEvent(const acf_mouse_event_t& r) : acf_mouse_event_t(r) {}
+};
+
 #endif  // ACF_TYPES_WRAPPERS_H_

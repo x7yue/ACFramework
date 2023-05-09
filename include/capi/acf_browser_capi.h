@@ -5,13 +5,14 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=ad269f403aabc819eba6cdf681e03fb28d662271$
+// $hash=2fc3f01a533a5c7e43defea9ff2b156f5ee49aaf$
 //
 
 #ifndef ACF_INCLUDE_CAPI_ACF_BROWSER_CAPI_H_
 #define ACF_INCLUDE_CAPI_ACF_BROWSER_CAPI_H_
 #pragma once
 
+#include "include/capi/acf_browser_handler_capi.h"
 #include "include/capi/acf_context_menu_capi.h"
 #include "include/capi/acf_environment_capi.h"
 #include "include/capi/acf_frame_capi.h"
@@ -20,6 +21,7 @@
 #include "include/internal/acf_string.h"
 #include "include/internal/acf_string_list.h"
 #include "include/internal/acf_types.h"
+#include "include/internal/acf_types_wrappers.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,138 +35,6 @@ struct _acf_frame_t;
 struct _acf_login_delegate_t;
 struct _acf_new_window_delegate_t;
 struct _acf_profile_t;
-
-///
-/// Browser event list handler model
-///
-typedef struct _acf_browser_handler_t {
-  ///
-  /// Base structure.
-  ///
-  acf_base_ref_counted_t base;
-
-  ///
-  /// Called when browser has been initialized from environment.
-  ///
-  void(ACF_CALLBACK* on_browser_created)(struct _acf_browser_handler_t* self,
-                                         struct _acf_browser_t* browser);
-
-  ///
-  /// The browser will open a new Browser as NewWindow
-  ///
-  void(ACF_CALLBACK* on_new_window_request)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      acf_new_window_source_t source,
-      acf_new_window_disposition_t disposition,
-      int user_gesture,
-      struct _acf_new_window_delegate_t* delegate);
-
-  ///
-  /// When the browser was sured to be destroyed, the browser will call this
-  /// event.
-  ///
-  void(ACF_CALLBACK* on_browser_destroyed)(struct _acf_browser_handler_t* self,
-                                           struct _acf_browser_t* browser);
-
-  ///
-  /// Loading state changed (async)
-  ///
-  void(ACF_CALLBACK* on_loading_state_changed)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      int show_loading_ui);
-
-  ///
-  /// Navigation state changed (title url icon historical)
-  ///
-  void(ACF_CALLBACK* on_navigation_state_changed)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      acf_navigation_types_t flags);
-
-  ///
-  /// Title bar info changed
-  ///
-  void(ACF_CALLBACK* on_title_changed)(struct _acf_browser_handler_t* self,
-                                       struct _acf_browser_t* browser,
-                                       const acf_string_t* title);
-
-  ///
-  /// Address bar info changed
-  ///
-  void(ACF_CALLBACK* on_address_changed)(struct _acf_browser_handler_t* self,
-                                         struct _acf_browser_t* browser,
-                                         const acf_string_t* address);
-
-  ///
-  /// notify fullscreen state changed
-  ///
-  void(ACF_CALLBACK* on_fullscreen_state_changed)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      int fullscreen);
-
-  ///
-  /// network need auth request
-  ///
-  void(ACF_CALLBACK* on_auth_login_request)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      int is_proxy,
-      const acf_string_t* url,
-      const acf_string_t* scheme,
-      const acf_string_t* realm,
-      const acf_string_t* challenge,
-      int is_main_frame,
-      struct _acf_login_delegate_t* delegate);
-
-  ///
-  /// Context menu request, return true (1) for blocking menu popup
-  ///
-  void(ACF_CALLBACK* on_context_menu_request)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      struct _acf_context_menu_params_t* menu_params,
-      struct _acf_context_menu_model_t* menu_model,
-      struct _acf_context_menu_callback_t* callback);
-
-  ///
-  /// Context menu request to execute |command_id| associate item command.
-  ///
-  void(ACF_CALLBACK* on_context_menu_execute)(
-      struct _acf_browser_handler_t* self,
-      struct _acf_browser_t* browser,
-      struct _acf_context_menu_params_t* menu_params,
-      int command_id,
-      int event_flags);
-
-  ///
-  /// Load start notify
-  ///
-  void(ACF_CALLBACK* on_load_start)(struct _acf_browser_handler_t* self,
-                                    struct _acf_browser_t* browser,
-                                    struct _acf_frame_t* frame,
-                                    int transition);
-
-  ///
-  /// Load end notify
-  ///
-  void(ACF_CALLBACK* on_load_end)(struct _acf_browser_handler_t* self,
-                                  struct _acf_browser_t* browser,
-                                  struct _acf_frame_t* frame,
-                                  const acf_string_t* url,
-                                  int http_status_code);
-
-  ///
-  /// Load error notify
-  ///
-  void(ACF_CALLBACK* on_load_error)(struct _acf_browser_handler_t* self,
-                                    struct _acf_browser_t* browser,
-                                    struct _acf_frame_t* frame,
-                                    const acf_string_t* url,
-                                    int error_code);
-} acf_browser_handler_t;
 
 ///
 /// ACF's browser object host, in fact a browser was a window in chromium with
@@ -332,6 +202,74 @@ typedef struct _acf_browser_t {
   ///
   struct _acf_frame_t*(ACF_CALLBACK* get_main_frame)(
       struct _acf_browser_t* self);
+
+  ///
+  /// Send a key event to the browser.
+  ///
+  void(ACF_CALLBACK* send_key_event)(struct _acf_browser_t* self,
+                                     const acf_key_event_t* event);
+
+  ///
+  /// Send a mouse click event to the browser. The |x| and |y| coordinates are
+  /// relative to the upper-left corner of the view.
+  ///
+  void(ACF_CALLBACK* send_mouse_click_event)(struct _acf_browser_t* self,
+                                             const acf_mouse_event_t* event,
+                                             acf_mouse_button_type_t type,
+                                             int mouseUp,
+                                             int clickCount);
+
+  ///
+  /// Send a mouse move event to the browser. The |x| and |y| coordinates are
+  /// relative to the upper-left corner of the view.
+  ///
+  void(ACF_CALLBACK* send_mouse_move_event)(struct _acf_browser_t* self,
+                                            const acf_mouse_event_t* event,
+                                            int mouseLeave);
+
+  ///
+  /// Send a mouse wheel event to the browser. The |x| and |y| coordinates are
+  /// relative to the upper-left corner of the view. The |deltaX| and |deltaY|
+  /// values represent the movement delta in the X and Y directions
+  /// respectively. In order to scroll inside select popups with window
+  /// rendering disabled CefRenderHandler::GetScreenPoint should be implemented
+  /// properly.
+  ///
+  void(ACF_CALLBACK* send_mouse_wheel_event)(struct _acf_browser_t* self,
+                                             const acf_mouse_event_t* event,
+                                             int deltaX,
+                                             int deltaY);
+
+  ///
+  /// Set audio mute state
+  ///
+  void(ACF_CALLBACK* set_audio_muted)(struct _acf_browser_t* self, int muted);
+
+  ///
+  /// Get audio mute state
+  ///
+  int(ACF_CALLBACK* is_audio_muted)(struct _acf_browser_t* self);
+
+  ///
+  /// Toggle devtools
+  ///
+  void(ACF_CALLBACK* toggle_devtools)(struct _acf_browser_t* self);
+
+  ///
+  /// Open a browser task manager
+  ///
+  void(ACF_CALLBACK* open_task_manager)(struct _acf_browser_t* self);
+
+  ///
+  /// Raise find bar
+  ///
+  void(ACF_CALLBACK* raise_find_bar)(struct _acf_browser_t* self);
+
+  ///
+  /// Zoom page in current browser
+  ///
+  void(ACF_CALLBACK* zoom_page)(struct _acf_browser_t* self,
+                                acf_zoom_type_t zoom_type);
 } acf_browser_t;
 
 ///

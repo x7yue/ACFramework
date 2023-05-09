@@ -7,23 +7,16 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=d559e72360b45a6e452c6cda52fefcbe36c10315$
+// $hash=a49a916f9655f38874472e14f059c824a95afdbe$
 //
 
 #ifndef ACF_CTOCPP_BROWSER_HANDLER_CTOCPP_H_
 #define ACF_CTOCPP_BROWSER_HANDLER_CTOCPP_H_
 #pragma once
 
-#include "include/acf_browser.h"
-#include "include/acf_environment.h"
-#include "include/acf_frame.h"
-#include "include/acf_profile.h"
-#include "include/acf_values.h"
-#include "include/capi/acf_browser_capi.h"
-#include "include/capi/acf_environment_capi.h"
-#include "include/capi/acf_frame_capi.h"
-#include "include/capi/acf_profile_capi.h"
-#include "include/capi/acf_values_capi.h"
+#include <vector>
+#include "include/acf_browser_handler.h"
+#include "include/capi/acf_browser_handler_capi.h"
 #include "libacf_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
@@ -82,6 +75,18 @@ class AcfBrowserHandlerCToCpp
                    AcfRefPtr<AcfFrame> frame,
                    const AcfString& url,
                    int error_code) override;
+  void OnFaviconURLChange(AcfRefPtr<AcfBrowser> browser,
+                          const std::vector<AcfString>& icon_urls) override;
+  void OnConsoleMessage(AcfRefPtr<AcfBrowser> browser,
+                        int level,
+                        const AcfString& message,
+                        const AcfString& source,
+                        int line,
+                        const AcfString& trace) override;
+  void OnLoadingProgressChange(AcfRefPtr<AcfBrowser> browser,
+                               double progress) override;
+  void OnAudioStateChange(AcfRefPtr<AcfBrowser> browser, bool audible) override;
+  void DidMuteStateUpdate(AcfRefPtr<AcfBrowser> browser, bool muted) override;
 };
 
 #endif  // ACF_CTOCPP_BROWSER_HANDLER_CTOCPP_H_

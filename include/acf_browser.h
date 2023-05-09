@@ -7,11 +7,13 @@
 #include "include/acf_frame.h"
 #include "include/acf_context_menu.h"
 #include "include/acf_values.h"
+#include "include/acf_browser_handler.h"
 
 #include "include/internal/acf_scoped_refptr.h"
 #include "include/internal/acf_string.h"
 #include "include/internal/acf_string_list.h"
 #include "include/internal/acf_types.h"
+#include "include/internal/acf_types_wrappers.h"
 
 class AcfEnvironment;
 class AcfBrowser;
@@ -23,138 +25,15 @@ class AcfContextMenuCallback;
 class AcfDictionaryValue;
 
 ///
-/// Browser event list handler model
-///
-/*--acf(source=client)--*/
-class AcfBrowserHandler : public virtual AcfBaseRefCounted {
- public:
-  typedef acf_new_window_source_t NewWindowSource;
-  typedef acf_new_window_disposition_t NewWindowDisposition;
-  typedef acf_navigation_types_t NavigationTypes;
-
-  ///
-  /// Called when browser has been initialized from environment.
-  ///
-  /*--acf()--*/
-  virtual void OnBrowserCreated(AcfRefPtr<AcfBrowser> browser) {}
-
-  ///
-  /// The browser will open a new Browser as NewWindow
-  ///
-  /*--acf()--*/
-  virtual void OnNewWindowRequest(AcfRefPtr<AcfBrowser> browser,
-                                  NewWindowSource source,
-                                  NewWindowDisposition disposition,
-                                  bool user_gesture,
-                                  AcfRefPtr<AcfNewWindowDelegate> delegate) {}
-
-  ///
-  /// When the browser was sured to be destroyed,
-  /// the browser will call this event.
-  ///
-  /*--acf()--*/
-  virtual void OnBrowserDestroyed(AcfRefPtr<AcfBrowser> browser) {}
-
-  ///
-  /// Loading state changed (async)
-  ///
-  /*--acf()--*/
-  virtual void OnLoadingStateChanged(AcfRefPtr<AcfBrowser> browser,
-                                     bool show_loading_ui) {}
-
-  ///
-  /// Navigation state changed (title url icon historical)
-  ///
-  /*--acf()--*/
-  virtual void OnNavigationStateChanged(AcfRefPtr<AcfBrowser> browser,
-                                        NavigationTypes flags) {}
-
-  ///
-  /// Title bar info changed
-  ///
-  /*--acf()--*/
-  virtual void OnTitleChanged(AcfRefPtr<AcfBrowser> browser,
-                              const AcfString& title) {}
-
-  ///
-  /// Address bar info changed
-  ///
-  /*--acf()--*/
-  virtual void OnAddressChanged(AcfRefPtr<AcfBrowser> browser,
-                                const AcfString& address) {}
-
-  ///
-  /// notify fullscreen state changed
-  ///
-  /*--acf()--*/
-  virtual void OnFullscreenStateChanged(AcfRefPtr<AcfBrowser> browser,
-                                        bool fullscreen) {}
-
-  ///
-  /// network need auth request
-  ///
-  /*--acf()--*/
-  virtual void OnAuthLoginRequest(AcfRefPtr<AcfBrowser> browser,
-                                  bool is_proxy,
-                                  const AcfString& url,
-                                  const AcfString& scheme,
-                                  const AcfString& realm,
-                                  const AcfString& challenge,
-                                  bool is_main_frame,
-                                  AcfRefPtr<AcfLoginDelegate> delegate) {}
-  ///
-  /// Context menu request, return true for blocking menu popup
-  ///
-  /*--acf()--*/
-  virtual void OnContextMenuRequest(AcfRefPtr<AcfBrowser> browser,
-                                    AcfRefPtr<AcfContextMenuParams> menu_params,
-                                    AcfRefPtr<AcfContextMenuModel> menu_model,
-                                    AcfRefPtr<AcfContextMenuCallback> callback) {
-  }
-
-  ///
-  /// Context menu request to execute |command_id| associate item command.
-  ///
-  /*--acf()--*/
-  virtual void OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
-                                    AcfRefPtr<AcfContextMenuParams> menu_params,
-                                    int command_id,
-                                    int event_flags) {}
-
-  ///
-  /// Load start notify
-  ///
-  /*--acf()--*/
-  virtual void OnLoadStart(AcfRefPtr<AcfBrowser> browser,
-                           AcfRefPtr<AcfFrame> frame,
-                           int transition) {}
-
-  ///
-  /// Load end notify
-  ///
-  /*--acf()--*/
-  virtual void OnLoadEnd(AcfRefPtr<AcfBrowser> browser,
-                         AcfRefPtr<AcfFrame> frame,
-                         const AcfString& url,
-                         int http_status_code) {}
-
-  ///
-  /// Load error notify
-  ///
-  /*--acf()--*/
-  virtual void OnLoadError(AcfRefPtr<AcfBrowser> browser,
-                           AcfRefPtr<AcfFrame> frame,
-                           const AcfString& url,
-                           int error_code) {}
-};
-
-///
 /// ACF's browser object host,
 /// in fact a browser was a window in chromium with tabs control.
 ///
 /*--acf(source=library)--*/
 class AcfBrowser : public virtual AcfBaseRefCounted {
  public:
+  typedef acf_mouse_button_type_t MouseButtonType;
+  typedef acf_zoom_type_t ZoomType;
+
   ///
   /// Is same object
   ///
@@ -322,6 +201,79 @@ class AcfBrowser : public virtual AcfBaseRefCounted {
   ///
   /*--acf()--*/
   virtual AcfRefPtr<AcfFrame> GetMainFrame() = 0;
+
+  ///
+  /// Send a key event to the browser.
+  ///
+  /*--acf()--*/
+  virtual void SendKeyEvent(const AcfKeyEvent& event) = 0;
+
+  ///
+  /// Send a mouse click event to the browser. The |x| and |y| coordinates are
+  /// relative to the upper-left corner of the view.
+  ///
+  /*--acf()--*/
+  virtual void SendMouseClickEvent(const AcfMouseEvent& event,
+                                   MouseButtonType type,
+                                   bool mouseUp,
+                                   int clickCount) = 0;
+
+  ///
+  /// Send a mouse move event to the browser. The |x| and |y| coordinates are
+  /// relative to the upper-left corner of the view.
+  ///
+  /*--acf()--*/
+  virtual void SendMouseMoveEvent(const AcfMouseEvent& event,
+                                  bool mouseLeave) = 0;
+
+  ///
+  /// Send a mouse wheel event to the browser. The |x| and |y| coordinates are
+  /// relative to the upper-left corner of the view. The |deltaX| and |deltaY|
+  /// values represent the movement delta in the X and Y directions
+  /// respectively. In order to scroll inside select popups with window
+  /// rendering disabled CefRenderHandler::GetScreenPoint should be implemented
+  /// properly.
+  ///
+  /*--acf()--*/
+  virtual void SendMouseWheelEvent(const AcfMouseEvent& event,
+                                   int deltaX,
+                                   int deltaY) = 0;
+  
+  ///
+  /// Set audio mute state
+  ///
+  /*--acf()--*/
+  virtual void SetAudioMuted(bool muted) = 0;
+
+  ///
+  /// Get audio mute state
+  ///
+  /*--acf()--*/
+  virtual bool IsAudioMuted() = 0;
+
+  ///
+  /// Toggle devtools
+  ///
+  /*--acf()--*/
+  virtual void ToggleDevtools() = 0;
+
+  ///
+  /// Open a browser task manager
+  ///
+  /*--acf()--*/
+  virtual void OpenTaskManager() = 0;
+
+  ///
+  /// Raise find bar
+  ///
+  /*--acf()--*/
+  virtual void RaiseFindBar() = 0;
+
+  ///
+  /// Zoom page in current browser
+  ///
+  /*--acf()--*/
+  virtual void ZoomPage(ZoomType zoom_type) = 0;
 };
 
 ///

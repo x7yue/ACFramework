@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=6640d7131552b86e37d815f41b8d605a29aef657$
+// $hash=fa08d9e3b362379f838419b24161ee24951f3ad8$
 //
 
 #include "libacf_dll/cpptoc/browser_handler_cpptoc.h"
@@ -18,6 +18,7 @@
 #include "libacf_dll/ctocpp/frame_ctocpp.h"
 #include "libacf_dll/ctocpp/login_delegate_ctocpp.h"
 #include "libacf_dll/ctocpp/new_window_delegate_ctocpp.h"
+#include "libacf_dll/transfer_util.h"
 
 namespace {
 
@@ -25,7 +26,7 @@ namespace {
 
 void ACF_CALLBACK
 browser_handler_on_browser_created(struct _acf_browser_handler_t* self,
-                                   struct _acf_browser_t* browser) {
+                                   acf_browser_t* browser) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -39,13 +40,13 @@ browser_handler_on_browser_created(struct _acf_browser_handler_t* self,
       AcfBrowserCToCpp::Wrap(browser));
 }
 
-void ACF_CALLBACK browser_handler_on_new_window_request(
-    struct _acf_browser_handler_t* self,
-    struct _acf_browser_t* browser,
-    acf_new_window_source_t source,
-    acf_new_window_disposition_t disposition,
-    int user_gesture,
-    struct _acf_new_window_delegate_t* delegate) {
+void ACF_CALLBACK
+browser_handler_on_new_window_request(struct _acf_browser_handler_t* self,
+                                      acf_browser_t* browser,
+                                      acf_new_window_source_t source,
+                                      acf_new_window_disposition_t disposition,
+                                      int user_gesture,
+                                      acf_new_window_delegate_t* delegate) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -65,7 +66,7 @@ void ACF_CALLBACK browser_handler_on_new_window_request(
 
 void ACF_CALLBACK
 browser_handler_on_browser_destroyed(struct _acf_browser_handler_t* self,
-                                     struct _acf_browser_t* browser) {
+                                     acf_browser_t* browser) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -81,7 +82,7 @@ browser_handler_on_browser_destroyed(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_loading_state_changed(struct _acf_browser_handler_t* self,
-                                         struct _acf_browser_t* browser,
+                                         acf_browser_t* browser,
                                          int show_loading_ui) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
@@ -98,7 +99,7 @@ browser_handler_on_loading_state_changed(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_navigation_state_changed(struct _acf_browser_handler_t* self,
-                                            struct _acf_browser_t* browser,
+                                            acf_browser_t* browser,
                                             acf_navigation_types_t flags) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
@@ -115,7 +116,7 @@ browser_handler_on_navigation_state_changed(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_title_changed(struct _acf_browser_handler_t* self,
-                                 struct _acf_browser_t* browser,
+                                 acf_browser_t* browser,
                                  const acf_string_t* title) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
@@ -124,9 +125,7 @@ browser_handler_on_title_changed(struct _acf_browser_handler_t* self,
   // Verify param: browser; type: refptr_diff
   if (!browser)
     return;
-  // Verify param: title; type: string_byref_const
-  if (!title)
-    return;
+  // Unverified params: title
 
   // Execute
   AcfBrowserHandlerCppToC::Get(self)->OnTitleChanged(
@@ -135,7 +134,7 @@ browser_handler_on_title_changed(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_address_changed(struct _acf_browser_handler_t* self,
-                                   struct _acf_browser_t* browser,
+                                   acf_browser_t* browser,
                                    const acf_string_t* address) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
@@ -144,9 +143,7 @@ browser_handler_on_address_changed(struct _acf_browser_handler_t* self,
   // Verify param: browser; type: refptr_diff
   if (!browser)
     return;
-  // Verify param: address; type: string_byref_const
-  if (!address)
-    return;
+  // Unverified params: address
 
   // Execute
   AcfBrowserHandlerCppToC::Get(self)->OnAddressChanged(
@@ -155,7 +152,7 @@ browser_handler_on_address_changed(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_fullscreen_state_changed(struct _acf_browser_handler_t* self,
-                                            struct _acf_browser_t* browser,
+                                            acf_browser_t* browser,
                                             int fullscreen) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
@@ -172,14 +169,14 @@ browser_handler_on_fullscreen_state_changed(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_auth_login_request(struct _acf_browser_handler_t* self,
-                                      struct _acf_browser_t* browser,
+                                      acf_browser_t* browser,
                                       int is_proxy,
                                       const acf_string_t* url,
                                       const acf_string_t* scheme,
                                       const acf_string_t* realm,
                                       const acf_string_t* challenge,
                                       int is_main_frame,
-                                      struct _acf_login_delegate_t* delegate) {
+                                      acf_login_delegate_t* delegate) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -187,21 +184,10 @@ browser_handler_on_auth_login_request(struct _acf_browser_handler_t* self,
   // Verify param: browser; type: refptr_diff
   if (!browser)
     return;
-  // Verify param: url; type: string_byref_const
-  if (!url)
-    return;
-  // Verify param: scheme; type: string_byref_const
-  if (!scheme)
-    return;
-  // Verify param: realm; type: string_byref_const
-  if (!realm)
-    return;
-  // Verify param: challenge; type: string_byref_const
-  if (!challenge)
-    return;
   // Verify param: delegate; type: refptr_diff
   if (!delegate)
     return;
+  // Unverified params: url, scheme, realm, challenge
 
   // Execute
   AcfBrowserHandlerCppToC::Get(self)->OnAuthLoginRequest(
@@ -212,10 +198,10 @@ browser_handler_on_auth_login_request(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK browser_handler_on_context_menu_request(
     struct _acf_browser_handler_t* self,
-    struct _acf_browser_t* browser,
+    acf_browser_t* browser,
     struct _acf_context_menu_params_t* menu_params,
     struct _acf_context_menu_model_t* menu_model,
-    struct _acf_context_menu_callback_t* callback) {
+    acf_context_menu_callback_t* callback) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   if (!self)
@@ -243,7 +229,7 @@ void ACF_CALLBACK browser_handler_on_context_menu_request(
 
 void ACF_CALLBACK browser_handler_on_context_menu_execute(
     struct _acf_browser_handler_t* self,
-    struct _acf_browser_t* browser,
+    acf_browser_t* browser,
     struct _acf_context_menu_params_t* menu_params,
     int command_id,
     int event_flags) {
@@ -266,7 +252,7 @@ void ACF_CALLBACK browser_handler_on_context_menu_execute(
 
 void ACF_CALLBACK
 browser_handler_on_load_start(struct _acf_browser_handler_t* self,
-                              struct _acf_browser_t* browser,
+                              acf_browser_t* browser,
                               struct _acf_frame_t* frame,
                               int transition) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
@@ -287,7 +273,7 @@ browser_handler_on_load_start(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_load_end(struct _acf_browser_handler_t* self,
-                            struct _acf_browser_t* browser,
+                            acf_browser_t* browser,
                             struct _acf_frame_t* frame,
                             const acf_string_t* url,
                             int http_status_code) {
@@ -301,9 +287,7 @@ browser_handler_on_load_end(struct _acf_browser_handler_t* self,
   // Verify param: frame; type: refptr_diff
   if (!frame)
     return;
-  // Verify param: url; type: string_byref_const
-  if (!url)
-    return;
+  // Unverified params: url
 
   // Execute
   AcfBrowserHandlerCppToC::Get(self)->OnLoadEnd(
@@ -313,7 +297,7 @@ browser_handler_on_load_end(struct _acf_browser_handler_t* self,
 
 void ACF_CALLBACK
 browser_handler_on_load_error(struct _acf_browser_handler_t* self,
-                              struct _acf_browser_t* browser,
+                              acf_browser_t* browser,
                               struct _acf_frame_t* frame,
                               const acf_string_t* url,
                               int error_code) {
@@ -327,14 +311,108 @@ browser_handler_on_load_error(struct _acf_browser_handler_t* self,
   // Verify param: frame; type: refptr_diff
   if (!frame)
     return;
-  // Verify param: url; type: string_byref_const
-  if (!url)
-    return;
+  // Unverified params: url
 
   // Execute
   AcfBrowserHandlerCppToC::Get(self)->OnLoadError(
       AcfBrowserCToCpp::Wrap(browser), AcfFrameCToCpp::Wrap(frame),
       AcfString(url), error_code);
+}
+
+void ACF_CALLBACK
+browser_handler_on_favicon_urlchange(struct _acf_browser_handler_t* self,
+                                     acf_browser_t* browser,
+                                     acf_string_list_t icon_urls) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Unverified params: icon_urls
+
+  // Translate param: icon_urls; type: string_vec_byref_const
+  std::vector<AcfString> icon_urlsList;
+  transfer_string_list_contents(icon_urls, icon_urlsList);
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnFaviconURLChange(
+      AcfBrowserCToCpp::Wrap(browser), icon_urlsList);
+}
+
+void ACF_CALLBACK
+browser_handler_on_console_message(struct _acf_browser_handler_t* self,
+                                   acf_browser_t* browser,
+                                   int level,
+                                   const acf_string_t* message,
+                                   const acf_string_t* source,
+                                   int line,
+                                   const acf_string_t* trace) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+  // Unverified params: message, source, trace
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnConsoleMessage(
+      AcfBrowserCToCpp::Wrap(browser), level, AcfString(message),
+      AcfString(source), line, AcfString(trace));
+}
+
+void ACF_CALLBACK
+browser_handler_on_loading_progress_change(struct _acf_browser_handler_t* self,
+                                           acf_browser_t* browser,
+                                           double progress) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnLoadingProgressChange(
+      AcfBrowserCToCpp::Wrap(browser), progress);
+}
+
+void ACF_CALLBACK
+browser_handler_on_audio_state_change(struct _acf_browser_handler_t* self,
+                                      acf_browser_t* browser,
+                                      int audible) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->OnAudioStateChange(
+      AcfBrowserCToCpp::Wrap(browser), audible ? true : false);
+}
+
+void ACF_CALLBACK
+browser_handler_did_mute_state_update(struct _acf_browser_handler_t* self,
+                                      acf_browser_t* browser,
+                                      int muted) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  if (!browser)
+    return;
+
+  // Execute
+  AcfBrowserHandlerCppToC::Get(self)->DidMuteStateUpdate(
+      AcfBrowserCToCpp::Wrap(browser), muted ? true : false);
 }
 
 }  // namespace
@@ -361,6 +439,12 @@ AcfBrowserHandlerCppToC::AcfBrowserHandlerCppToC() {
   GetStruct()->on_load_start = browser_handler_on_load_start;
   GetStruct()->on_load_end = browser_handler_on_load_end;
   GetStruct()->on_load_error = browser_handler_on_load_error;
+  GetStruct()->on_favicon_urlchange = browser_handler_on_favicon_urlchange;
+  GetStruct()->on_console_message = browser_handler_on_console_message;
+  GetStruct()->on_loading_progress_change =
+      browser_handler_on_loading_progress_change;
+  GetStruct()->on_audio_state_change = browser_handler_on_audio_state_change;
+  GetStruct()->did_mute_state_update = browser_handler_did_mute_state_update;
 }
 
 // DESTRUCTOR - Do not edit by hand.

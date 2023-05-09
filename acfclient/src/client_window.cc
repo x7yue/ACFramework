@@ -19,6 +19,15 @@
 #define IDC_ExecuteJS 306
 #define IDC_GetSource 307
 #define IDC_GetAllCookies 308
+#define IDC_MuteAudio 309
+#define IDC_ToggleDevtools 310
+#define IDC_Find 311
+#define IDC_ZoomIn 312
+#define IDC_ZoomReset 313
+#define IDC_ZoomOut 314
+#define IDC_TaskManager 315
+#define IDC_KeyEvent 316
+#define IDC_SetProxy 317
 
 extern AcfRefPtr<AcfProfile> g_profile;
 extern AcfRefPtr<AcfEnvironment> g_env;
@@ -300,6 +309,15 @@ void Window::CreateMenu() {
   SET_MENU("Execute JS", IDC_ExecuteJS);
   SET_MENU("Get Page Source", IDC_GetSource);
   SET_MENU("Get All Cookies", IDC_GetAllCookies);
+  SET_MENU("Mute audio", IDC_MuteAudio);
+  SET_MENU("Toggle Devtools", IDC_ToggleDevtools);
+  SET_MENU("Task Manager", IDC_TaskManager);
+  SET_MENU("Find", IDC_Find);
+  SET_MENU("ZoomIn", IDC_ZoomIn);
+  SET_MENU("ZoomReset", IDC_ZoomReset);
+  SET_MENU("ZoomOut", IDC_ZoomOut);
+  SET_MENU("Key Event", IDC_KeyEvent);
+  SET_MENU("Set Proxy", IDC_SetProxy);
 }
 
 bool Window::OnCommand(UINT id) {
@@ -383,8 +401,11 @@ bool Window::OnCommand(UINT id) {
     } break;
     case IDC_ExecuteJS: {
       if (browser_weak_ptr_) {
+        std::string script;
+        std::cout << "Enter script to eval: ";
+        std::cin >> script;
         browser_weak_ptr_->GetMainFrame()->ExecuteJavascript(
-            "document.title", "about:blank", new TestJSCallback());
+            script, "about:blank", new TestJSCallback());
       }
     } break;
     case IDC_GetSource: {
@@ -396,6 +417,72 @@ bool Window::OnCommand(UINT id) {
       if (browser_weak_ptr_) {
         auto cm = g_profile->GetCookieManager();
         cm->GetCookies("", true, new TestCookieVisitor());
+      }
+    } break;
+    case IDC_MuteAudio: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->SetAudioMuted(!browser_weak_ptr_->IsAudioMuted());
+      }
+    } break;
+    case IDC_ToggleDevtools: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->ToggleDevtools();
+      }
+    } break;
+    case IDC_TaskManager: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->OpenTaskManager();
+      }
+    } break;
+    case IDC_Find: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->RaiseFindBar();
+      }
+    } break;
+    case IDC_ZoomIn: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->ZoomPage(ZOOM_IN);
+      }
+    } break;
+    case IDC_ZoomReset: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->ZoomPage(ZOOM_RESET);
+      }
+    } break;
+    case IDC_ZoomOut: {
+      if (browser_weak_ptr_) {
+        browser_weak_ptr_->ZoomPage(ZOOM_OUT);
+      }
+    } break;
+    case IDC_KeyEvent: {
+      if (browser_weak_ptr_) {
+        AcfKeyEvent e;
+        e.type = acf_key_event_type_t::KEYEVENT_CHAR;
+        e.windows_key_code = VK_RETURN;
+        e.modifiers = EVENTFLAG_NONE;
+        e.is_system_key = false;
+        e.focus_on_editable_field = true;
+        browser_weak_ptr_->SendKeyEvent(e);
+      }
+    } break;
+    case IDC_SetProxy: {
+      if (browser_weak_ptr_) {
+        AcfRefPtr<AcfDictionaryValue> dict = AcfEnvironment::CreateDictionary();
+        std::cout << "Enter Proxy: ";
+        std::string proxy = "-";
+        std::cin >> proxy;
+
+        if (proxy != "-") {
+          dict->SetString("server", proxy);
+          dict->SetString("mode", "fixed_servers");
+        } else {
+          dict->SetString("mode", "system");
+        }
+
+        AcfRefPtr<AcfValue> proxy_value = AcfEnvironment::CreateValue();
+        proxy_value->SetDictionary(dict);
+
+        g_profile->SetPreference("proxy", proxy_value, nullptr);
       }
     } break;
     default:
@@ -639,6 +726,31 @@ void Window::OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
   if (command_id == 310001)
     MessageBox(window_, L"Execute test menu", L"AcfClient", 0);
   std::cout << "Execute command id: " << command_id << '\n';
+}
+
+void Window::OnFaviconURLChange(AcfRefPtr<AcfBrowser> browser,
+                                const std::vector<AcfString>& icon_urls) {
+  std::cout << "Favicons List: ";
+  for (auto i : icon_urls)
+    std::cout << i.ToString() << " ";
+  std::cout << '\n';
+}
+
+void Window::OnConsoleMessage(AcfRefPtr<AcfBrowser> browser,
+                              int level,
+                              const AcfString& message,
+                              const AcfString& source,
+                              int line,
+                              const AcfString& trace) {
+  std::cout << "ConsoleMessage: " << message.ToString() << '\n';
+}
+
+void Window::OnLoadingProgressChange(AcfRefPtr<AcfBrowser> browser,
+                                     double progress) {}
+
+void Window::OnAudioStateChange(AcfRefPtr<AcfBrowser> browser, bool audible) {
+  std::cout << "AudioStateChanged: "
+            << (audible ? std::string("true") : std::string("false")) << '\n';
 }
 
 }  // namespace acfclient

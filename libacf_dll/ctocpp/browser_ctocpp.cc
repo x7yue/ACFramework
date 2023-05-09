@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=de1d9ca8aadea90fead498b549a22081ed6fad0b$
+// $hash=fdc17c50c32359d78d2f14bd476dba179030f961$
 //
 
 #include "libacf_dll/ctocpp/browser_ctocpp.h"
@@ -420,6 +420,125 @@ AcfRefPtr<AcfFrame> AcfBrowserCToCpp::GetMainFrame() {
 
   // Return type: refptr_same
   return AcfFrameCToCpp::Wrap(_retval);
+}
+
+void AcfBrowserCToCpp::SendKeyEvent(const AcfKeyEvent& event) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, send_key_event))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->send_key_event(_struct, &event);
+}
+
+void AcfBrowserCToCpp::SendMouseClickEvent(const AcfMouseEvent& event,
+                                           MouseButtonType type,
+                                           bool mouseUp,
+                                           int clickCount) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, send_mouse_click_event))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->send_mouse_click_event(_struct, &event, type, mouseUp, clickCount);
+}
+
+void AcfBrowserCToCpp::SendMouseMoveEvent(const AcfMouseEvent& event,
+                                          bool mouseLeave) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, send_mouse_move_event))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->send_mouse_move_event(_struct, &event, mouseLeave);
+}
+
+void AcfBrowserCToCpp::SendMouseWheelEvent(const AcfMouseEvent& event,
+                                           int deltaX,
+                                           int deltaY) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, send_mouse_wheel_event))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->send_mouse_wheel_event(_struct, &event, deltaX, deltaY);
+}
+
+void AcfBrowserCToCpp::SetAudioMuted(bool muted) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, set_audio_muted))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->set_audio_muted(_struct, muted);
+}
+
+bool AcfBrowserCToCpp::IsAudioMuted() {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, is_audio_muted))
+    return false;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  int _retval = _struct->is_audio_muted(_struct);
+
+  // Return type: bool
+  return _retval ? true : false;
+}
+
+void AcfBrowserCToCpp::ToggleDevtools() {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, toggle_devtools))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->toggle_devtools(_struct);
+}
+
+void AcfBrowserCToCpp::OpenTaskManager() {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, open_task_manager))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->open_task_manager(_struct);
+}
+
+void AcfBrowserCToCpp::RaiseFindBar() {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, raise_find_bar))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->raise_find_bar(_struct);
+}
+
+void AcfBrowserCToCpp::ZoomPage(ZoomType zoom_type) {
+  acf_browser_t* _struct = GetStruct();
+  if (ACF_MEMBER_MISSING(_struct, zoom_page))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->zoom_page(_struct, zoom_type);
 }
 
 // CONSTRUCTOR - Do not edit by hand.

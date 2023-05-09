@@ -7,7 +7,7 @@
 // implementations. See the translator.README.txt file in the tools directory
 // for more information.
 //
-// $hash=efcc4574f7526a17e0fa46161c30635017ba8c7b$
+// $hash=60c2a9ae5a52bb0069976ae377ce6c23b0cc0ac2$
 //
 
 #include "libacf_dll/cpptoc/browser_cpptoc.h"
@@ -41,7 +41,7 @@ int ACF_CALLBACK browser_is_same(struct _acf_browser_t* self,
   return _retval;
 }
 
-acf_browser_handler_t* ACF_CALLBACK
+struct _acf_browser_handler_t* ACF_CALLBACK
 browser_get_handler(struct _acf_browser_t* self) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
@@ -406,6 +406,147 @@ browser_get_main_frame(struct _acf_browser_t* self) {
   return AcfFrameCppToC::Wrap(_retval);
 }
 
+void ACF_CALLBACK browser_send_key_event(struct _acf_browser_t* self,
+                                         const acf_key_event_t* event) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: event; type: simple_byref_const
+  if (!event)
+    return;
+
+  // Translate param: event; type: simple_byref_const
+  AcfKeyEvent eventVal = event ? *event : AcfKeyEvent();
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->SendKeyEvent(eventVal);
+}
+
+void ACF_CALLBACK browser_send_mouse_click_event(struct _acf_browser_t* self,
+                                                 const acf_mouse_event_t* event,
+                                                 acf_mouse_button_type_t type,
+                                                 int mouseUp,
+                                                 int clickCount) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: event; type: simple_byref_const
+  if (!event)
+    return;
+
+  // Translate param: event; type: simple_byref_const
+  AcfMouseEvent eventVal = event ? *event : AcfMouseEvent();
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->SendMouseClickEvent(
+      eventVal, type, mouseUp ? true : false, clickCount);
+}
+
+void ACF_CALLBACK browser_send_mouse_move_event(struct _acf_browser_t* self,
+                                                const acf_mouse_event_t* event,
+                                                int mouseLeave) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: event; type: simple_byref_const
+  if (!event)
+    return;
+
+  // Translate param: event; type: simple_byref_const
+  AcfMouseEvent eventVal = event ? *event : AcfMouseEvent();
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->SendMouseMoveEvent(eventVal,
+                                                  mouseLeave ? true : false);
+}
+
+void ACF_CALLBACK browser_send_mouse_wheel_event(struct _acf_browser_t* self,
+                                                 const acf_mouse_event_t* event,
+                                                 int deltaX,
+                                                 int deltaY) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+  // Verify param: event; type: simple_byref_const
+  if (!event)
+    return;
+
+  // Translate param: event; type: simple_byref_const
+  AcfMouseEvent eventVal = event ? *event : AcfMouseEvent();
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->SendMouseWheelEvent(eventVal, deltaX, deltaY);
+}
+
+void ACF_CALLBACK browser_set_audio_muted(struct _acf_browser_t* self,
+                                          int muted) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->SetAudioMuted(muted ? true : false);
+}
+
+int ACF_CALLBACK browser_is_audio_muted(struct _acf_browser_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return 0;
+
+  // Execute
+  bool _retval = AcfBrowserCppToC::Get(self)->IsAudioMuted();
+
+  // Return type: bool
+  return _retval;
+}
+
+void ACF_CALLBACK browser_toggle_devtools(struct _acf_browser_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->ToggleDevtools();
+}
+
+void ACF_CALLBACK browser_open_task_manager(struct _acf_browser_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->OpenTaskManager();
+}
+
+void ACF_CALLBACK browser_raise_find_bar(struct _acf_browser_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->RaiseFindBar();
+}
+
+void ACF_CALLBACK browser_zoom_page(struct _acf_browser_t* self,
+                                    acf_zoom_type_t zoom_type) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  if (!self)
+    return;
+
+  // Execute
+  AcfBrowserCppToC::Get(self)->ZoomPage(zoom_type);
+}
+
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
@@ -438,6 +579,16 @@ AcfBrowserCppToC::AcfBrowserCppToC() {
   GetStruct()->get_frame_byident = browser_get_frame_byident;
   GetStruct()->get_frame = browser_get_frame;
   GetStruct()->get_main_frame = browser_get_main_frame;
+  GetStruct()->send_key_event = browser_send_key_event;
+  GetStruct()->send_mouse_click_event = browser_send_mouse_click_event;
+  GetStruct()->send_mouse_move_event = browser_send_mouse_move_event;
+  GetStruct()->send_mouse_wheel_event = browser_send_mouse_wheel_event;
+  GetStruct()->set_audio_muted = browser_set_audio_muted;
+  GetStruct()->is_audio_muted = browser_is_audio_muted;
+  GetStruct()->toggle_devtools = browser_toggle_devtools;
+  GetStruct()->open_task_manager = browser_open_task_manager;
+  GetStruct()->raise_find_bar = browser_raise_find_bar;
+  GetStruct()->zoom_page = browser_zoom_page;
 }
 
 // DESTRUCTOR - Do not edit by hand.
