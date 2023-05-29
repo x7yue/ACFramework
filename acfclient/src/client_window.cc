@@ -701,7 +701,7 @@ void Window::OnContextMenuRequest(AcfRefPtr<AcfBrowser> browser,
   menu_model->InsertSeparatorAt(menu_model->GetCount());
   menu_model->InsertItemAt(menu_model->GetCount(), 310001, "Test Menu Item");
   AcfRefPtr<AcfContextMenuModel> sub_menu = menu_model->InsertSubMenuAt(
-      menu_model->GetCount(), 310002, "Sub menu test");
+      menu_model->GetCount(), 310002, "Sub menu tests");
   sub_menu->InsertItemAt(sub_menu->GetCount(), 310003, "Normal item");
   sub_menu->InsertSeparatorAt(sub_menu->GetCount());
 
@@ -724,7 +724,7 @@ void Window::OnContextMenuExecute(AcfRefPtr<AcfBrowser> browser,
                                   int command_id,
                                   int event_flags) {
   if (command_id == 310001)
-    MessageBox(window_, L"Execute test menu", L"AcfClient", 0);
+    MessageBox(window_, L"Execute tests menu", L"AcfClient", 0);
   std::cout << "Execute command id: " << command_id << '\n';
 }
 
